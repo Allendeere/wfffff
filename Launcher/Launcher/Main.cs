@@ -2,10 +2,10 @@ using Launcher.NewFolder;
 
 namespace Launcher
 {
-    public partial class Main : Form
+    public partial class MainForm : Form
     {
         public readonly IServerSerice _serverSerice;
-        public Main()
+        public MainForm()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Launcher
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             tabControl1 = new TabControl();
             Loginsystem = new TabPage();
             Forgotpassword = new Label();
@@ -64,7 +65,8 @@
             // 
             // Loginsystem
             // 
-            Loginsystem.BackColor = SystemColors.GradientInactiveCaption;
+            Loginsystem.BackColor = Color.White;
+            Loginsystem.BackgroundImageLayout = ImageLayout.Stretch;
             Loginsystem.Controls.Add(Forgotpassword);
             Loginsystem.Controls.Add(textBox2);
             Loginsystem.Controls.Add(textBox1);
@@ -214,14 +216,15 @@
             panel2.Size = new Size(436, 337);
             panel2.TabIndex = 2;
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 431);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "Form1";
+            Name = "MainForm";
             Text = "兵推系統訓練軟體";
             tabControl1.ResumeLayout(false);
             Loginsystem.ResumeLayout(false);
