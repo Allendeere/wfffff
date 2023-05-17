@@ -1,3 +1,7 @@
+using Launcher.NewFolder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 namespace Launcher
 {
     internal static class Program
@@ -6,9 +10,24 @@ namespace Launcher
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Main());
+
+            var host = CreatHostBuilder().Build();
+            serviceProvider = host.Services;
+
+            Application.Run(serviceProvider.GetRequiredService<MainForm>());
             //TODO:«Ýª`¤J
             //TODO:Add NLog
+
+        }
+        public static IServiceProvider serviceProvider { get; private set; }
+
+        static IHostBuilder CreatHostBuilder()
+        {
+            return Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
+            {
+                services.AddTransient<IServerSerice, ServerSerice>();
+                services.AddTransient<MainForm>();
+            });
         }
     }
 }
