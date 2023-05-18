@@ -13,9 +13,8 @@ namespace Launcher
 
             var host = CreatHostBuilder().Build();
             serviceProvider = host.Services;
-
+            serviceProvider.GetRequiredService<MainForm>();
             Application.Run(serviceProvider.GetRequiredService<MainForm>());
-            //TODO:«Ýª`¤J
             //TODO:Add NLog
 
         }

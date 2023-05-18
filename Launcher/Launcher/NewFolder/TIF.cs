@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Launcher.NewFolder//TODO:待改介面
 {
-    internal class TIF
+    public class TIF
     {
         //Launcher 是否正在更新中
         static bool Updating = false;

@@ -11,5 +11,7 @@ namespace Launcher.NewFolder
         List<string> test1();
         //....
         void test2();
+
+        void LuncherVersion();
     }
 }
