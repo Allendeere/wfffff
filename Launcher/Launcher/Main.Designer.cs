@@ -44,12 +44,18 @@
             SystemInformation = new TabPage();
             flowLayoutPanel1 = new FlowLayoutPanel();
             panel1 = new Panel();
+            LoadGame_Btn = new Button();
+            canUpdate_Btn = new Button();
+            GameName_Lb = new Label();
             Detail_Lb = new Label();
             Version_Lb = new Label();
             label4 = new Label();
             panel2 = new Panel();
-            button1 = new Button();
-            GameName_Lb = new Label();
+            TEST_spawnGobj = new Button();
+            TEST_FakeUpdate = new Button();
+            Test_NeedUpdate = new CheckBox();
+            launcherVersion = new Label();
+            Test_Gamename = new TextBox();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             SeriaPanel.SuspendLayout();
@@ -62,6 +68,7 @@
             tabControl1.Controls.Add(Loginsystem);
             tabControl1.Controls.Add(SystemInformation);
             tabControl1.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            tabControl1.HotTrack = true;
             tabControl1.ItemSize = new Size(100, 40);
             tabControl1.Location = new Point(12, 30);
             tabControl1.Name = "tabControl1";
@@ -216,6 +223,8 @@
             // panel1
             // 
             panel1.BackColor = Color.Bisque;
+            panel1.Controls.Add(LoadGame_Btn);
+            panel1.Controls.Add(canUpdate_Btn);
             panel1.Controls.Add(GameName_Lb);
             panel1.Controls.Add(Detail_Lb);
             panel1.Controls.Add(Version_Lb);
@@ -224,6 +233,37 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(262, 337);
             panel1.TabIndex = 0;
+            // 
+            // LoadGame_Btn
+            // 
+            LoadGame_Btn.Location = new Point(39, 292);
+            LoadGame_Btn.Name = "LoadGame_Btn";
+            LoadGame_Btn.Size = new Size(135, 39);
+            LoadGame_Btn.TabIndex = 15;
+            LoadGame_Btn.Text = "啟動遊戲";
+            LoadGame_Btn.UseVisualStyleBackColor = true;
+            LoadGame_Btn.Visible = false;
+            // 
+            // canUpdate_Btn
+            // 
+            canUpdate_Btn.Enabled = false;
+            canUpdate_Btn.Font = new Font("Microsoft JhengHei UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            canUpdate_Btn.Location = new Point(180, 292);
+            canUpdate_Btn.Name = "canUpdate_Btn";
+            canUpdate_Btn.Size = new Size(75, 39);
+            canUpdate_Btn.TabIndex = 14;
+            canUpdate_Btn.Text = "可更新";
+            canUpdate_Btn.UseVisualStyleBackColor = true;
+            canUpdate_Btn.Visible = false;
+            // 
+            // GameName_Lb
+            // 
+            GameName_Lb.AutoSize = true;
+            GameName_Lb.Location = new Point(12, 47);
+            GameName_Lb.Name = "GameName_Lb";
+            GameName_Lb.Size = new Size(54, 20);
+            GameName_Lb.TabIndex = 13;
+            GameName_Lb.Text = "label5";
             // 
             // Detail_Lb
             // 
@@ -262,31 +302,63 @@
             panel2.Size = new Size(436, 337);
             panel2.TabIndex = 2;
             // 
-            // button1
+            // TEST_spawnGobj
             // 
-            button1.Location = new Point(503, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(109, 23);
-            button1.TabIndex = 12;
-            button1.Text = "生成FK遊戲";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            TEST_spawnGobj.Location = new Point(512, 1);
+            TEST_spawnGobj.Name = "TEST_spawnGobj";
+            TEST_spawnGobj.Size = new Size(109, 23);
+            TEST_spawnGobj.TabIndex = 12;
+            TEST_spawnGobj.Text = "生成FK遊戲";
+            TEST_spawnGobj.UseVisualStyleBackColor = true;
+            TEST_spawnGobj.Click += TEST_spawnGobj_Click;
             // 
-            // GameName_Lb
+            // TEST_FakeUpdate
             // 
-            GameName_Lb.AutoSize = true;
-            GameName_Lb.Location = new Point(12, 47);
-            GameName_Lb.Name = "GameName_Lb";
-            GameName_Lb.Size = new Size(54, 20);
-            GameName_Lb.TabIndex = 13;
-            GameName_Lb.Text = "label5";
+            TEST_FakeUpdate.Location = new Point(637, 1);
+            TEST_FakeUpdate.Name = "TEST_FakeUpdate";
+            TEST_FakeUpdate.Size = new Size(109, 23);
+            TEST_FakeUpdate.TabIndex = 13;
+            TEST_FakeUpdate.Text = "假更新警報";
+            TEST_FakeUpdate.UseVisualStyleBackColor = true;
+            TEST_FakeUpdate.Click += TEST_FakeUpdate_Click;
+            // 
+            // Test_NeedUpdate
+            // 
+            Test_NeedUpdate.AutoSize = true;
+            Test_NeedUpdate.Location = new Point(470, 30);
+            Test_NeedUpdate.Name = "Test_NeedUpdate";
+            Test_NeedUpdate.Size = new Size(86, 19);
+            Test_NeedUpdate.TabIndex = 14;
+            Test_NeedUpdate.Text = "預設要更新";
+            Test_NeedUpdate.UseVisualStyleBackColor = true;
+            // 
+            // launcherVersion
+            // 
+            launcherVersion.AutoSize = true;
+            launcherVersion.Location = new Point(727, 417);
+            launcherVersion.Name = "launcherVersion";
+            launcherVersion.Size = new Size(54, 15);
+            launcherVersion.TabIndex = 15;
+            launcherVersion.Text = "test0.0.0";
+            // 
+            // Test_Gamename
+            // 
+            Test_Gamename.Location = new Point(562, 26);
+            Test_Gamename.Name = "Test_Gamename";
+            Test_Gamename.Size = new Size(59, 23);
+            Test_Gamename.TabIndex = 16;
+            Test_Gamename.Text = "兵推";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 431);
-            Controls.Add(button1);
+            Controls.Add(Test_Gamename);
+            Controls.Add(launcherVersion);
+            Controls.Add(Test_NeedUpdate);
+            Controls.Add(TEST_FakeUpdate);
+            Controls.Add(TEST_spawnGobj);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "MainForm";
@@ -300,6 +372,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -312,7 +385,6 @@
         private Label label3;
         private Button Logout;
         private Label label2;
-        private Button Login;
         private Label label1;
         private TabPage SystemInformation;
         private Panel panel1;
@@ -321,10 +393,17 @@
         private Label Version_Lb;
         private Label label4;
         private Panel SeriaPanel;
-        private TextBox SerialNumber;
         private Label label6;
-        private Button button1;
+        private Button TEST_spawnGobj;
         private Label Detail_Lb;
         private Label GameName_Lb;
+        private Button TEST_FakeUpdate;
+        private Button LoadGame_Btn;
+        private Button canUpdate_Btn;
+        private CheckBox Test_NeedUpdate;
+        private Label launcherVersion;
+        private TextBox Test_Gamename;
+        private TextBox SerialNumber;
+        public Button Login;
     }
 }
