@@ -30,43 +30,34 @@
         {
             tabControl1 = new TabControl();
             Loginsystem = new TabPage();
+            User_panel = new Panel();
             Login = new Button();
             SeriaPanel = new Panel();
             SerialNumber = new TextBox();
             label6 = new Label();
-            Forgotpassword = new Label();
-            TrainingPW_TB = new TextBox();
-            TrainingAccount_TB = new TextBox();
             label3 = new Label();
             Logout = new Button();
-            label2 = new Label();
+            Login_panel = new Panel();
+            TrainingPW_TB = new TextBox();
             label1 = new Label();
-            SystemInformation = new TabPage();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            panel1 = new Panel();
-            LoadGame_Btn = new Button();
-            canUpdate_Btn = new Button();
-            GameName_Lb = new Label();
-            Detail_Lb = new Label();
-            Version_Lb = new Label();
-            label4 = new Label();
-            panel2 = new Panel();
+            Forgotpassword = new Label();
+            label2 = new Label();
+            TrainingAccount_TB = new TextBox();
             TEST_spawnGobj = new Button();
             TEST_FakeUpdate = new Button();
             Test_NeedUpdate = new CheckBox();
-            launcherVersion = new Label();
             Test_Gamename = new TextBox();
+            Test_LauncherVCheck = new Button();
+            Test_v = new TextBox();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             SeriaPanel.SuspendLayout();
-            SystemInformation.SuspendLayout();
-            panel1.SuspendLayout();
+            Login_panel.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(Loginsystem);
-            tabControl1.Controls.Add(SystemInformation);
             tabControl1.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             tabControl1.HotTrack = true;
             tabControl1.ItemSize = new Size(100, 40);
@@ -82,13 +73,10 @@
             Loginsystem.BackgroundImageLayout = ImageLayout.Stretch;
             Loginsystem.Controls.Add(Login);
             Loginsystem.Controls.Add(SeriaPanel);
-            Loginsystem.Controls.Add(Forgotpassword);
-            Loginsystem.Controls.Add(TrainingPW_TB);
-            Loginsystem.Controls.Add(TrainingAccount_TB);
             Loginsystem.Controls.Add(label3);
             Loginsystem.Controls.Add(Logout);
-            Loginsystem.Controls.Add(label2);
-            Loginsystem.Controls.Add(label1);
+            Loginsystem.Controls.Add(Login_panel);
+            Loginsystem.Controls.Add(User_panel);
             Loginsystem.Location = new Point(4, 44);
             Loginsystem.Name = "Loginsystem";
             Loginsystem.Padding = new Padding(3);
@@ -96,8 +84,18 @@
             Loginsystem.TabIndex = 0;
             Loginsystem.Text = "登入系統";
             // 
+            // User_panel
+            // 
+            User_panel.BackColor = Color.OliveDrab;
+            User_panel.Location = new Point(39, 46);
+            User_panel.Name = "User_panel";
+            User_panel.Size = new Size(691, 271);
+            User_panel.TabIndex = 14;
+            User_panel.Visible = false;
+            // 
             // Login
             // 
+            Login.Enabled = false;
             Login.Location = new Point(364, 279);
             Login.Name = "Login";
             Login.Size = new Size(88, 38);
@@ -121,6 +119,7 @@
             SerialNumber.Name = "SerialNumber";
             SerialNumber.Size = new Size(147, 28);
             SerialNumber.TabIndex = 14;
+            SerialNumber.TextChanged += SerialNumber_TextChanged;
             // 
             // label6
             // 
@@ -131,32 +130,6 @@
             label6.Size = new Size(81, 20);
             label6.TabIndex = 13;
             label6.Text = "組織序號 :";
-            // 
-            // Forgotpassword
-            // 
-            Forgotpassword.AutoSize = true;
-            Forgotpassword.Cursor = Cursors.Hand;
-            Forgotpassword.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Forgotpassword.Location = new Point(497, 153);
-            Forgotpassword.Name = "Forgotpassword";
-            Forgotpassword.Size = new Size(73, 20);
-            Forgotpassword.TabIndex = 8;
-            Forgotpassword.Text = "忘記密碼";
-            Forgotpassword.Click += Forgotpassword_Click;
-            // 
-            // TrainingPW_TB
-            // 
-            TrainingPW_TB.Location = new Point(331, 150);
-            TrainingPW_TB.Name = "TrainingPW_TB";
-            TrainingPW_TB.Size = new Size(147, 28);
-            TrainingPW_TB.TabIndex = 7;
-            // 
-            // TrainingAccount_TB
-            // 
-            TrainingAccount_TB.Location = new Point(331, 119);
-            TrainingAccount_TB.Name = "TrainingAccount_TB";
-            TrainingAccount_TB.Size = new Size(147, 28);
-            TrainingAccount_TB.TabIndex = 6;
             // 
             // label3
             // 
@@ -177,130 +150,68 @@
             Logout.TabIndex = 10;
             Logout.Text = "登出";
             Logout.UseVisualStyleBackColor = true;
+            Logout.Click += Logout_Click;
             // 
-            // label2
+            // Login_panel
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(230, 153);
-            label2.Name = "label2";
-            label2.Size = new Size(81, 20);
-            label2.TabIndex = 5;
-            label2.Text = "訓練密碼 :";
+            Login_panel.BackColor = Color.IndianRed;
+            Login_panel.Controls.Add(TrainingPW_TB);
+            Login_panel.Controls.Add(label1);
+            Login_panel.Controls.Add(Forgotpassword);
+            Login_panel.Controls.Add(label2);
+            Login_panel.Controls.Add(TrainingAccount_TB);
+            Login_panel.Location = new Point(219, 85);
+            Login_panel.Name = "Login_panel";
+            Login_panel.Size = new Size(370, 124);
+            Login_panel.TabIndex = 13;
+            // 
+            // TrainingPW_TB
+            // 
+            TrainingPW_TB.Location = new Point(114, 61);
+            TrainingPW_TB.Name = "TrainingPW_TB";
+            TrainingPW_TB.Size = new Size(147, 28);
+            TrainingPW_TB.TabIndex = 7;
+            TrainingPW_TB.TextChanged += TrainingPW_TB_TextChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(230, 127);
+            label1.Location = new Point(13, 38);
             label1.Name = "label1";
             label1.Size = new Size(81, 20);
             label1.TabIndex = 4;
             label1.Text = "訓練帳號 :";
             // 
-            // SystemInformation
+            // Forgotpassword
             // 
-            SystemInformation.BackColor = Color.Transparent;
-            SystemInformation.Controls.Add(flowLayoutPanel1);
-            SystemInformation.Controls.Add(panel1);
-            SystemInformation.Controls.Add(panel2);
-            SystemInformation.Location = new Point(4, 44);
-            SystemInformation.Name = "SystemInformation";
-            SystemInformation.Padding = new Padding(3);
-            SystemInformation.Size = new Size(768, 340);
-            SystemInformation.TabIndex = 1;
-            SystemInformation.Text = "系統資訊";
+            Forgotpassword.AutoSize = true;
+            Forgotpassword.Cursor = Cursors.Hand;
+            Forgotpassword.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Forgotpassword.Location = new Point(280, 64);
+            Forgotpassword.Name = "Forgotpassword";
+            Forgotpassword.Size = new Size(73, 20);
+            Forgotpassword.TabIndex = 8;
+            Forgotpassword.Text = "忘記密碼";
+            Forgotpassword.Click += Forgotpassword_Click;
             // 
-            // flowLayoutPanel1
+            // label2
             // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.BackColor = SystemColors.GradientInactiveCaption;
-            flowLayoutPanel1.Location = new Point(43, 37);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(356, 281);
-            flowLayoutPanel1.TabIndex = 1;
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(13, 64);
+            label2.Name = "label2";
+            label2.Size = new Size(81, 20);
+            label2.TabIndex = 5;
+            label2.Text = "訓練密碼 :";
             // 
-            // panel1
+            // TrainingAccount_TB
             // 
-            panel1.BackColor = Color.Bisque;
-            panel1.Controls.Add(LoadGame_Btn);
-            panel1.Controls.Add(canUpdate_Btn);
-            panel1.Controls.Add(GameName_Lb);
-            panel1.Controls.Add(Detail_Lb);
-            panel1.Controls.Add(Version_Lb);
-            panel1.Controls.Add(label4);
-            panel1.Location = new Point(475, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(262, 337);
-            panel1.TabIndex = 0;
-            // 
-            // LoadGame_Btn
-            // 
-            LoadGame_Btn.Location = new Point(39, 292);
-            LoadGame_Btn.Name = "LoadGame_Btn";
-            LoadGame_Btn.Size = new Size(135, 39);
-            LoadGame_Btn.TabIndex = 15;
-            LoadGame_Btn.Text = "啟動遊戲";
-            LoadGame_Btn.UseVisualStyleBackColor = true;
-            LoadGame_Btn.Visible = false;
-            // 
-            // canUpdate_Btn
-            // 
-            canUpdate_Btn.Enabled = false;
-            canUpdate_Btn.Font = new Font("Microsoft JhengHei UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            canUpdate_Btn.Location = new Point(180, 292);
-            canUpdate_Btn.Name = "canUpdate_Btn";
-            canUpdate_Btn.Size = new Size(75, 39);
-            canUpdate_Btn.TabIndex = 14;
-            canUpdate_Btn.Text = "可更新";
-            canUpdate_Btn.UseVisualStyleBackColor = true;
-            canUpdate_Btn.Visible = false;
-            // 
-            // GameName_Lb
-            // 
-            GameName_Lb.AutoSize = true;
-            GameName_Lb.Location = new Point(12, 47);
-            GameName_Lb.Name = "GameName_Lb";
-            GameName_Lb.Size = new Size(54, 20);
-            GameName_Lb.TabIndex = 13;
-            GameName_Lb.Text = "label5";
-            // 
-            // Detail_Lb
-            // 
-            Detail_Lb.AutoSize = true;
-            Detail_Lb.Location = new Point(12, 81);
-            Detail_Lb.Name = "Detail_Lb";
-            Detail_Lb.Size = new Size(53, 20);
-            Detail_Lb.TabIndex = 12;
-            Detail_Lb.Text = "Detail";
-            // 
-            // Version_Lb
-            // 
-            Version_Lb.AutoSize = true;
-            Version_Lb.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Version_Lb.Location = new Point(111, 10);
-            Version_Lb.Name = "Version_Lb";
-            Version_Lb.Size = new Size(19, 20);
-            Version_Lb.TabIndex = 11;
-            Version_Lb.Text = "X";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(12, 10);
-            label4.Name = "label4";
-            label4.Size = new Size(97, 20);
-            label4.TabIndex = 10;
-            label4.Text = "啟動器版本 :";
-            // 
-            // panel2
-            // 
-            panel2.BackColor = SystemColors.GradientInactiveCaption;
-            panel2.Location = new Point(6, 3);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(436, 337);
-            panel2.TabIndex = 2;
+            TrainingAccount_TB.Location = new Point(114, 30);
+            TrainingAccount_TB.Name = "TrainingAccount_TB";
+            TrainingAccount_TB.Size = new Size(147, 28);
+            TrainingAccount_TB.TabIndex = 6;
+            TrainingAccount_TB.TextChanged += TrainingAccount_TB_TextChanged;
             // 
             // TEST_spawnGobj
             // 
@@ -332,15 +243,6 @@
             Test_NeedUpdate.Text = "預設要更新";
             Test_NeedUpdate.UseVisualStyleBackColor = true;
             // 
-            // launcherVersion
-            // 
-            launcherVersion.AutoSize = true;
-            launcherVersion.Location = new Point(727, 417);
-            launcherVersion.Name = "launcherVersion";
-            launcherVersion.Size = new Size(54, 15);
-            launcherVersion.TabIndex = 15;
-            launcherVersion.Text = "test0.0.0";
-            // 
             // Test_Gamename
             // 
             Test_Gamename.Location = new Point(562, 26);
@@ -349,13 +251,33 @@
             Test_Gamename.TabIndex = 16;
             Test_Gamename.Text = "兵推";
             // 
+            // Test_LauncherVCheck
+            // 
+            Test_LauncherVCheck.BackColor = Color.DarkOrange;
+            Test_LauncherVCheck.Location = new Point(218, 1);
+            Test_LauncherVCheck.Name = "Test_LauncherVCheck";
+            Test_LauncherVCheck.Size = new Size(109, 23);
+            Test_LauncherVCheck.TabIndex = 17;
+            Test_LauncherVCheck.Text = "啟動器更新";
+            Test_LauncherVCheck.UseVisualStyleBackColor = false;
+            Test_LauncherVCheck.Click += Test_LauncherVCheck_Click;
+            // 
+            // Test_v
+            // 
+            Test_v.Location = new Point(268, 26);
+            Test_v.Name = "Test_v";
+            Test_v.Size = new Size(59, 23);
+            Test_v.TabIndex = 18;
+            Test_v.Text = "v9.9.9";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 431);
+            Controls.Add(Test_v);
+            Controls.Add(Test_LauncherVCheck);
             Controls.Add(Test_Gamename);
-            Controls.Add(launcherVersion);
             Controls.Add(Test_NeedUpdate);
             Controls.Add(TEST_FakeUpdate);
             Controls.Add(TEST_spawnGobj);
@@ -368,9 +290,8 @@
             Loginsystem.PerformLayout();
             SeriaPanel.ResumeLayout(false);
             SeriaPanel.PerformLayout();
-            SystemInformation.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Login_panel.ResumeLayout(false);
+            Login_panel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -386,24 +307,17 @@
         private Button Logout;
         private Label label2;
         private Label label1;
-        private TabPage SystemInformation;
-        private Panel panel1;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Panel panel2;
-        private Label Version_Lb;
-        private Label label4;
         private Panel SeriaPanel;
         private Label label6;
         private Button TEST_spawnGobj;
-        private Label Detail_Lb;
-        private Label GameName_Lb;
         private Button TEST_FakeUpdate;
-        private Button LoadGame_Btn;
-        private Button canUpdate_Btn;
         private CheckBox Test_NeedUpdate;
-        private Label launcherVersion;
         private TextBox Test_Gamename;
         private TextBox SerialNumber;
         public Button Login;
+        private Button Test_LauncherVCheck;
+        private TextBox Test_v;
+        private Panel Login_panel;
+        private Panel User_panel;
     }
 }

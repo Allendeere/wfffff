@@ -16,8 +16,8 @@ namespace Launcher.NewFolder//TODO:待改介面
 
         public TIF(MainForm mainForm)
         {
-            this.mainForm = mainForm;
             OnlyOneProcess();
+            this.mainForm = mainForm;
         }
 
 
@@ -123,6 +123,11 @@ namespace Launcher.NewFolder//TODO:待改介面
 
             return result;
         } 
+
+        public void Logout()
+        {
+
+        }
         #endregion
     }
 }

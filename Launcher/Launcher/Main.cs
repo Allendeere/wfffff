@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Button = System.Windows.Forms.Button;
+using Microsoft.VisualBasic.Logging;
+using System.Collections;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Launcher
 {
@@ -16,21 +19,25 @@ namespace Launcher
         public readonly IServerSerice _serverSerice;
         //功能集
         public TIF _tiF;
-
         //通用字典
         Dictionary<string, object> gameDT = new Dictionary<string, object>();
-
+        //當登入成功時存入生成遊戲物件的方法
+        Action setup;
+        Action logout;
+        //Launcher當前版本
+        string LauncherVersion = "0.0.0";
         public MainForm()
         {
-            InitializeComponent();
+            this.Text += $"   v {LauncherVersion}";
             _tiF = new TIF(this);
+            InitializeComponent();
+
         }
 
         private void Forgotpassword_Click(object sender, EventArgs e)
         {
-            string emailInput = Microsoft.VisualBasic.Interaction.InputBox("输入申請信箱並找回密碼", "忘記密碼", "");
-
-            MessageBox.Show(new Regex("^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$").IsMatch(emailInput) ? "字符串符合电子邮件格式" : "X");
+            ForgetPasswordForm forgetPasswordForm = new ForgetPasswordForm();
+            forgetPasswordForm.Show();
         }
 
         private void Login_Click(object sender, EventArgs e)
@@ -39,8 +46,7 @@ namespace Launcher
             if (Login.Text == "登入")
                 if (_tiF.LoginVerification(TrainingAccount_TB.Text, TrainingPW_TB.Text).IsVerified)
                 {
-                    tabControl1.SelectedIndex = 1;
-                    tk();
+                    SetPage();
                 }
 
 
@@ -48,18 +54,22 @@ namespace Launcher
             if (_tiF.VerifyIdentity(SerialNumber.Text))
             {
                 Login.Text = "登入";
+                Login.Enabled = false;
                 SeriaPanel.Visible = false;
             }
         }
 
-        void tk()
+        void SetPage()
         {
+            #region 頁面生成
             TabPage SystemInformation = new TabPage();
             Panel panel2 = new Panel();
             FlowLayoutPanel flowLayoutPanel1 = new FlowLayoutPanel();
             Panel panel1 = new Panel();
             Label label4 = new Label();
+            Label labellauncherv = new Label();
             Label Version_Lb = new Label();
+            Label LVersion_Lb = new Label();
             Label GameName_Lb = new Label();
             Label Detail_Lb = new Label();
             Button LoadGame_Btn = new Button();
@@ -111,7 +121,7 @@ namespace Launcher
             GameName_Lb.AutoSize = true;
             GameName_Lb.Location = new Point(12, 47);
             GameName_Lb.Name = "GameName_Lb";
-            GameName_Lb.Size = new Size(54, 20);
+            GameName_Lb.Size = new Size(54, 50);
             GameName_Lb.TabIndex = 13;
             GameName_Lb.Text = "label5";
             // 
@@ -140,7 +150,9 @@ namespace Launcher
             panel1.Controls.Add(GameName_Lb);
             panel1.Controls.Add(Detail_Lb);
             panel1.Controls.Add(Version_Lb);
+            panel1.Controls.Add(LVersion_Lb);
             panel1.Controls.Add(label4);
+            panel1.Controls.Add(labellauncherv);
             panel1.Location = new Point(475, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(262, 337);
@@ -150,28 +162,49 @@ namespace Launcher
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(12, 10);
+            label4.Location = new Point(12, 30);
             label4.Name = "label4";
             label4.Size = new Size(97, 20);
             label4.TabIndex = 10;
-            label4.Text = "啟動器版本 :";
+            label4.Text = "軟體版本 :";
+
+            // 
+            // labellauncherv
+            // 
+            labellauncherv.AutoSize = true;
+            labellauncherv.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            labellauncherv.Location = new Point(12, 10);
+            labellauncherv.Name = "labellauncherv";
+            labellauncherv.Size = new Size(97, 20);
+            labellauncherv.TabIndex = 10;
+            labellauncherv.Text = "啟動器版本 :";
             // 
             // Version_Lb
             // 
             Version_Lb.AutoSize = true;
             Version_Lb.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Version_Lb.Location = new Point(111, 10);
+            Version_Lb.Location = new Point(111, 30);
             Version_Lb.Name = "Version_Lb";
             Version_Lb.Size = new Size(19, 20);
             Version_Lb.TabIndex = 11;
             Version_Lb.Text = "X";
+            // 
+            // LVersion_Lb
+            // 
+            LVersion_Lb.AutoSize = true;
+            LVersion_Lb.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LVersion_Lb.Location = new Point(111, 10);
+            LVersion_Lb.Name = "LVersion_Lb";
+            LVersion_Lb.Size = new Size(19, 20);
+            LVersion_Lb.TabIndex = 11;
+            LVersion_Lb.Text = LauncherVersion;
             // 
             // Detail_Lb
             // 
             Detail_Lb.AutoSize = true;
             Detail_Lb.Location = new Point(12, 81);
             Detail_Lb.Name = "Detail_Lb";
-            Detail_Lb.Size = new Size(53, 20);
+            Detail_Lb.Size = new Size(53, 0);
             Detail_Lb.TabIndex = 12;
             Detail_Lb.Text = "Detail";
 
@@ -179,69 +212,142 @@ namespace Launcher
             SystemInformation.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            #endregion
+
+            Login_panel.Visible = false;
+            Login.Visible = false;
+            User_panel.Visible = true;
+
+            Logout.Enabled = true;
+
+            tabControl1.SelectedIndex = 1;
+
+
+
+            //連接 【測試用 : 生成遊戲物件】
+            setup = () =>
+            {
+                try
+                {
+                    //遍俐 ----- V
+                    GameData gameData = new GameData("1.0.0", Test_Gamename.Text, "....."); //登入成功後拉本機DT (假設本機有DT)
+                    gameDT.Add(gameData.getName, gameData);
+
+                    //檢查是否需要更新(測試)
+                    _tiF.UpdateCheck(gameData, Test_NeedUpdate.Checked);
+                    //檢查是否需要更新(正式)
+                    //_tiF.UpdateCheck(gameData);
+
+                    //顯示在UI上
+                    // 創建按鈕
+                    Panel pln = new Panel();
+                    Label labelgamev = new Label();
+                    Label labelgamename = new Label();
+                    System.Windows.Forms.Button button = new System.Windows.Forms.Button();
+                    pln.Size = new System.Drawing.Size(330, 75);
+
+                    labelgamev.Text = gameData.getVersion;
+                    labelgamev.Location = new Point(120, 40);
+                    labelgamename.Text = gameData.getName;
+                    labelgamename.Location = new Point(120, 15);
+
+                    button.Size = new System.Drawing.Size(330, 75);
+                    pln.Controls.Add(labelgamev);
+                    pln.Controls.Add(labelgamename);
+                    pln.Controls.Add(button);
+                    flowLayoutPanel1.Controls.Add(pln);
+
+                    button.Click += (sender, e) =>
+                    {
+                        Detail_Lb.Text = gameData.getDescribe;
+                        GameName_Lb.Text = gameData.getName;
+                        Version_Lb.Text = gameData.getVersion;
+
+                        LoadGame_Btn.Visible = true;
+                        canUpdate_Btn.Visible = true;
+                        canUpdate_Btn.Enabled = gameData.NeedUpdates;
+
+                    };
+                }
+                catch (Exception)
+                {
+                    //資料重複或異常
+                }
+
+            };
+            logout = () =>
+            {
+                Login.Text = "驗證";
+                Login_panel.Visible = true;
+                Login.Visible = true;
+                Logout.Enabled = false;
+                User_panel.Visible = false;
+                SeriaPanel.Visible = true;
+                tabControl1.Controls.Remove(SystemInformation);
+                gameDT.Clear();
+            };
+        }//TODO : +啟動器版本檢查
+
+        #region UI 
+
+        private void SerialNumber_TextChanged(object sender, EventArgs e)
+        {
+            Login.Enabled = (SerialNumber.Text.Length > 1);
         }
+
+        private void TrainingPW_TB_TextChanged(object sender, EventArgs e)
+        {
+            Login.Enabled = (TrainingAccount_TB.Text.Length > 1 && TrainingPW_TB.Text.Length > 1);
+        }
+
+        private void TrainingAccount_TB_TextChanged(object sender, EventArgs e)
+        {
+            Login.Enabled = (TrainingAccount_TB.Text.Length > 1 && TrainingPW_TB.Text.Length > 1);
+        }
+        #endregion
+
+
         #region 測試區
 
         private void TEST_FakeUpdate_Click(object sender, EventArgs e)
         {
-            try
+            foreach (object key in gameDT.Values)
             {
-                if (gameDT[Test_Gamename.Text] is GameData gt) //搜尋遊戲名程
+                try
                 {
-                    if (!gt.NeedUpdates)//是否需要更新
-                        return;
-                    MessageBox.Show($"偵測到一筆新的新版本，是否進行更新 \n\r遊戲名稱:{gt.getName} \n\r當前版本:{gt.getVersion} \n\r最新版本:9.9.9 ", "更新提示", MessageBoxButtons.YesNoCancel);
+                    if (key is GameData gt) //搜尋遊戲名程
+                    {
+                        if (!gt.NeedUpdates)//是否需要更新
+                            return;
+                        MessageBox.Show($"偵測到一筆新的新版本，是否進行更新 \n\r遊戲名稱:{gt.getName} \n\r當前版本:{gt.getVersion} \n\r最新版本:9.9.9 ", "更新提示", MessageBoxButtons.YesNoCancel);
+                    }
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("目前沒有可更新的遊戲");
+                catch (Exception)
+                {
+                    MessageBox.Show("目前沒有可更新的遊戲");
+                }
             }
         }
 
         //測試用 : 生成遊戲物件
         private void TEST_spawnGobj_Click(object sender, EventArgs e) //TODO : 移至功能集
         {
+            setup();
+        }
 
-            try
-            {
-                //遍俐 ----- V
-                GameData gameData = new GameData("1.0.0", Test_Gamename.Text, "....."); //登入成功後拉本機DT (假設本機有DT)
-                gameDT.Add(gameData.getName, gameData);
 
-                //檢查是否需要更新(測試)
-                _tiF.UpdateCheck(gameData, Test_NeedUpdate.Checked);
-                //檢查是否需要更新(正式)
-                //_tiF.UpdateCheck(gameData);
-
-                //顯示在UI上
-                // 創建按鈕
-                Panel pln = new Panel();
-                System.Windows.Forms.Button button = new System.Windows.Forms.Button();
-                pln.Size = new System.Drawing.Size(330, 75);
-                button.Size = new System.Drawing.Size(330, 75);
-                button.Text = gameData.getName;
-                pln.Controls.Add(button);
-                flowLayoutPanel1.Controls.Add(pln);
-
-                button.Click += (sender, e) =>
-                {
-                    Detail_Lb.Text = gameData.getDescribe;
-                    GameName_Lb.Text = gameData.getName;
-                    Version_Lb.Text = gameData.getVersion;
-
-                    LoadGame_Btn.Visible = true;
-                    canUpdate_Btn.Visible = true;
-                    canUpdate_Btn.Enabled = gameData.NeedUpdates;
-
-                };
-            }
-            catch (Exception)
-            {
-                //資料重複或異常
-            }
+        private void Test_LauncherVCheck_Click(object sender, EventArgs e)
+        {
+            if (Test_v.Text != LauncherVersion)
+                MessageBox.Show("該更新啟動器了");
         }
 
         #endregion
+
+
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            logout();
+        }
     }
 }
