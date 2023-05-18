@@ -31,7 +31,6 @@ namespace Launcher
             this.Text += $"   v {LauncherVersion}";
             _tiF = new TIF(this);
             InitializeComponent();
-
         }
 
         private void Forgotpassword_Click(object sender, EventArgs e)
@@ -42,20 +41,35 @@ namespace Launcher
 
         private void Login_Click(object sender, EventArgs e)
         {
-            //UI CTRL : 登入
-            if (Login.Text == "登入")
-                if (_tiF.LoginVerification(TrainingAccount_TB.Text, TrainingPW_TB.Text).IsVerified)
-                {
-                    SetPage();
-                }
-
-
-            //UI CTRL : 驗證
-            if (_tiF.VerifyIdentity(SerialNumber.Text))
+            switch (Login.Text)
             {
-                Login.Text = "登入";
-                Login.Enabled = false;
-                SeriaPanel.Visible = false;
+                //UI CTRL : 登入
+                case "登入":
+                    if (_tiF.LoginVerification(TrainingAccount_TB.Text, TrainingPW_TB.Text).IsVerified)
+                    {
+                        SetPage();
+
+                        TrainingAccount_TB.Text = "";
+                        TrainingPW_TB.Text = "";
+                        SerialNumber.Text = "";
+                        Login.Enabled = true;
+                    }
+                    break;
+
+                //UI CTRL : 驗證
+                case "驗證":
+                    if (_tiF.VerifyIdentity(SerialNumber.Text))
+                    {
+                        Login.Text = "登入";
+                        Login.Enabled = false;
+                        SeriaPanel.Enabled = false;
+                        SeriaPanel.Visible = false;
+                    }
+
+                    break;
+
+                case "執行訓練":
+                    break;
             }
         }
 
@@ -214,14 +228,13 @@ namespace Launcher
             panel1.PerformLayout();
             #endregion
 
+            tabControl1.TabPages["Loginsystem"].Text = "訓練帳號 : " + TrainingAccount_TB.Text;
             Login_panel.Visible = false;
-            Login.Visible = false;
+            Login.Text = "執行訓練";
             User_panel.Visible = true;
-
             Logout.Enabled = true;
 
             tabControl1.SelectedIndex = 1;
-
 
 
             //連接 【測試用 : 生成遊戲物件】
@@ -238,8 +251,7 @@ namespace Launcher
                     //檢查是否需要更新(正式)
                     //_tiF.UpdateCheck(gameData);
 
-                    //顯示在UI上
-                    // 創建按鈕
+                    //UI: 創建按鈕
                     Panel pln = new Panel();
                     Label labelgamev = new Label();
                     Label labelgamename = new Label();
@@ -277,9 +289,10 @@ namespace Launcher
             };
             logout = () =>
             {
+                tabControl1.TabPages["Loginsystem"].Text = "登入系統";
+                SeriaPanel.Enabled = true;
                 Login.Text = "驗證";
                 Login_panel.Visible = true;
-                Login.Visible = true;
                 Logout.Enabled = false;
                 User_panel.Visible = false;
                 SeriaPanel.Visible = true;
@@ -304,6 +317,11 @@ namespace Launcher
         {
             Login.Enabled = (TrainingAccount_TB.Text.Length > 1 && TrainingPW_TB.Text.Length > 1);
         }
+
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            logout();
+        }
         #endregion
 
 
@@ -317,9 +335,8 @@ namespace Launcher
                 {
                     if (key is GameData gt) //搜尋遊戲名程
                     {
-                        if (!gt.NeedUpdates)//是否需要更新
-                            return;
-                        MessageBox.Show($"偵測到一筆新的新版本，是否進行更新 \n\r遊戲名稱:{gt.getName} \n\r當前版本:{gt.getVersion} \n\r最新版本:9.9.9 ", "更新提示", MessageBoxButtons.YesNoCancel);
+                        if (gt.NeedUpdates)//是否需要更新
+                            MessageBox.Show($"偵測到一筆新的新版本，是否進行更新 \n\r遊戲名稱:{gt.getName} \n\r當前版本:{gt.getVersion} \n\r最新版本:9.9.9 ", "更新提示", MessageBoxButtons.YesNoCancel);
                     }
                 }
                 catch (Exception)
@@ -345,9 +362,9 @@ namespace Launcher
         #endregion
 
 
-        private void Logout_Click(object sender, EventArgs e)
+        private void AccountManagement_Click(object sender, EventArgs e)
         {
-            logout();
+
         }
     }
 }

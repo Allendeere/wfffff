@@ -30,7 +30,6 @@
         {
             tabControl1 = new TabControl();
             Loginsystem = new TabPage();
-            User_panel = new Panel();
             Login = new Button();
             SeriaPanel = new Panel();
             SerialNumber = new TextBox();
@@ -43,16 +42,19 @@
             Forgotpassword = new Label();
             label2 = new Label();
             TrainingAccount_TB = new TextBox();
+            User_panel = new Panel();
             TEST_spawnGobj = new Button();
             TEST_FakeUpdate = new Button();
             Test_NeedUpdate = new CheckBox();
             Test_Gamename = new TextBox();
             Test_LauncherVCheck = new Button();
             Test_v = new TextBox();
+            AccountManagement = new Button();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             SeriaPanel.SuspendLayout();
             Login_panel.SuspendLayout();
+            User_panel.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -83,15 +85,6 @@
             Loginsystem.Size = new Size(768, 340);
             Loginsystem.TabIndex = 0;
             Loginsystem.Text = "登入系統";
-            // 
-            // User_panel
-            // 
-            User_panel.BackColor = Color.OliveDrab;
-            User_panel.Location = new Point(39, 46);
-            User_panel.Name = "User_panel";
-            User_panel.Size = new Size(691, 271);
-            User_panel.TabIndex = 14;
-            User_panel.Visible = false;
             // 
             // Login
             // 
@@ -213,6 +206,16 @@
             TrainingAccount_TB.TabIndex = 6;
             TrainingAccount_TB.TextChanged += TrainingAccount_TB_TextChanged;
             // 
+            // User_panel
+            // 
+            User_panel.BackColor = Color.OliveDrab;
+            User_panel.Controls.Add(AccountManagement);
+            User_panel.Location = new Point(39, 46);
+            User_panel.Name = "User_panel";
+            User_panel.Size = new Size(691, 271);
+            User_panel.TabIndex = 14;
+            User_panel.Visible = false;
+            // 
             // TEST_spawnGobj
             // 
             TEST_spawnGobj.Location = new Point(512, 1);
@@ -270,6 +273,18 @@
             Test_v.TabIndex = 18;
             Test_v.Text = "v9.9.9";
             // 
+            // AccountManagement
+            // 
+            AccountManagement.BackColor = Color.Orange;
+            AccountManagement.ForeColor = Color.Black;
+            AccountManagement.Location = new Point(589, 177);
+            AccountManagement.Name = "AccountManagement";
+            AccountManagement.Size = new Size(86, 80);
+            AccountManagement.TabIndex = 0;
+            AccountManagement.Text = "帳號管理";
+            AccountManagement.UseVisualStyleBackColor = false;
+            AccountManagement.Click += AccountManagement_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -292,6 +307,7 @@
             SeriaPanel.PerformLayout();
             Login_panel.ResumeLayout(false);
             Login_panel.PerformLayout();
+            User_panel.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -319,5 +335,6 @@
         private TextBox Test_v;
         private Panel Login_panel;
         private Panel User_panel;
+        private Button AccountManagement;
     }
 }
