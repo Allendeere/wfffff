@@ -11,6 +11,9 @@ using Microsoft.VisualBasic.Logging;
 using System.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using Launcher.Properties;
+using static System.Windows.Forms.DataFormats;
+using System.Reflection;
 
 namespace Launcher
 {
@@ -32,6 +35,7 @@ namespace Launcher
             this.Text += $"   v {LauncherVersion}";
             _tiF = new TIF(this);
             InitializeComponent();
+
         }
 
         private void Forgotpassword_Click(object sender, EventArgs e)
@@ -82,7 +86,7 @@ namespace Launcher
         {
             optionspanel.Size = new Size(240, 518);
             LVersionlabel.Location = new Point(190, 453);
-            pictureBox3.Location = new Point(60, 395);
+            pictureBox3.Location = new Point(50, 395);
             #region 頁面生成
             TabPage SystemInformation = new TabPage();
             Panel panel2 = new Panel();
@@ -92,9 +96,8 @@ namespace Launcher
             Label GameName_Lb = new Label();
             Label Detail_Lb = new Label();
             Button LoadGame_Btn = new Button();
-            Button canUpdate_Btn = new Button();
             Panel SystemInformationpanel1 = new Panel();
-
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             SystemInformationpanel1.SuspendLayout();
             SystemInformation.SuspendLayout();
             panel1.SuspendLayout();
@@ -111,21 +114,13 @@ namespace Launcher
             LoadGame_Btn.UseVisualStyleBackColor = true;
             LoadGame_Btn.Visible = false;
             // 
-            // canUpdate_Btn
-            // 
-            canUpdate_Btn.Enabled = false;
-            canUpdate_Btn.Font = new Font("Microsoft JhengHei UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            canUpdate_Btn.Location = new Point(180, 292);
-            canUpdate_Btn.Name = "canUpdate_Btn";
-            canUpdate_Btn.Size = new Size(75, 39);
-            canUpdate_Btn.TabIndex = 14;
-            canUpdate_Btn.Text = "可更新";
-            canUpdate_Btn.UseVisualStyleBackColor = true;
-            canUpdate_Btn.Visible = false;
-            // 
             // SystemInformation
             // 
-            SystemInformation.BackColor = Color.White;
+            var c = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            c = c.Substring(0, c.Length - 24) + "IMG\\background2.jpg";
+            SystemInformation.BackgroundImage = Image.FromFile(c);
+            SystemInformation.BackgroundImageLayout = ImageLayout.Stretch;
+            SystemInformation.BackColor = Color.FromArgb(41, 41, 52); //TODO底條
             SystemInformation.Controls.Add(flowLayoutPanel1);
             SystemInformation.Controls.Add(panel1);
             SystemInformation.Controls.Add(panel2);
@@ -158,19 +153,20 @@ namespace Launcher
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.BackColor = Color.Transparent;
+            flowLayoutPanel1.Parent = SystemInformationpanel1;
             flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.BackColor = Color.FromArgb(41, 41, 52);
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(27, 254);
+            flowLayoutPanel1.Location = new Point(27, 284);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(568, 100);
             flowLayoutPanel1.TabIndex = 1;
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(41, 41, 52);
+            panel1.BackColor = Color.Transparent;
+            panel1.Parent = SystemInformationpanel1;
             panel1.Controls.Add(LoadGame_Btn);
-            panel1.Controls.Add(canUpdate_Btn);
             panel1.Controls.Add(GameName_Lb);
             panel1.Controls.Add(Detail_Lb);
             panel1.Controls.Add(labellauncherv);
@@ -203,7 +199,9 @@ namespace Launcher
             // 
             // SystemInformationpanel1
             // 
-            SystemInformationpanel1.BackColor = Color.FromArgb(41, 41, 52);
+            SystemInformationpanel1.BackColor = Color.FromArgb(41, 41, 52);//TODO fhfhfhf
+            SystemInformationpanel1.BackgroundImage = Image.FromFile(c);
+            SystemInformationpanel1.BackgroundImageLayout = ImageLayout.Stretch;
             SystemInformationpanel1.Controls.Add(panel1);
             SystemInformationpanel1.Location = new Point(-4, 2);
             SystemInformationpanel1.Name = "SystemInformationpanel1";
@@ -245,7 +243,6 @@ namespace Launcher
                     Panel G2img = new Panel();
                     System.Windows.Forms.Button button = new System.Windows.Forms.Button();
                     pln.Size = new Size(185, 76);
-
                     //
                     // labelgamename
                     //
@@ -269,9 +266,11 @@ namespace Launcher
                     //
                     // Button
                     //
+                    button.FlatStyle = FlatStyle.Flat;
+                    button.ForeColor = Color.FromArgb(57, 56, 84);
                     button.BackColor = Color.FromArgb(57, 56, 84);
                     button.Size = new Size(185, 76);
-                    button.FlatStyle = FlatStyle.Flat;
+
                     button.FlatAppearance.BorderSize = 0;
                     // 
                     // G2img
@@ -296,9 +295,6 @@ namespace Launcher
                         GameName_Lb.Text = gameData.getName;
 
                         LoadGame_Btn.Visible = true;
-                        canUpdate_Btn.Visible = true;
-                        canUpdate_Btn.Enabled = gameData.NeedUpdates;
-
                     };
                 }
                 catch (Exception)
@@ -373,13 +369,6 @@ namespace Launcher
         private void TEST_spawnGobj_Click(object sender, EventArgs e) //TODO : 移至功能集
         {
             setup();
-        }
-
-
-        private void Test_LauncherVCheck_Click(object sender, EventArgs e)
-        {
-            if (Test_v.Text != LauncherVersion)
-                MessageBox.Show("該更新啟動器了");
         }
 
         #endregion
