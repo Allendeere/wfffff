@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             tabControl1 = new TabControl();
             Loginsystem = new TabPage();
             Login = new Button();
@@ -42,19 +43,25 @@
             label2 = new Label();
             label1 = new Label();
             SystemInformation = new TabPage();
-            flowLayoutPanel1 = new FlowLayoutPanel();
             panel1 = new Panel();
+            GameName_Lb = new Label();
             Detail_Lb = new Label();
             Version_Lb = new Label();
             label4 = new Label();
             panel2 = new Panel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             button1 = new Button();
-            GameName_Lb = new Label();
+            panel3 = new Panel();
+            pictureBox3 = new PictureBox();
+            label5 = new Label();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             SeriaPanel.SuspendLayout();
             SystemInformation.SuspendLayout();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -63,10 +70,11 @@
             tabControl1.Controls.Add(SystemInformation);
             tabControl1.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             tabControl1.ItemSize = new Size(100, 40);
-            tabControl1.Location = new Point(12, 30);
+            tabControl1.Location = new Point(131, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(776, 388);
+            tabControl1.Size = new Size(657, 406);
+            tabControl1.SizeMode = TabSizeMode.Fixed;
             tabControl1.TabIndex = 11;
             // 
             // Loginsystem
@@ -85,7 +93,7 @@
             Loginsystem.Location = new Point(4, 44);
             Loginsystem.Name = "Loginsystem";
             Loginsystem.Padding = new Padding(3);
-            Loginsystem.Size = new Size(768, 340);
+            Loginsystem.Size = new Size(649, 358);
             Loginsystem.TabIndex = 0;
             Loginsystem.Text = "登入系統";
             // 
@@ -101,16 +109,17 @@
             // 
             // SeriaPanel
             // 
+            SeriaPanel.BackColor = Color.Silver;
             SeriaPanel.Controls.Add(SerialNumber);
             SeriaPanel.Controls.Add(label6);
-            SeriaPanel.Location = new Point(4, 3);
+            SeriaPanel.Location = new Point(226, 3);
             SeriaPanel.Name = "SeriaPanel";
-            SeriaPanel.Size = new Size(759, 266);
+            SeriaPanel.Size = new Size(303, 61);
             SeriaPanel.TabIndex = 12;
             // 
             // SerialNumber
             // 
-            SerialNumber.Location = new Point(368, 146);
+            SerialNumber.Location = new Point(130, 11);
             SerialNumber.Name = "SerialNumber";
             SerialNumber.Size = new Size(147, 28);
             SerialNumber.TabIndex = 14;
@@ -119,7 +128,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(267, 154);
+            label6.Location = new Point(29, 19);
             label6.Name = "label6";
             label6.Size = new Size(81, 20);
             label6.TabIndex = 13;
@@ -194,24 +203,14 @@
             // SystemInformation
             // 
             SystemInformation.BackColor = Color.Transparent;
-            SystemInformation.Controls.Add(flowLayoutPanel1);
             SystemInformation.Controls.Add(panel1);
             SystemInformation.Controls.Add(panel2);
             SystemInformation.Location = new Point(4, 44);
             SystemInformation.Name = "SystemInformation";
             SystemInformation.Padding = new Padding(3);
-            SystemInformation.Size = new Size(768, 340);
+            SystemInformation.Size = new Size(649, 358);
             SystemInformation.TabIndex = 1;
             SystemInformation.Text = "系統資訊";
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.BackColor = SystemColors.GradientInactiveCaption;
-            flowLayoutPanel1.Location = new Point(43, 37);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(356, 281);
-            flowLayoutPanel1.TabIndex = 1;
             // 
             // panel1
             // 
@@ -222,8 +221,17 @@
             panel1.Controls.Add(label4);
             panel1.Location = new Point(475, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(262, 337);
+            panel1.Size = new Size(262, 227);
             panel1.TabIndex = 0;
+            // 
+            // GameName_Lb
+            // 
+            GameName_Lb.AutoSize = true;
+            GameName_Lb.Location = new Point(12, 47);
+            GameName_Lb.Name = "GameName_Lb";
+            GameName_Lb.Size = new Size(54, 20);
+            GameName_Lb.TabIndex = 13;
+            GameName_Lb.Text = "label5";
             // 
             // Detail_Lb
             // 
@@ -257,10 +265,21 @@
             // panel2
             // 
             panel2.BackColor = SystemColors.GradientInactiveCaption;
-            panel2.Location = new Point(6, 3);
+            panel2.Controls.Add(flowLayoutPanel1);
+            panel2.Location = new Point(6, 236);
             panel2.Name = "panel2";
-            panel2.Size = new Size(436, 337);
+            panel2.Size = new Size(609, 104);
             panel2.TabIndex = 2;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.BackColor = SystemColors.GradientInactiveCaption;
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.Location = new Point(3, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(596, 98);
+            flowLayoutPanel1.TabIndex = 1;
             // 
             // button1
             // 
@@ -272,14 +291,37 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // GameName_Lb
+            // panel3
             // 
-            GameName_Lb.AutoSize = true;
-            GameName_Lb.Location = new Point(12, 47);
-            GameName_Lb.Name = "GameName_Lb";
-            GameName_Lb.Size = new Size(54, 20);
-            GameName_Lb.TabIndex = 13;
-            GameName_Lb.Text = "label5";
+            panel3.BackColor = Color.FromArgb(36, 36, 45);
+            panel3.Controls.Add(pictureBox3);
+            panel3.Controls.Add(label5);
+            panel3.Location = new Point(-11, -43);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(242, 518);
+            panel3.TabIndex = 13;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor = Color.Transparent;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(16, 441);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(183, 60);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 4;
+            pictureBox3.TabStop = false;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Microsoft YaHei UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.ForeColor = SystemColors.ButtonFace;
+            label5.Location = new Point(199, 474);
+            label5.Name = "label5";
+            label5.Size = new Size(40, 16);
+            label5.TabIndex = 3;
+            label5.Text = "v 0.0.0";
             // 
             // MainForm
             // 
@@ -288,6 +330,7 @@
             ClientSize = new Size(800, 431);
             Controls.Add(button1);
             Controls.Add(tabControl1);
+            Controls.Add(panel3);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "MainForm";
             Text = "兵推系統訓練軟體";
@@ -299,6 +342,10 @@
             SystemInformation.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
         }
 
@@ -326,5 +373,8 @@
         private Button button1;
         private Label Detail_Lb;
         private Label GameName_Lb;
+        private Panel panel3;
+        private PictureBox pictureBox3;
+        private Label label5;
     }
 }
