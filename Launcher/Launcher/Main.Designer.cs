@@ -83,7 +83,7 @@
             // 
             // Loginsystem
             // 
-            Loginsystem.BackColor = Color.LightGray;
+            Loginsystem.BackColor = SystemColors.Control;
             Loginsystem.BackgroundImageLayout = ImageLayout.Stretch;
             Loginsystem.Controls.Add(SeriaPanel);
             Loginsystem.Controls.Add(Login_panel);
@@ -276,7 +276,7 @@
             // Test_NeedUpdate
             // 
             Test_NeedUpdate.AutoSize = true;
-            Test_NeedUpdate.Location = new Point(352, 14);
+            Test_NeedUpdate.Location = new Point(501, 22);
             Test_NeedUpdate.Name = "Test_NeedUpdate";
             Test_NeedUpdate.Size = new Size(86, 19);
             Test_NeedUpdate.TabIndex = 14;
@@ -285,7 +285,7 @@
             // 
             // Test_Gamename
             // 
-            Test_Gamename.Location = new Point(444, 10);
+            Test_Gamename.Location = new Point(578, 16);
             Test_Gamename.Name = "Test_Gamename";
             Test_Gamename.Size = new Size(59, 23);
             Test_Gamename.TabIndex = 16;
@@ -304,7 +304,7 @@
             // 
             // Test_v
             // 
-            Test_v.Location = new Point(194, 50);
+            Test_v.Location = new Point(151, 50);
             Test_v.Name = "Test_v";
             Test_v.Size = new Size(59, 23);
             Test_v.TabIndex = 18;
