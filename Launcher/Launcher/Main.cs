@@ -53,6 +53,8 @@ namespace Launcher
                         TrainingPW_TB.Text = "";
                         SerialNumber.Text = "";
                         Login.Enabled = true;
+                        Login_panel.Visible = false;
+                        Login_panel.Enabled = false;
                     }
                     break;
 
@@ -64,6 +66,8 @@ namespace Launcher
                         Login.Enabled = false;
                         SeriaPanel.Enabled = false;
                         SeriaPanel.Visible = false;
+                        Login_panel.Visible = true;
+                        Login_panel.Enabled = true;
                     }
 
                     break;
@@ -75,6 +79,9 @@ namespace Launcher
 
         void SetPage()
         {
+            optionspanel.Size = new Size(240, 518);
+            LVersionlabel.Location = new Point(190, 453);
+            pictureBox3.Location = new Point(60, 373);
             #region 頁面生成
             TabPage SystemInformation = new TabPage();
             Panel panel2 = new Panel();
@@ -228,6 +235,8 @@ namespace Launcher
             panel1.PerformLayout();
             #endregion
 
+
+
             tabControl1.TabPages["Loginsystem"].Text = "訓練帳號 : " + TrainingAccount_TB.Text;
             Login_panel.Visible = false;
             Login.Text = "執行訓練";
@@ -289,10 +298,13 @@ namespace Launcher
             };
             logout = () =>
             {
+                optionspanel.Size = new Size(335, 518);
+                LVersionlabel.Location = new Point(286, 453);
+                pictureBox3.Location = new Point(90, 420);
+
                 tabControl1.TabPages["Loginsystem"].Text = "登入系統";
                 SeriaPanel.Enabled = true;
                 Login.Text = "驗證";
-                Login_panel.Visible = true;
                 Logout.Enabled = false;
                 User_panel.Visible = false;
                 SeriaPanel.Visible = true;
