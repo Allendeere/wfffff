@@ -81,7 +81,7 @@ namespace Launcher
         {
             optionspanel.Size = new Size(240, 518);
             LVersionlabel.Location = new Point(190, 453);
-            pictureBox3.Location = new Point(60, 373);
+            pictureBox3.Location = new Point(60, 395);
             #region 頁面生成
             TabPage SystemInformation = new TabPage();
             Panel panel2 = new Panel();
