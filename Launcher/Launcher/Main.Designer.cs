@@ -32,7 +32,10 @@
             tabControl1 = new TabControl();
             Loginsystem = new TabPage();
             User_panel = new Panel();
-            AccountManagement = new Button();
+            panel3 = new Panel();
+            panel2 = new Panel();
+            panel1 = new Panel();
+            pictureBox5 = new PictureBox();
             Logout = new Button();
             label3 = new Label();
             Login = new Button();
@@ -51,6 +54,7 @@
             pictureBox_background = new PictureBox();
             pictureBox2 = new PictureBox();
             optionspanel = new Panel();
+            button1 = new Button();
             LVersionlabel = new Label();
             label4 = new Label();
             pictureBox4 = new PictureBox();
@@ -65,6 +69,8 @@
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             User_panel.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SeriaPanel.SuspendLayout();
             Login_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox_background).BeginInit();
@@ -112,7 +118,9 @@
             User_panel.BackColor = SystemColors.Control;
             User_panel.BackgroundImage = (Image)resources.GetObject("User_panel.BackgroundImage");
             User_panel.BackgroundImageLayout = ImageLayout.Stretch;
-            User_panel.Controls.Add(AccountManagement);
+            User_panel.Controls.Add(panel3);
+            User_panel.Controls.Add(panel2);
+            User_panel.Controls.Add(panel1);
             User_panel.Controls.Add(Logout);
             User_panel.Controls.Add(label3);
             User_panel.Location = new Point(-4, 2);
@@ -121,24 +129,47 @@
             User_panel.TabIndex = 14;
             User_panel.Visible = false;
             // 
-            // AccountManagement
+            // panel3
             // 
-            AccountManagement.BackColor = Color.Orange;
-            AccountManagement.ForeColor = Color.Black;
-            AccountManagement.Location = new Point(498, 241);
-            AccountManagement.Name = "AccountManagement";
-            AccountManagement.Size = new Size(86, 80);
-            AccountManagement.TabIndex = 0;
-            AccountManagement.Text = "帳號管理";
-            AccountManagement.UseVisualStyleBackColor = false;
-            AccountManagement.Click += AccountManagement_Click;
+            panel3.BackColor = Color.FromArgb(44, 44, 54);
+            panel3.Location = new Point(0, 21);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(585, 71);
+            panel3.TabIndex = 13;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(44, 44, 54);
+            panel2.Location = new Point(-43, 109);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(434, 296);
+            panel2.TabIndex = 12;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(44, 44, 54);
+            panel1.Controls.Add(pictureBox5);
+            panel1.Location = new Point(408, 109);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(177, 296);
+            panel1.TabIndex = 11;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(7, 35);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(164, 33);
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.TabIndex = 22;
+            pictureBox5.TabStop = false;
             // 
             // Logout
             // 
             Logout.Enabled = false;
-            Logout.Location = new Point(520, 17);
+            Logout.Location = new Point(453, 44);
             Logout.Name = "Logout";
-            Logout.Size = new Size(75, 30);
+            Logout.Size = new Size(55, 30);
             Logout.TabIndex = 10;
             Logout.Text = "登出";
             Logout.UseVisualStyleBackColor = true;
@@ -325,6 +356,7 @@
             // optionspanel
             // 
             optionspanel.BackColor = Color.FromArgb(36, 36, 45);
+            optionspanel.Controls.Add(button1);
             optionspanel.Controls.Add(LVersionlabel);
             optionspanel.Controls.Add(label4);
             optionspanel.Controls.Add(pictureBox4);
@@ -336,6 +368,18 @@
             optionspanel.Name = "optionspanel";
             optionspanel.Size = new Size(276, 452);
             optionspanel.TabIndex = 19;
+            // 
+            // button1
+            // 
+            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
+            button1.BackgroundImageLayout = ImageLayout.Zoom;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = Color.FromArgb(36, 36, 45);
+            button1.Location = new Point(20, 173);
+            button1.Name = "button1";
+            button1.Size = new Size(162, 40);
+            button1.TabIndex = 23;
+            button1.UseVisualStyleBackColor = true;
             // 
             // LVersionlabel
             // 
@@ -353,7 +397,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft JhengHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(93, 56);
+            label4.Location = new Point(92, 15);
             label4.Name = "label4";
             label4.Size = new Size(72, 26);
             label4.TabIndex = 22;
@@ -362,7 +406,7 @@
             // pictureBox4
             // 
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(8, 79);
+            pictureBox4.Location = new Point(7, 48);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(176, 33);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -372,12 +416,12 @@
             // software_btn
             // 
             software_btn.BackgroundImage = (Image)resources.GetObject("software_btn.BackgroundImage");
-            software_btn.BackgroundImageLayout = ImageLayout.Stretch;
+            software_btn.BackgroundImageLayout = ImageLayout.Zoom;
             software_btn.FlatStyle = FlatStyle.Flat;
             software_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            software_btn.Location = new Point(21, 156);
+            software_btn.Location = new Point(20, 130);
             software_btn.Name = "software_btn";
-            software_btn.Size = new Size(105, 30);
+            software_btn.Size = new Size(162, 40);
             software_btn.TabIndex = 20;
             software_btn.UseVisualStyleBackColor = true;
             software_btn.Click += software_btn_Click;
@@ -385,12 +429,12 @@
             // user_btn
             // 
             user_btn.BackgroundImage = (Image)resources.GetObject("user_btn.BackgroundImage");
-            user_btn.BackgroundImageLayout = ImageLayout.Stretch;
+            user_btn.BackgroundImageLayout = ImageLayout.Zoom;
             user_btn.FlatStyle = FlatStyle.Flat;
             user_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            user_btn.Location = new Point(21, 118);
+            user_btn.Location = new Point(20, 87);
             user_btn.Name = "user_btn";
-            user_btn.Size = new Size(105, 30);
+            user_btn.Size = new Size(162, 40);
             user_btn.TabIndex = 19;
             user_btn.UseVisualStyleBackColor = true;
             user_btn.Click += user_btn_Click;
@@ -474,6 +518,8 @@
             Loginsystem.ResumeLayout(false);
             User_panel.ResumeLayout(false);
             User_panel.PerformLayout();
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             SeriaPanel.ResumeLayout(false);
             SeriaPanel.PerformLayout();
             Login_panel.ResumeLayout(false);
@@ -510,13 +556,11 @@
         public Button Login;
         private Panel Login_panel;
         private Panel User_panel;
-        private Button AccountManagement;
         private Panel optionspanel;
         private PictureBox pictureBox3;
         private PictureBox pictureBox1;
         private Label LVersionlabel;
         private PictureBox pictureBox2;
-        private Button software_btn;
         private Button user_btn;
         private PictureBox pictureBox4;
         private Label label4;
@@ -524,5 +568,11 @@
         private Label label5;
         private Label label8;
         private Label label7;
+        private Button button1;
+        private Button software_btn;
+        private Panel panel2;
+        private Panel panel1;
+        private PictureBox pictureBox5;
+        private Panel panel3;
     }
 }

@@ -163,7 +163,7 @@ namespace Launcher
             flowLayoutPanel1.Parent = SystemInformationpanel1;
             flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(27, 320); 
+            flowLayoutPanel1.Location = new Point(27, 320);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(568, 100);
             flowLayoutPanel1.TabIndex = 1;
@@ -176,7 +176,7 @@ namespace Launcher
             panel1.Controls.Add(GameName_Lb);
             panel1.Controls.Add(Detail_Lb);
             panel1.Controls.Add(labellauncherv);
-            panel1.Location = new Point(408, 70);
+            panel1.Location = new Point(408, 105);
             panel1.Name = "panel1";
             panel1.Size = new Size(188, 193);
             panel1.TabIndex = 0;
