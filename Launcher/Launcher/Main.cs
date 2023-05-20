@@ -28,14 +28,16 @@ namespace Launcher
         //當登入成功時存入生成遊戲物件的方法
         Action setup;
         Action logout;
+        Action<string> Functions;
         //Launcher當前版本
         string LauncherVersion = "0.0.0";
         public MainForm()
         {
             this.Text += $"   v {LauncherVersion}";
-            _tiF = new TIF(this);
             InitializeComponent();
-
+            Login_panel.Parent = pictureBox_background;
+            SeriaPanel.Parent = pictureBox_background;
+            Login.FlatAppearance.BorderSize = 0;
         }
 
         private void Forgotpassword_Click(object sender, EventArgs e)
@@ -84,9 +86,9 @@ namespace Launcher
 
         void SetPage()
         {
-            optionspanel.Size = new Size(240, 518);
-            LVersionlabel.Location = new Point(190, 453);
-            pictureBox3.Location = new Point(50, 395);
+            optionspanel.Size = new Size(195, 518);
+            LVersionlabel.Location = new Point(130, 403);
+            pictureBox3.Location = new Point(8, 350);
             #region 頁面生成
             TabPage SystemInformation = new TabPage();
             Panel panel2 = new Panel();
@@ -106,10 +108,14 @@ namespace Launcher
             // 
             // LoadGame_Btn
             // 
+            LoadGame_Btn.BackColor = Color.FromArgb(81, 81, 89);
             LoadGame_Btn.Location = new Point(0, 158);
             LoadGame_Btn.Name = "LoadGame_Btn";
             LoadGame_Btn.Size = new Size(188, 35);
             LoadGame_Btn.TabIndex = 14;
+            LoadGame_Btn.FlatStyle = FlatStyle.Flat;
+            LoadGame_Btn.FlatAppearance.BorderSize = 0;
+            LoadGame_Btn.ForeColor = Color.White;
             LoadGame_Btn.Text = "啟動遊戲";
             LoadGame_Btn.UseVisualStyleBackColor = true;
             LoadGame_Btn.Visible = false;
@@ -120,7 +126,7 @@ namespace Launcher
             c = c.Substring(0, c.Length - 24) + "IMG\\background2.jpg";
             SystemInformation.BackgroundImage = Image.FromFile(c);
             SystemInformation.BackgroundImageLayout = ImageLayout.Stretch;
-            SystemInformation.BackColor = Color.FromArgb(41, 41, 52); //TODO底條
+            SystemInformation.BackColor = Color.FromArgb(41, 41, 52);
             SystemInformation.Controls.Add(flowLayoutPanel1);
             SystemInformation.Controls.Add(panel1);
             SystemInformation.Controls.Add(panel2);
@@ -137,18 +143,18 @@ namespace Launcher
             GameName_Lb.AutoSize = true;
             GameName_Lb.Location = new Point(0, 28);
             GameName_Lb.ForeColor = Color.White;
-            GameName_Lb.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            GameName_Lb.Font = new Font("Microsoft JhengHei UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
             GameName_Lb.Name = "GameName_Lb";
             GameName_Lb.Size = new Size(42, 15);
             GameName_Lb.TabIndex = 13;
             GameName_Lb.Text = "Game Name";
             // 
-            // panel2
+            // GameImageBig
             // 
             panel2.BackColor = Color.Gray;
-            panel2.Location = new Point(27, 52);
+            panel2.Location = new Point(27, 55);
             panel2.Name = "panel2";
-            panel2.Size = new Size(362, 193);
+            panel2.Size = new Size(362, 246);
             panel2.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -157,7 +163,7 @@ namespace Launcher
             flowLayoutPanel1.Parent = SystemInformationpanel1;
             flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(27, 284);
+            flowLayoutPanel1.Location = new Point(27, 320); 
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(568, 100);
             flowLayoutPanel1.TabIndex = 1;
@@ -170,12 +176,12 @@ namespace Launcher
             panel1.Controls.Add(GameName_Lb);
             panel1.Controls.Add(Detail_Lb);
             panel1.Controls.Add(labellauncherv);
-            panel1.Location = new Point(408, 50);
+            panel1.Location = new Point(408, 70);
             panel1.Name = "panel1";
             panel1.Size = new Size(188, 193);
             panel1.TabIndex = 0;
             //
-            // labellauncherv
+            // labellauncherv  啟動器版本
             // 
             labellauncherv.AutoSize = true;
             labellauncherv.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -189,7 +195,7 @@ namespace Launcher
             // Detail_Lb
             // 
             Detail_Lb.AutoSize = true;
-            Detail_Lb.Location = new Point(0, 60);
+            Detail_Lb.Location = new Point(0, 70);
             Detail_Lb.ForeColor = SystemColors.ButtonHighlight;
             Detail_Lb.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Detail_Lb.Name = "Detail_Lb";
@@ -199,13 +205,13 @@ namespace Launcher
             // 
             // SystemInformationpanel1
             // 
-            SystemInformationpanel1.BackColor = Color.FromArgb(41, 41, 52);//TODO fhfhfhf
+            SystemInformationpanel1.BackColor = Color.FromArgb(41, 41, 52);
             SystemInformationpanel1.BackgroundImage = Image.FromFile(c);
             SystemInformationpanel1.BackgroundImageLayout = ImageLayout.Stretch;
             SystemInformationpanel1.Controls.Add(panel1);
             SystemInformationpanel1.Location = new Point(-4, 2);
             SystemInformationpanel1.Name = "SystemInformationpanel1";
-            SystemInformationpanel1.Size = new Size(627, 361);
+            SystemInformationpanel1.Size = new Size(627, 500);
             SystemInformationpanel1.TabIndex = 4;
 
             SystemInformation.ResumeLayout(false);
@@ -218,9 +224,6 @@ namespace Launcher
             Login.Text = "執行訓練";
             User_panel.Visible = true;
             Logout.Enabled = true;
-
-            tabControl1.SelectedIndex = 1;
-
 
             //連接 【測試用 : 生成遊戲物件】
             setup = () =>
@@ -270,7 +273,6 @@ namespace Launcher
                     button.ForeColor = Color.FromArgb(57, 56, 84);
                     button.BackColor = Color.FromArgb(57, 56, 84);
                     button.Size = new Size(185, 76);
-
                     button.FlatAppearance.BorderSize = 0;
                     // 
                     // G2img
@@ -305,9 +307,9 @@ namespace Launcher
             };
             logout = () =>
             {
-                optionspanel.Size = new Size(335, 518);
-                LVersionlabel.Location = new Point(286, 453);
-                pictureBox3.Location = new Point(90, 420);
+                optionspanel.Size = new Size(276, 452);
+                LVersionlabel.Location = new Point(223, 403);
+                pictureBox3.Location = new Point(27, 370);
 
                 tabControl1.TabPages["Loginsystem"].Text = "登入系統";
                 SeriaPanel.Enabled = true;
@@ -317,6 +319,20 @@ namespace Launcher
                 SeriaPanel.Visible = true;
                 tabControl1.Controls.Remove(SystemInformation);
                 gameDT.Clear();
+            };
+            Functions = (x) =>
+            {
+                switch (x)
+                {
+                    case "user":
+                        tabControl1.SelectedIndex = 0;
+                        break;
+                    case "game":
+                        tabControl1.SelectedIndex = 1;
+                        break;
+                }
+
+
             };
         }//TODO : +啟動器版本檢查
 
@@ -377,6 +393,16 @@ namespace Launcher
         private void AccountManagement_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void user_btn_Click(object sender, EventArgs e)
+        {
+            Functions("user");
+        }
+
+        private void software_btn_Click(object sender, EventArgs e)
+        {
+            Functions("game");
         }
     }
 }

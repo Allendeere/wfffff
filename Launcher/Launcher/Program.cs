@@ -11,10 +11,16 @@ namespace Launcher
         {
             ApplicationConfiguration.Initialize();
 
+
             var host = CreatHostBuilder().Build();
             serviceProvider = host.Services;
             serviceProvider.GetRequiredService<MainForm>();
-            Application.Run(serviceProvider.GetRequiredService<MainForm>());
+
+            var mainForm = serviceProvider.GetRequiredService<MainForm>();
+            TIF tIF = new TIF(mainForm);
+            tIF.OnlyOneProcess();
+
+            Application.Run(mainForm);
             //TODO:Add NLog
 
         }

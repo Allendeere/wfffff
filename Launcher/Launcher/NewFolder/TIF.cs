@@ -16,8 +16,8 @@ namespace Launcher.NewFolder//TODO:待改介面
 
         public TIF(MainForm mainForm)
         {
-            OnlyOneProcess();
             this.mainForm = mainForm;
+            mainForm._tiF = this;
         }
 
 
