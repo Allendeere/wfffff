@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Launcher.NewFolder2;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -22,19 +23,18 @@ namespace Launcher.NewFolder
     }
 
 
-
     /// <summary>
     /// 測試專用:P
     /// </summary>
     internal class TIFFF
     {
-        private string rootPath;
+        private string FilePath;
         private string versionFile;
         private string gameZip;
-        private string gameExe;
+        private string launcherExe;
 
         //TODO:Fix later
-        private string savepath; //(gameExe)
+
 
         MainForm mainForm;
 
@@ -48,16 +48,12 @@ namespace Launcher.NewFolder
                 switch (_status)
                 {
                     case LauncherStatus.ready:
-                        //PlayButton.Content = "Play";
                         break;
                     case LauncherStatus.failed:
-                        //PlayButton.Content = "Update Failed - Retry";
                         break;
                     case LauncherStatus.downloadingGame:
-                        //PlayButton.Content = "Downloading Game";
                         break;
                     case LauncherStatus.downloadingUpdate:
-                        //PlayButton.Content = "Downloading Update";
                         break;
                     default:
                         break;
@@ -75,18 +71,25 @@ namespace Launcher.NewFolder
         /// </summary>
         public void Init()
         {
-            rootPath = Directory.GetCurrentDirectory();
-            versionFile = Path.Combine(rootPath, "Version.txt");
-            gameZip = Path.Combine(rootPath, "Build.zip");
-            gameExe = Path.Combine(rootPath, "Build", "Pirate Game.exe");
-
             //TODO:Fix later
-            Directory.CreateDirectory("C:\\VAR"); //這個路徑可改
-            savepath = Path.Combine("C:\\VAR", "LauncherInstaller.msi");
+            FilePath = "C:\\LauncherTest";
+            versionFile = FilePath + "\\Version.txt";
+            gameZip = Path.Combine(FilePath, "Build.zip");
+            //gameExe = Path.Combine(rootPath, "Build", "VAR Box Launcher.exe");
+            launcherExe = Path.Combine("C:\\Users\\Administrator\\Documents\\GitHub\\wfffff\\Launcher\\Launcher\\bin\\Debug\\net6.0-windows\\Launcher.exe");
+
+            //string exe = "\"C:\\Program Files\\VAR Box Launcher\\VAR Box Launcher.exe\"";
+
+            //savepath = Path.Combine("C:\\VAR", "LauncherInstaller.msi");
+
+            CheckForUpdates();
 
             StartMain();
         }
 
+        /// <summary>
+        /// 檢查確認
+        /// </summary>
         private void CheckForUpdates()
         {
             if (File.Exists(versionFile))
@@ -97,9 +100,11 @@ namespace Launcher.NewFolder
                 try
                 {
                     WebClient webClient = new WebClient();
-                    Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
+                    
+                    Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1H0xULRZoEHp3ZwgLp_wj3lgp5TV48LIk"));
+                    // Version onlineVersion = new Version(webClient.DownloadString("Version.txt"));
 
-                    if (onlineVersion.IsDifferentThan(localVersion))
+                    if (onlineVersion.IsDifferentThan(localVersion)) //版本檢查
                     {
                         InstallGameFiles(true, onlineVersion);
                     }
@@ -137,11 +142,12 @@ namespace Launcher.NewFolder
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    _onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
+                    _onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1H0xULRZoEHp3ZwgLp_wj3lgp5TV48LIk"));
                 }
 
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
-                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1SNA_3P5wVp4tZi5NKhiGAAD6q4ilbaaf"), savepath);
+                //webClient.DownloadFileAsync(new Uri("File"), savepath);
+                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1ZelkvL0uObNdndCJW7XVuhVmrVD0Jhgz"), gameZip, _onlineVersion);
 
             }
             catch (Exception ex)
@@ -155,7 +161,7 @@ namespace Launcher.NewFolder
             try
             {
                 string onlineVersion = ((Version)e.UserState).ToString();
-                ZipFile.ExtractToDirectory(gameZip, rootPath, true);
+                ZipFile.ExtractToDirectory(gameZip, FilePath, true);
                 File.Delete(gameZip);
 
                 File.WriteAllText(versionFile, onlineVersion);
@@ -169,15 +175,16 @@ namespace Launcher.NewFolder
                 MessageBox.Show($"Error finishing download: {ex}");
             }
         }
-
         private void StartMain()
         {
 
-            if (File.Exists(gameExe) && Status == LauncherStatus.ready)
+            if (File.Exists(launcherExe) && Status == LauncherStatus.ready)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
-                startInfo.WorkingDirectory = Path.Combine(rootPath, "Build");
-                Process.Start(startInfo);
+                //執行遊戲
+                ProcessStartInfo startInfo = new ProcessStartInfo(launcherExe);
+                startInfo.WorkingDirectory = Path.Combine("C:\\Users\\Administrator\\Documents\\GitHub\\wfffff\\Launcher\\Launcher\\bin\\Debug", "net6.0-windows");
+                //startInfo.WorkingDirectory = Path.Combine(FilePath, "Build");
+                Process.Start(startInfo); //TODO: 目前是測試檔案，要替還成Launcher Path !!
 
                 mainForm.Close();
             }
