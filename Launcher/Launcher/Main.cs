@@ -14,6 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using Launcher.Properties;
 using static System.Windows.Forms.DataFormats;
 using System.Reflection;
+using System.Drawing;
 
 namespace Launcher
 {
@@ -89,6 +90,9 @@ namespace Launcher
             optionspanel.Size = new Size(195, 518);
             LVersionlabel.Location = new Point(130, 403);
             pictureBox3.Location = new Point(8, 350);
+            LoginP.Visible = true;
+            Title_LB.Text = "Name";
+
             #region 頁面生成
             TabPage SystemInformation = new TabPage();
             Panel panel2 = new Panel();
@@ -123,8 +127,8 @@ namespace Launcher
             // SystemInformation
             // 
             var c = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-            c = c.Substring(0, c.Length - 24) + "IMG\\background2.jpg";
-            SystemInformation.BackgroundImage = Image.FromFile(c);
+            c = c.Substring(0, c.Length - 24) + "IMG\\";
+            SystemInformation.BackgroundImage = Image.FromFile(c + "background4.jpg");
             SystemInformation.BackgroundImageLayout = ImageLayout.Stretch;
             SystemInformation.BackColor = Color.FromArgb(41, 41, 52);
             SystemInformation.Controls.Add(flowLayoutPanel1);
@@ -149,10 +153,25 @@ namespace Launcher
             GameName_Lb.TabIndex = 13;
             GameName_Lb.Text = "Game Name";
             // 
+            // INFO
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.Parent = SystemInformationpanel1;
+            panel1.Controls.Add(LoadGame_Btn);
+            panel1.Controls.Add(GameName_Lb);
+            panel1.Controls.Add(Detail_Lb);
+            panel1.Controls.Add(labellauncherv);
+            panel1.Location = new Point(408, 104);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(188, 193);
+            panel1.TabIndex = 0;
+            // 
             // GameImageBig
             // 
-            panel2.BackColor = Color.Gray;
-            panel2.Location = new Point(27, 55);
+            //panel2.BackColor = Color.Gray;
+            panel2.BackgroundImage = Image.FromFile(c + "background3.png");
+            panel2.BackgroundImageLayout = ImageLayout.Stretch;
+            panel2.Location = new Point(27, 54);
             panel2.Name = "panel2";
             panel2.Size = new Size(362, 246);
             panel2.TabIndex = 3;
@@ -167,19 +186,7 @@ namespace Launcher
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(568, 100);
             flowLayoutPanel1.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.Transparent;
-            panel1.Parent = SystemInformationpanel1;
-            panel1.Controls.Add(LoadGame_Btn);
-            panel1.Controls.Add(GameName_Lb);
-            panel1.Controls.Add(Detail_Lb);
-            panel1.Controls.Add(labellauncherv);
-            panel1.Location = new Point(408, 105);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(188, 193);
-            panel1.TabIndex = 0;
+
             //
             // labellauncherv  啟動器版本
             // 
@@ -206,7 +213,7 @@ namespace Launcher
             // SystemInformationpanel1
             // 
             SystemInformationpanel1.BackColor = Color.FromArgb(41, 41, 52);
-            SystemInformationpanel1.BackgroundImage = Image.FromFile(c);
+            SystemInformationpanel1.BackgroundImage = Image.FromFile(c + "background4.jpg");
             SystemInformationpanel1.BackgroundImageLayout = ImageLayout.Stretch;
             SystemInformationpanel1.Controls.Add(panel1);
             SystemInformationpanel1.Location = new Point(-4, 2);
@@ -310,6 +317,8 @@ namespace Launcher
                 optionspanel.Size = new Size(276, 452);
                 LVersionlabel.Location = new Point(223, 403);
                 pictureBox3.Location = new Point(27, 370);
+                LoginP.Visible = false;
+                Title_LB.Text = "兵推系統訓練軟體";
 
                 tabControl1.TabPages["Loginsystem"].Text = "登入系統";
                 SeriaPanel.Enabled = true;
@@ -388,12 +397,6 @@ namespace Launcher
         }
 
         #endregion
-
-
-        private void AccountManagement_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void user_btn_Click(object sender, EventArgs e)
         {

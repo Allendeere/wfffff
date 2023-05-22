@@ -33,11 +33,10 @@
             Loginsystem = new TabPage();
             User_panel = new Panel();
             panel3 = new Panel();
+            label3 = new Label();
+            Logout = new Button();
             panel2 = new Panel();
             panel1 = new Panel();
-            pictureBox5 = new PictureBox();
-            Logout = new Button();
-            label3 = new Label();
             Login = new Button();
             SeriaPanel = new Panel();
             SerialNumber = new TextBox();
@@ -54,14 +53,15 @@
             pictureBox_background = new PictureBox();
             pictureBox2 = new PictureBox();
             optionspanel = new Panel();
-            button1 = new Button();
             LVersionlabel = new Label();
-            label4 = new Label();
+            Title_LB = new Label();
             pictureBox4 = new PictureBox();
-            software_btn = new Button();
-            user_btn = new Button();
             pictureBox3 = new PictureBox();
             pictureBox1 = new PictureBox();
+            LoginP = new Panel();
+            button1 = new Button();
+            user_btn = new Button();
+            software_btn = new Button();
             TEST_spawnGobj = new Button();
             TEST_FakeUpdate = new Button();
             Test_NeedUpdate = new CheckBox();
@@ -69,8 +69,7 @@
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             User_panel.SuspendLayout();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            panel3.SuspendLayout();
             SeriaPanel.SuspendLayout();
             Login_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox_background).BeginInit();
@@ -79,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            LoginP.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -121,8 +121,6 @@
             User_panel.Controls.Add(panel3);
             User_panel.Controls.Add(panel2);
             User_panel.Controls.Add(panel1);
-            User_panel.Controls.Add(Logout);
-            User_panel.Controls.Add(label3);
             User_panel.Location = new Point(-4, 2);
             User_panel.Name = "User_panel";
             User_panel.Size = new Size(627, 500);
@@ -132,10 +130,38 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(44, 44, 54);
+            panel3.Controls.Add(label3);
+            panel3.Controls.Add(Logout);
             panel3.Location = new Point(0, 21);
             panel3.Name = "panel3";
             panel3.Size = new Size(585, 71);
             panel3.TabIndex = 13;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.ForeColor = SystemColors.ButtonHighlight;
+            label3.Location = new Point(514, 45);
+            label3.Name = "label3";
+            label3.Size = new Size(55, 15);
+            label3.TabIndex = 9;
+            label3.Text = "允和科技";
+            // 
+            // Logout
+            // 
+            Logout.BackColor = Color.FromArgb(36, 36, 45);
+            Logout.Enabled = false;
+            Logout.FlatStyle = FlatStyle.Flat;
+            Logout.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            Logout.ForeColor = SystemColors.ButtonFace;
+            Logout.Location = new Point(514, 14);
+            Logout.Name = "Logout";
+            Logout.Size = new Size(55, 30);
+            Logout.TabIndex = 10;
+            Logout.Text = "登出";
+            Logout.UseVisualStyleBackColor = false;
+            Logout.Click += Logout_Click;
             // 
             // panel2
             // 
@@ -148,42 +174,10 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(44, 44, 54);
-            panel1.Controls.Add(pictureBox5);
             panel1.Location = new Point(408, 109);
             panel1.Name = "panel1";
             panel1.Size = new Size(177, 296);
             panel1.TabIndex = 11;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(7, 35);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(164, 33);
-            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox5.TabIndex = 22;
-            pictureBox5.TabStop = false;
-            // 
-            // Logout
-            // 
-            Logout.Enabled = false;
-            Logout.Location = new Point(453, 44);
-            Logout.Name = "Logout";
-            Logout.Size = new Size(55, 30);
-            Logout.TabIndex = 10;
-            Logout.Text = "登出";
-            Logout.UseVisualStyleBackColor = true;
-            Logout.Click += Logout_Click;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(441, 21);
-            label3.Name = "label3";
-            label3.Size = new Size(73, 20);
-            label3.TabIndex = 9;
-            label3.Text = "允和科技";
             // 
             // Login
             // 
@@ -356,30 +350,16 @@
             // optionspanel
             // 
             optionspanel.BackColor = Color.FromArgb(36, 36, 45);
-            optionspanel.Controls.Add(button1);
             optionspanel.Controls.Add(LVersionlabel);
-            optionspanel.Controls.Add(label4);
+            optionspanel.Controls.Add(Title_LB);
             optionspanel.Controls.Add(pictureBox4);
-            optionspanel.Controls.Add(software_btn);
-            optionspanel.Controls.Add(user_btn);
             optionspanel.Controls.Add(pictureBox3);
             optionspanel.Controls.Add(pictureBox1);
+            optionspanel.Controls.Add(LoginP);
             optionspanel.Location = new Point(0, 0);
             optionspanel.Name = "optionspanel";
             optionspanel.Size = new Size(276, 452);
             optionspanel.TabIndex = 19;
-            // 
-            // button1
-            // 
-            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
-            button1.BackgroundImageLayout = ImageLayout.Zoom;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.FromArgb(36, 36, 45);
-            button1.Location = new Point(20, 173);
-            button1.Name = "button1";
-            button1.Size = new Size(162, 40);
-            button1.TabIndex = 23;
-            button1.UseVisualStyleBackColor = true;
             // 
             // LVersionlabel
             // 
@@ -392,16 +372,16 @@
             LVersionlabel.TabIndex = 3;
             LVersionlabel.Text = "v 0.0.0";
             // 
-            // label4
+            // Title_LB
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Microsoft JhengHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(92, 15);
-            label4.Name = "label4";
-            label4.Size = new Size(72, 26);
-            label4.TabIndex = 22;
-            label4.Text = "Name";
+            Title_LB.AutoSize = true;
+            Title_LB.Font = new Font("Microsoft JhengHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            Title_LB.ForeColor = SystemColors.ButtonHighlight;
+            Title_LB.Location = new Point(48, 19);
+            Title_LB.Name = "Title_LB";
+            Title_LB.Size = new Size(180, 26);
+            Title_LB.TabIndex = 22;
+            Title_LB.Text = "兵推系統訓練軟體";
             // 
             // pictureBox4
             // 
@@ -412,32 +392,6 @@
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 21;
             pictureBox4.TabStop = false;
-            // 
-            // software_btn
-            // 
-            software_btn.BackgroundImage = (Image)resources.GetObject("software_btn.BackgroundImage");
-            software_btn.BackgroundImageLayout = ImageLayout.Zoom;
-            software_btn.FlatStyle = FlatStyle.Flat;
-            software_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            software_btn.Location = new Point(20, 130);
-            software_btn.Name = "software_btn";
-            software_btn.Size = new Size(162, 40);
-            software_btn.TabIndex = 20;
-            software_btn.UseVisualStyleBackColor = true;
-            software_btn.Click += software_btn_Click;
-            // 
-            // user_btn
-            // 
-            user_btn.BackgroundImage = (Image)resources.GetObject("user_btn.BackgroundImage");
-            user_btn.BackgroundImageLayout = ImageLayout.Zoom;
-            user_btn.FlatStyle = FlatStyle.Flat;
-            user_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            user_btn.Location = new Point(20, 87);
-            user_btn.Name = "user_btn";
-            user_btn.Size = new Size(162, 40);
-            user_btn.TabIndex = 19;
-            user_btn.UseVisualStyleBackColor = true;
-            user_btn.Click += user_btn_Click;
             // 
             // pictureBox3
             // 
@@ -460,6 +414,55 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
+            // 
+            // LoginP
+            // 
+            LoginP.Controls.Add(button1);
+            LoginP.Controls.Add(user_btn);
+            LoginP.Controls.Add(software_btn);
+            LoginP.Location = new Point(3, 3);
+            LoginP.Name = "LoginP";
+            LoginP.Size = new Size(214, 361);
+            LoginP.TabIndex = 24;
+            LoginP.Visible = false;
+            // 
+            // button1
+            // 
+            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
+            button1.BackgroundImageLayout = ImageLayout.Zoom;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = Color.FromArgb(36, 36, 45);
+            button1.Location = new Point(20, 173);
+            button1.Name = "button1";
+            button1.Size = new Size(162, 40);
+            button1.TabIndex = 23;
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // user_btn
+            // 
+            user_btn.BackgroundImage = (Image)resources.GetObject("user_btn.BackgroundImage");
+            user_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            user_btn.FlatStyle = FlatStyle.Flat;
+            user_btn.ForeColor = Color.FromArgb(36, 36, 45);
+            user_btn.Location = new Point(20, 87);
+            user_btn.Name = "user_btn";
+            user_btn.Size = new Size(162, 40);
+            user_btn.TabIndex = 19;
+            user_btn.UseVisualStyleBackColor = true;
+            user_btn.Click += user_btn_Click;
+            // 
+            // software_btn
+            // 
+            software_btn.BackgroundImage = (Image)resources.GetObject("software_btn.BackgroundImage");
+            software_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            software_btn.FlatStyle = FlatStyle.Flat;
+            software_btn.ForeColor = Color.FromArgb(36, 36, 45);
+            software_btn.Location = new Point(20, 130);
+            software_btn.Name = "software_btn";
+            software_btn.Size = new Size(162, 40);
+            software_btn.TabIndex = 20;
+            software_btn.UseVisualStyleBackColor = true;
+            software_btn.Click += software_btn_Click;
             // 
             // TEST_spawnGobj
             // 
@@ -517,9 +520,8 @@
             tabControl1.ResumeLayout(false);
             Loginsystem.ResumeLayout(false);
             User_panel.ResumeLayout(false);
-            User_panel.PerformLayout();
-            panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             SeriaPanel.ResumeLayout(false);
             SeriaPanel.PerformLayout();
             Login_panel.ResumeLayout(false);
@@ -531,6 +533,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            LoginP.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -563,7 +566,7 @@
         private PictureBox pictureBox2;
         private Button user_btn;
         private PictureBox pictureBox4;
-        private Label label4;
+        private Label Title_LB;
         private PictureBox pictureBox_background;
         private Label label5;
         private Label label8;
@@ -572,7 +575,7 @@
         private Button software_btn;
         private Panel panel2;
         private Panel panel1;
-        private PictureBox pictureBox5;
         private Panel panel3;
+        private Panel LoginP;
     }
 }
