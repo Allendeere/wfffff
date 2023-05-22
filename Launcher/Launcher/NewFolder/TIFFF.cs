@@ -75,7 +75,7 @@ namespace Launcher.NewFolder
             FilePath = "C:\\LauncherTest";
             versionFile = FilePath + "\\Version.txt";
             gameZip = Path.Combine(FilePath, "Build.zip");
-            //launcherExe = Path.Combine(FilePath, "Build", "VAR Box Launcher.exe");
+            //gameExe = Path.Combine(rootPath, "Build", "VAR Box Launcher.exe");
             launcherExe = Path.Combine("C:\\Users\\Administrator\\Documents\\GitHub\\wfffff\\Launcher\\Launcher\\bin\\Debug\\net6.0-windows\\Launcher.exe");
 
             //string exe = "\"C:\\Program Files\\VAR Box Launcher\\VAR Box Launcher.exe\"";
@@ -95,15 +95,12 @@ namespace Launcher.NewFolder
             if (File.Exists(versionFile))
             {
                 Version localVersion = new Version(File.ReadAllText(versionFile));
-                mainForm.Text = "v " + localVersion.ToString();
-                mainForm.LVersionlabel.Text = localVersion.ToString();
+                mainForm.Text = localVersion.ToString();
 
                 try
                 {
                     WebClient webClient = new WebClient();
-
-                    webClient.Headers.Add("User-Agent: Other");
-
+                    
                     Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1H0xULRZoEHp3ZwgLp_wj3lgp5TV48LIk"));
                     // Version onlineVersion = new Version(webClient.DownloadString("Version.txt"));
 
@@ -185,7 +182,7 @@ namespace Launcher.NewFolder
             {
                 //執行遊戲
                 ProcessStartInfo startInfo = new ProcessStartInfo(launcherExe);
-                //startInfo.WorkingDirectory = Path.Combine("C:\\Users\\Administrator\\Documents\\GitHub\\wfffff\\Launcher\\Launcher\\bin\\Debug", "net6.0-windows");
+                startInfo.WorkingDirectory = Path.Combine("C:\\Users\\Administrator\\Documents\\GitHub\\wfffff\\Launcher\\Launcher\\bin\\Debug", "net6.0-windows");
                 //startInfo.WorkingDirectory = Path.Combine(FilePath, "Build");
                 Process.Start(startInfo); //TODO: 目前是測試檔案，要替還成Launcher Path !!
 
