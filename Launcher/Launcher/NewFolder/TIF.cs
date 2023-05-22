@@ -42,7 +42,7 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// </summary>
         void UI_Initialization()
         {
-            mainForm.Text += $"   v {LauncherVersion}";
+            //mainForm.Text += $"   v {LauncherVersion}";
             mainForm.Login_panel.Parent = mainForm.pictureBox_background;
             mainForm.SeriaPanel.Parent = mainForm.pictureBox_background;
             mainForm.Login.FlatAppearance.BorderSize = 0;
