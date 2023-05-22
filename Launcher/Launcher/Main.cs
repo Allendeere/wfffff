@@ -24,21 +24,15 @@ namespace Launcher
         public readonly IServerSerice _serverSerice;
         //功能集
         public TIF _tiF;
-        //通用字典
-        Dictionary<string, object> gameDT = new Dictionary<string, object>();
+
         //當登入成功時存入生成遊戲物件的方法
         Action setup;
         Action logout;
         Action<string> Functions;
-        //Launcher當前版本
-        string LauncherVersion = "0.0.0";
+
         public MainForm()
         {
-            this.Text += $"   v {LauncherVersion}";
             InitializeComponent();
-            Login_panel.Parent = pictureBox_background;
-            SeriaPanel.Parent = pictureBox_background;
-            Login.FlatAppearance.BorderSize = 0;
         }
 
         private void Forgotpassword_Click(object sender, EventArgs e)
@@ -51,33 +45,12 @@ namespace Launcher
         {
             switch (Login.Text)
             {
-                //UI CTRL : 登入
                 case "登入":
-                    if (_tiF.LoginVerification(TrainingAccount_TB.Text, TrainingPW_TB.Text).IsVerified)
-                    {
-                        SetPage();
-
-                        TrainingAccount_TB.Text = "";
-                        TrainingPW_TB.Text = "";
-                        SerialNumber.Text = "";
-                        Login.Enabled = true;
-                        Login_panel.Visible = false;
-                        Login_panel.Enabled = false;
-                    }
+                    _tiF.Login();
                     break;
 
-                //UI CTRL : 驗證
                 case "驗證":
-                    if (_tiF.VerifyIdentity(SerialNumber.Text))
-                    {
-                        Login.Text = "登入";
-                        Login.Enabled = false;
-                        SeriaPanel.Enabled = false;
-                        SeriaPanel.Visible = false;
-                        Login_panel.Visible = true;
-                        Login_panel.Enabled = true;
-                    }
-
+                    _tiF.Verify();
                     break;
 
                 case "執行訓練":
@@ -85,6 +58,8 @@ namespace Launcher
             }
         }
 
+        #region 淘汰
+        /*
         void SetPage()
         {
             optionspanel.Size = new Size(195, 518);
@@ -197,7 +172,7 @@ namespace Launcher
             labellauncherv.Name = "labellauncherv";
             labellauncherv.Size = new Size(42, 15);
             labellauncherv.TabIndex = 10;
-            labellauncherv.Text = "啟動器版本 : " + LauncherVersion;
+            labellauncherv.Text = "啟動器版本 : " + "";
             // 
             // Detail_Lb
             // 
@@ -344,7 +319,8 @@ namespace Launcher
 
             };
         }//TODO : +啟動器版本檢查
-
+        */ 
+        #endregion
         #region UI 
 
         private void SerialNumber_TextChanged(object sender, EventArgs e)
@@ -364,7 +340,7 @@ namespace Launcher
 
         private void Logout_Click(object sender, EventArgs e)
         {
-            logout();
+            _tiF.Logout();
         }
         #endregion
 
@@ -373,7 +349,7 @@ namespace Launcher
 
         private void TEST_FakeUpdate_Click(object sender, EventArgs e)
         {
-            foreach (object key in gameDT.Values)
+            foreach (object key in _tiF.gameDT.Values)
             {
                 try
                 {
@@ -393,19 +369,19 @@ namespace Launcher
         //測試用 : 生成遊戲物件
         private void TEST_spawnGobj_Click(object sender, EventArgs e) //TODO : 移至功能集
         {
-            setup();
+            _tiF.SpawnSoftware();
         }
 
         #endregion
 
         private void user_btn_Click(object sender, EventArgs e)
         {
-            Functions("user");
+            _tiF.PageSwitch("user"); //換頁
         }
 
         private void software_btn_Click(object sender, EventArgs e)
         {
-            Functions("game");
+            _tiF.PageSwitch("software"); //換頁
         }
     }
 }

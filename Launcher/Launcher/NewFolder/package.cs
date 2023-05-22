@@ -12,6 +12,40 @@ namespace Launcher.NewFolder
     {
     }
 
+    class SystemInformationPage
+    {
+        static SystemInformationPage systemInformationPage;
+
+        public TabPage SystemInformation{ get; set; }
+        public Panel panel2 { get; set; }
+        public FlowLayoutPanel flowLayoutPanel1 { get; set; }
+        public Panel panel1 { get; set; }
+        public Label labellauncher { get; set; }
+        public Label GameName_Lb { get; set; }
+        public Label Detail_Lb { get; set; }
+        public Button LoadGame_Btn { get; set; }
+        public Panel SystemInformationpanel1 { get; set; }
+
+        public Label labellauncherv { get; set; }
+
+        public SystemInformationPage()
+        {
+
+        }
+
+        //public static SystemInformationPage Create()
+        //{
+        //    if (systemInformationPage == null)
+        //    {
+        //        systemInformationPage = new SystemInformationPage();
+        //    }
+        //    return systemInformationPage;
+        //}
+
+    }
+
+
+
     public class LoginResult//登入
     {
         public bool IsVerified { get; set; }
@@ -39,7 +73,7 @@ namespace Launcher.NewFolder
         public string getVersion { get { return Version; } }
         public string getName { get { return Name; } }
         public string getDescribe { get { return Describe; } }
-        public bool NeedUpdates { get { return NeedUpdate; } set { NeedUpdate = value;  } }
+        public bool NeedUpdates { get { return NeedUpdate; } set { NeedUpdate = value; } }
 
 
     }

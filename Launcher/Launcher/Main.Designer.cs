@@ -539,35 +539,21 @@
         }
 
         #endregion
-
-        private TabControl tabControl1;
         private TabPage Loginsystem;
         private Label Forgotpassword;
-        private TextBox TrainingPW_TB;
-        private TextBox TrainingAccount_TB;
         private Label label3;
-        private Button Logout;
         private Label label2;
         private Label label1;
-        private Panel SeriaPanel;
         private Label label6;
         private Button TEST_spawnGobj;
         private Button TEST_FakeUpdate;
         private CheckBox Test_NeedUpdate;
         private TextBox Test_Gamename;
-        private TextBox SerialNumber;
         public Button Login;
-        private Panel Login_panel;
-        private Panel User_panel;
-        private Panel optionspanel;
-        private PictureBox pictureBox3;
         private PictureBox pictureBox1;
-        private Label LVersionlabel;
         private PictureBox pictureBox2;
         private Button user_btn;
         private PictureBox pictureBox4;
-        private Label Title_LB;
-        private PictureBox pictureBox_background;
         private Label label5;
         private Label label8;
         private Label label7;
@@ -576,6 +562,19 @@
         private Panel panel2;
         private Panel panel1;
         private Panel panel3;
-        private Panel LoginP;
+        public Panel SeriaPanel;
+        public Panel Login_panel;
+        public PictureBox pictureBox_background;
+        public TextBox TrainingPW_TB;
+        public TextBox TrainingAccount_TB;
+        public TextBox SerialNumber;
+        public TabControl tabControl1;
+        public Panel User_panel;
+        public Button Logout;
+        public Panel optionspanel;
+        public PictureBox pictureBox3;
+        public Label LVersionlabel;
+        public Label Title_LB;
+        public Panel LoginP;
     }
 }

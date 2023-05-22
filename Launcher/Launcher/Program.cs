@@ -18,7 +18,6 @@ namespace Launcher
 
             var mainForm = serviceProvider.GetRequiredService<MainForm>();
             TIF tIF = new TIF(mainForm);
-            tIF.OnlyOneProcess();
 
             Application.Run(mainForm);
             //TODO:Add NLog
