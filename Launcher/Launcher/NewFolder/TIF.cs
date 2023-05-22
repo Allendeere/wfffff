@@ -20,7 +20,7 @@ namespace Launcher.NewFolder//TODO:待改介面
         public MainForm mainForm;
 
         SystemInformationPage systemInformationpg;
-        //通用字典
+        //可執行軟體字典
         public Dictionary<string, object> gameDT = new Dictionary<string, object>();
 
         public TIF(MainForm mainForm)
@@ -32,7 +32,9 @@ namespace Launcher.NewFolder//TODO:待改介面
             
             UI_Initialization();
         }
-
+        /// <summary>
+        /// UI初始
+        /// </summary>
         void UI_Initialization()
         {
             mainForm.Text += $"   v {LauncherVersion}";
@@ -40,7 +42,9 @@ namespace Launcher.NewFolder//TODO:待改介面
             mainForm.SeriaPanel.Parent = mainForm.pictureBox_background;
             mainForm.Login.FlatAppearance.BorderSize = 0;
         }
-
+        /// <summary>
+        /// 登入
+        /// </summary>
         public void Login()
         {
             if (LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text).IsVerified)
@@ -55,6 +59,9 @@ namespace Launcher.NewFolder//TODO:待改介面
                 mainForm.Login_panel.Enabled = false;
             }
         }
+        /// <summary>
+        /// 驗證
+        /// </summary>
         public void Verify()
         {
             if (VerifyIdentity(mainForm.SerialNumber.Text))
@@ -67,18 +74,19 @@ namespace Launcher.NewFolder//TODO:待改介面
                 mainForm.Login_panel.Enabled = true;
             }
         }
-
+        /// <summary>
+        /// 登入成功後生成的子頁
+        /// 【啟動器頁面】
+        /// </summary>
         void SpawnPage()
         {
             systemInformationpg = new SystemInformationPage();
-
 
             mainForm.optionspanel.Size = new Size(195, 518);
             mainForm.LVersionlabel.Location = new Point(130, 403);
             mainForm.pictureBox3.Location = new Point(8, 350);
             mainForm.LoginP.Visible = true;
             mainForm.Title_LB.Text = "Name";
-
             #region 頁面生成
             systemInformationpg.SystemInformation = new TabPage();
             systemInformationpg.panel2 = new Panel();
@@ -211,14 +219,15 @@ namespace Launcher.NewFolder//TODO:待改介面
             systemInformationpg.panel1.ResumeLayout(false);
             systemInformationpg.panel1.PerformLayout();
             #endregion
-
             mainForm.tabControl1.TabPages["Loginsystem"].Text = "訓練帳號 : " + mainForm.TrainingAccount_TB.Text;
             mainForm.Login_panel.Visible = false;
             mainForm.Login.Text = "執行訓練";
             mainForm.User_panel.Visible = true;
             mainForm.Logout.Enabled = true;
         }
-
+        /// <summary>
+        /// 我的可執行軟體
+        /// </summary>
         public void SpawnSoftware()
         {
             try
@@ -298,6 +307,9 @@ namespace Launcher.NewFolder//TODO:待改介面
             }
 
         }
+        /// <summary>
+        /// 登出
+        /// </summary>
         public void Logout()
         {
             mainForm.optionspanel.Size = new Size(276, 452);
@@ -320,7 +332,10 @@ namespace Launcher.NewFolder//TODO:待改介面
                 systemInformationpg = null;
             }
         }
-
+        /// <summary>
+        /// 切換頁面
+        /// </summary>
+        /// <param name="page"></param>
         public void PageSwitch(string page)
         {
             switch (page)
@@ -332,6 +347,14 @@ namespace Launcher.NewFolder//TODO:待改介面
                     mainForm.tabControl1.SelectedIndex = 1;
                     break;
             }
+        }
+        /// <summary>
+        /// 忘記密碼
+        /// </summary>
+        public void ForgetPW()
+        {
+            ForgetPasswordForm forgetPasswordForm = new ForgetPasswordForm();
+            forgetPasswordForm.Show();
         }
 
         #region 登入器相關
@@ -405,14 +428,14 @@ namespace Launcher.NewFolder//TODO:待改介面
 
         #region 登入與驗證(判斷)
         /// <summary>
-        /// 身分認證
+        /// 驗證 >> 身分認證
         /// </summary>
         /// <param name="verify"></param>
         /// <returns></returns>
         public bool VerifyIdentity(string verify) => !string.IsNullOrEmpty(verify);
 
         /// <summary>
-        /// 帳號認證
+        /// 登入 >> 帳號認證
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
@@ -421,7 +444,7 @@ namespace Launcher.NewFolder//TODO:待改介面
         {
             LoginResult result = new LoginResult();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))//空白檢查
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))//空白檢查(暫時)
             {
                 result.IsVerified = false;
                 result.Message = "Login verification failed.";

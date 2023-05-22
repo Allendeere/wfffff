@@ -23,7 +23,7 @@ namespace Launcher
             //TODO:Add NLog
 
         }
-        public static IServiceProvider serviceProvider { get; private set; }
+        public static IServiceProvider serviceProvider { get; private set; } //¹w¯d
 
         static IHostBuilder CreatHostBuilder()
         {
