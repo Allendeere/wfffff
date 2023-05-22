@@ -26,9 +26,6 @@ namespace Launcher
         public TIF _tiF;
 
         //當登入成功時存入生成遊戲物件的方法
-        Action setup;
-        Action logout;
-        Action<string> Functions;
 
         public MainForm()
         {
@@ -108,12 +105,12 @@ namespace Launcher
 
         private void user_btn_Click(object sender, EventArgs e)
         {
-            _tiF.PageSwitch("user"); //換頁
+            _tiF.PageSwitch(0); //換頁
         }
 
         private void software_btn_Click(object sender, EventArgs e)
         {
-            _tiF.PageSwitch("software"); //換頁
+            _tiF.PageSwitch(1); //換頁
         }
     }
 }

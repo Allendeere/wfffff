@@ -8,15 +8,14 @@ using System.Xml.Linq;
 namespace Launcher.NewFolder
 {
     //結構
-    public class package
-    {
-    }
+    public class package { }
 
-    class SystemInformationPage
+    class SystemInformationPage //頁面二
     {
         static SystemInformationPage systemInformationPage;
 
-        public TabPage SystemInformation{ get; set; }
+        static readonly object _lock = new object();
+        public TabPage SystemInformation { get; set; }
         public Panel panel2 { get; set; }
         public FlowLayoutPanel flowLayoutPanel1 { get; set; }
         public Panel panel1 { get; set; }
@@ -28,23 +27,21 @@ namespace Launcher.NewFolder
 
         public Label labellauncherv { get; set; }
 
-        public SystemInformationPage()
-        {
+        SystemInformationPage() { }
 
+        public static SystemInformationPage Create()
+        {
+            if (systemInformationPage == null)
+            {
+                lock (_lock)
+                {
+                    systemInformationPage = new SystemInformationPage();
+                }
+            }
+            return systemInformationPage;
         }
 
-        //public static SystemInformationPage Create()
-        //{
-        //    if (systemInformationPage == null)
-        //    {
-        //        systemInformationPage = new SystemInformationPage();
-        //    }
-        //    return systemInformationPage;
-        //}
-
     }
-
-
 
     public class LoginResult//登入
     {
@@ -74,7 +71,6 @@ namespace Launcher.NewFolder
         public string getName { get { return Name; } }
         public string getDescribe { get { return Describe; } }
         public bool NeedUpdates { get { return NeedUpdate; } set { NeedUpdate = value; } }
-
 
     }
 }

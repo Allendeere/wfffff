@@ -19,17 +19,22 @@ namespace Launcher.NewFolder//TODO:待改介面
 
         public MainForm mainForm;
 
+        TIFF tIFF = new TIFF();
+        TIFFF tIFFF ;
+
         SystemInformationPage systemInformationpg;
         //可執行軟體字典
         public Dictionary<string, object> gameDT = new Dictionary<string, object>();
 
         public TIF(MainForm mainForm)
         {
-            OnlyOneProcess();
+            tIFF.OnlyOneProcess();
 
             this.mainForm = mainForm;
             mainForm._tiF = this;
-            
+
+            tIFFF = new TIFFF(mainForm);
+
             UI_Initialization();
         }
         /// <summary>
@@ -47,7 +52,7 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// </summary>
         public void Login()
         {
-            if (LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text).IsVerified)
+            if (tIFF.LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text).IsVerified)
             {
                 SpawnPage();
 
@@ -64,7 +69,7 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// </summary>
         public void Verify()
         {
-            if (VerifyIdentity(mainForm.SerialNumber.Text))
+            if (tIFF.VerifyIdentity(mainForm.SerialNumber.Text))
             {
                 mainForm.Login.Text = "登入";
                 mainForm.Login.Enabled = false;
@@ -80,7 +85,7 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// </summary>
         void SpawnPage()
         {
-            systemInformationpg = new SystemInformationPage();
+            systemInformationpg = SystemInformationPage.Create();
 
             mainForm.optionspanel.Size = new Size(195, 518);
             mainForm.LVersionlabel.Location = new Point(130, 403);
@@ -326,7 +331,7 @@ namespace Launcher.NewFolder//TODO:待改介面
             mainForm.SeriaPanel.Visible = true;
             gameDT.Clear();
 
-            if(systemInformationpg != null)
+            if (systemInformationpg != null)
             {
                 mainForm.tabControl1.Controls.Remove(systemInformationpg.SystemInformation);
                 systemInformationpg = null;
@@ -336,14 +341,14 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// 切換頁面
         /// </summary>
         /// <param name="page"></param>
-        public void PageSwitch(string page)
+        public void PageSwitch(short page)
         {
             switch (page)
             {
-                case "user":
+                case 0:
                     mainForm.tabControl1.SelectedIndex = 0;
                     break;
-                case "software":
+                case 1:
                     mainForm.tabControl1.SelectedIndex = 1;
                     break;
             }
@@ -357,55 +362,9 @@ namespace Launcher.NewFolder//TODO:待改介面
             forgetPasswordForm.Show();
         }
 
-        #region 登入器相關
-        //Launcher 是否正在更新中
-        static bool Updating = false;
 
-        /// <summary>
-        /// Launcher數量檢查
-        /// </summary>
-        public void OnlyOneProcess()
-        {
-            Process current = Process.GetCurrentProcess();
+        // --------以下須被分割-------------------------------------------------------------------
 
-            foreach (var process in Process.GetProcessesByName(current.ProcessName))
-            {
-                if (process.Id != current.Id)
-                {
-                    process.Kill();
-                    continue;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 自動安裝 Launcher
-        /// </summary>
-        private static void InstallLauncher()
-        {
-            string directory = @"C:\VAR";
-            ProcessStartInfo Info2 = new ProcessStartInfo();
-            Info2.FileName = "update.bat";
-            Info2.WorkingDirectory = directory;
-            Info2.Verb = "runas";
-            Process.Start(Info2);
-            Updating = false;
-        }
-
-        #endregion
-
-        #region UpdateChecks
-        public void UpdateCheck(object obj)//範本
-        {
-            if (obj is GameData gt)
-            {
-                //如果不需要 ...
-                return;
-
-                //如果需要更新 ...
-                gt.NeedUpdates = true;
-            }
-        }
 
         public void UpdateCheck(object obj, bool b)//測試專用
         {
@@ -424,39 +383,7 @@ namespace Launcher.NewFolder//TODO:待改介面
 
         }
 
-        #endregion
 
-        #region 登入與驗證(判斷)
-        /// <summary>
-        /// 驗證 >> 身分認證
-        /// </summary>
-        /// <param name="verify"></param>
-        /// <returns></returns>
-        public bool VerifyIdentity(string verify) => !string.IsNullOrEmpty(verify);
 
-        /// <summary>
-        /// 登入 >> 帳號認證
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public LoginResult LoginVerification(string username, string password)
-        {
-            LoginResult result = new LoginResult();
-
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))//空白檢查(暫時)
-            {
-                result.IsVerified = false;
-                result.Message = "Login verification failed.";
-            }
-            else
-            {
-                result.IsVerified = true;
-                result.Message = "Login success!";
-            }
-            return result;
-        }
-
-        #endregion
     }
 }

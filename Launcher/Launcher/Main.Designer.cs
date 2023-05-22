@@ -354,8 +354,8 @@
             optionspanel.Controls.Add(Title_LB);
             optionspanel.Controls.Add(pictureBox4);
             optionspanel.Controls.Add(pictureBox3);
-            optionspanel.Controls.Add(pictureBox1);
             optionspanel.Controls.Add(LoginP);
+            optionspanel.Controls.Add(pictureBox1);
             optionspanel.Location = new Point(0, 0);
             optionspanel.Name = "optionspanel";
             optionspanel.Size = new Size(276, 452);
