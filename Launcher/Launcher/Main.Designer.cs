@@ -52,17 +52,30 @@
             label2 = new Label();
             pictureBox_background = new PictureBox();
             pictureBox2 = new PictureBox();
+            SystemInformation = new TabPage();
+            TEST_spawnGobj = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            INFO_PN = new Panel();
+            LoadGame_Btn = new Button();
+            GameName_Lb = new Label();
+            Detail_Lb = new Label();
+            labellauncherv = new Label();
+            GameImageBig = new Panel();
             optionspanel = new Panel();
-            LVersionlabel = new Label();
+            verify_pn = new Panel();
+            loginstate_lb = new Label();
+            uuidverify_lb = new Label();
+            mypath_tb = new TextBox();
+            mypath_btn = new Button();
             Title_LB = new Label();
-            pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
+            LVersionlabel = new Label();
+            pictureBox4 = new PictureBox();
             LoginP = new Panel();
-            button1 = new Button();
+            accountmangement_btn = new Button();
             user_btn = new Button();
             software_btn = new Button();
             pictureBox1 = new PictureBox();
-            TEST_spawnGobj = new Button();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             User_panel.SuspendLayout();
@@ -71,9 +84,12 @@
             Login_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox_background).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            SystemInformation.SuspendLayout();
+            INFO_PN.SuspendLayout();
             optionspanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            verify_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             LoginP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -82,6 +98,7 @@
             // 
             tabControl1.Appearance = TabAppearance.FlatButtons;
             tabControl1.Controls.Add(Loginsystem);
+            tabControl1.Controls.Add(SystemInformation);
             tabControl1.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             tabControl1.HotTrack = true;
             tabControl1.ItemSize = new Size(0, 1);
@@ -148,10 +165,12 @@
             // Logout
             // 
             Logout.BackColor = Color.FromArgb(36, 36, 45);
+            Logout.Cursor = Cursors.Hand;
             Logout.Enabled = false;
+            Logout.FlatAppearance.BorderSize = 0;
             Logout.FlatStyle = FlatStyle.Flat;
             Logout.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            Logout.ForeColor = SystemColors.ButtonFace;
+            Logout.ForeColor = Color.Transparent;
             Logout.Location = new Point(514, 14);
             Logout.Name = "Logout";
             Logout.Size = new Size(55, 30);
@@ -344,19 +363,205 @@
             pictureBox2.TabIndex = 20;
             pictureBox2.TabStop = false;
             // 
+            // SystemInformation
+            // 
+            SystemInformation.BackgroundImage = (Image)resources.GetObject("SystemInformation.BackgroundImage");
+            SystemInformation.BackgroundImageLayout = ImageLayout.Stretch;
+            SystemInformation.Controls.Add(TEST_spawnGobj);
+            SystemInformation.Controls.Add(flowLayoutPanel1);
+            SystemInformation.Controls.Add(INFO_PN);
+            SystemInformation.Controls.Add(GameImageBig);
+            SystemInformation.Location = new Point(4, 5);
+            SystemInformation.Name = "SystemInformation";
+            SystemInformation.Size = new Size(608, 441);
+            SystemInformation.TabIndex = 1;
+            SystemInformation.Text = "系統資訊";
+            SystemInformation.UseVisualStyleBackColor = true;
+            // 
+            // TEST_spawnGobj
+            // 
+            TEST_spawnGobj.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            TEST_spawnGobj.Location = new Point(486, 8);
+            TEST_spawnGobj.Name = "TEST_spawnGobj";
+            TEST_spawnGobj.Size = new Size(109, 23);
+            TEST_spawnGobj.TabIndex = 12;
+            TEST_spawnGobj.Text = "生成FK遊戲";
+            TEST_spawnGobj.UseVisualStyleBackColor = true;
+            TEST_spawnGobj.Click += TEST_spawnGobj_Click;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.BackColor = Color.Transparent;
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.Location = new Point(40, 298);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(555, 100);
+            flowLayoutPanel1.TabIndex = 1;
+            // 
+            // INFO_PN
+            // 
+            INFO_PN.BackColor = Color.Transparent;
+            INFO_PN.Controls.Add(LoadGame_Btn);
+            INFO_PN.Controls.Add(GameName_Lb);
+            INFO_PN.Controls.Add(Detail_Lb);
+            INFO_PN.Controls.Add(labellauncherv);
+            INFO_PN.Location = new Point(403, 46);
+            INFO_PN.Name = "INFO_PN";
+            INFO_PN.Size = new Size(169, 215);
+            INFO_PN.TabIndex = 1;
+            // 
+            // LoadGame_Btn
+            // 
+            LoadGame_Btn.BackColor = Color.Transparent;
+            LoadGame_Btn.BackgroundImage = (Image)resources.GetObject("LoadGame_Btn.BackgroundImage");
+            LoadGame_Btn.BackgroundImageLayout = ImageLayout.Zoom;
+            LoadGame_Btn.FlatAppearance.BorderSize = 0;
+            LoadGame_Btn.FlatStyle = FlatStyle.Flat;
+            LoadGame_Btn.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LoadGame_Btn.ForeColor = Color.Transparent;
+            LoadGame_Btn.Location = new Point(47, 178);
+            LoadGame_Btn.Name = "LoadGame_Btn";
+            LoadGame_Btn.Size = new Size(122, 37);
+            LoadGame_Btn.TabIndex = 3;
+            LoadGame_Btn.Text = "啟動遊戲";
+            LoadGame_Btn.UseVisualStyleBackColor = false;
+            LoadGame_Btn.Visible = false;
+            // 
+            // GameName_Lb
+            // 
+            GameName_Lb.AutoSize = true;
+            GameName_Lb.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            GameName_Lb.ForeColor = SystemColors.ButtonHighlight;
+            GameName_Lb.Location = new Point(0, 51);
+            GameName_Lb.Name = "GameName_Lb";
+            GameName_Lb.Size = new Size(104, 20);
+            GameName_Lb.TabIndex = 2;
+            GameName_Lb.Text = "Game Name";
+            // 
+            // Detail_Lb
+            // 
+            Detail_Lb.AutoSize = true;
+            Detail_Lb.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            Detail_Lb.ForeColor = SystemColors.ButtonHighlight;
+            Detail_Lb.Location = new Point(0, 86);
+            Detail_Lb.Name = "Detail_Lb";
+            Detail_Lb.Size = new Size(109, 75);
+            Detail_Lb.TabIndex = 1;
+            Detail_Lb.Text = "啟動器版本 : v0.0.0\r\n\r\n222\r\n\r\n222";
+            // 
+            // labellauncherv
+            // 
+            labellauncherv.AutoSize = true;
+            labellauncherv.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            labellauncherv.ForeColor = SystemColors.ButtonHighlight;
+            labellauncherv.Location = new Point(0, 20);
+            labellauncherv.Name = "labellauncherv";
+            labellauncherv.Size = new Size(109, 15);
+            labellauncherv.TabIndex = 0;
+            labellauncherv.Text = "啟動器版本 : v0.0.0";
+            // 
+            // GameImageBig
+            // 
+            GameImageBig.BackgroundImage = (Image)resources.GetObject("GameImageBig.BackgroundImage");
+            GameImageBig.BackgroundImageLayout = ImageLayout.Stretch;
+            GameImageBig.Location = new Point(40, 46);
+            GameImageBig.Name = "GameImageBig";
+            GameImageBig.Size = new Size(318, 215);
+            GameImageBig.TabIndex = 0;
+            // 
             // optionspanel
             // 
             optionspanel.BackColor = Color.FromArgb(36, 36, 45);
-            optionspanel.Controls.Add(LVersionlabel);
             optionspanel.Controls.Add(Title_LB);
-            optionspanel.Controls.Add(pictureBox4);
             optionspanel.Controls.Add(pictureBox3);
+            optionspanel.Controls.Add(LVersionlabel);
+            optionspanel.Controls.Add(pictureBox4);
             optionspanel.Controls.Add(LoginP);
+            optionspanel.Controls.Add(verify_pn);
             optionspanel.Controls.Add(pictureBox1);
             optionspanel.Location = new Point(0, 0);
             optionspanel.Name = "optionspanel";
             optionspanel.Size = new Size(276, 452);
             optionspanel.TabIndex = 19;
+            // 
+            // verify_pn
+            // 
+            verify_pn.Controls.Add(loginstate_lb);
+            verify_pn.Controls.Add(uuidverify_lb);
+            verify_pn.Controls.Add(mypath_tb);
+            verify_pn.Controls.Add(mypath_btn);
+            verify_pn.Location = new Point(0, 156);
+            verify_pn.Name = "verify_pn";
+            verify_pn.Size = new Size(276, 144);
+            verify_pn.TabIndex = 25;
+            // 
+            // loginstate_lb
+            // 
+            loginstate_lb.AutoSize = true;
+            loginstate_lb.ForeColor = Color.Gray;
+            loginstate_lb.Location = new Point(42, 104);
+            loginstate_lb.Name = "loginstate_lb";
+            loginstate_lb.Size = new Size(175, 15);
+            loginstate_lb.TabIndex = 26;
+            loginstate_lb.Text = "登入 - - - - - - - - - - - - - - - -  ✘";
+            // 
+            // uuidverify_lb
+            // 
+            uuidverify_lb.AutoSize = true;
+            uuidverify_lb.ForeColor = Color.Gray;
+            uuidverify_lb.Location = new Point(42, 66);
+            uuidverify_lb.Name = "uuidverify_lb";
+            uuidverify_lb.Size = new Size(175, 15);
+            uuidverify_lb.TabIndex = 25;
+            uuidverify_lb.Text = "驗證 - - - - - - - - - - - - - - - -  ✘";
+            // 
+            // mypath_tb
+            // 
+            mypath_tb.BackColor = Color.FromArgb(36, 36, 45);
+            mypath_tb.BorderStyle = BorderStyle.None;
+            mypath_tb.ForeColor = Color.BurlyWood;
+            mypath_tb.Location = new Point(53, 26);
+            mypath_tb.Name = "mypath_tb";
+            mypath_tb.Size = new Size(199, 16);
+            mypath_tb.TabIndex = 24;
+            mypath_tb.Text = "C:\\Users\\Administrator\\Desktop\\我的資料\\Launcherbk";
+            mypath_tb.TextChanged += mypath_tb_TextChanged;
+            // 
+            // mypath_btn
+            // 
+            mypath_btn.BackgroundImage = (Image)resources.GetObject("mypath_btn.BackgroundImage");
+            mypath_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            mypath_btn.FlatAppearance.BorderSize = 0;
+            mypath_btn.FlatStyle = FlatStyle.Flat;
+            mypath_btn.ForeColor = Color.FromArgb(36, 36, 45);
+            mypath_btn.Location = new Point(6, 20);
+            mypath_btn.Name = "mypath_btn";
+            mypath_btn.Size = new Size(46, 27);
+            mypath_btn.TabIndex = 19;
+            mypath_btn.UseVisualStyleBackColor = true;
+            mypath_btn.Click += mypath_btn_Click;
+            // 
+            // Title_LB
+            // 
+            Title_LB.AutoSize = true;
+            Title_LB.Font = new Font("Microsoft JhengHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            Title_LB.ForeColor = SystemColors.ButtonHighlight;
+            Title_LB.Location = new Point(76, 26);
+            Title_LB.Name = "Title_LB";
+            Title_LB.Size = new Size(104, 26);
+            Title_LB.TabIndex = 22;
+            Title_LB.Text = "Launcher";
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
+            pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox3.Location = new Point(14, 9);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(65, 60);
+            pictureBox3.TabIndex = 24;
+            pictureBox3.TabStop = false;
             // 
             // LVersionlabel
             // 
@@ -369,41 +574,19 @@
             LVersionlabel.TabIndex = 3;
             LVersionlabel.Text = "v 0.0.0";
             // 
-            // Title_LB
-            // 
-            Title_LB.AutoSize = true;
-            Title_LB.Font = new Font("Microsoft JhengHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            Title_LB.ForeColor = SystemColors.ButtonHighlight;
-            Title_LB.Location = new Point(48, 19);
-            Title_LB.Name = "Title_LB";
-            Title_LB.Size = new Size(104, 26);
-            Title_LB.TabIndex = 22;
-            Title_LB.Text = "Launcher";
-            // 
             // pictureBox4
             // 
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(7, 48);
+            pictureBox4.Location = new Point(7, 56);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(176, 33);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 21;
             pictureBox4.TabStop = false;
             // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.Transparent;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(27, 370);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(183, 60);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 4;
-            pictureBox3.TabStop = false;
-            // 
             // LoginP
             // 
-            LoginP.Controls.Add(button1);
+            LoginP.Controls.Add(accountmangement_btn);
             LoginP.Controls.Add(user_btn);
             LoginP.Controls.Add(software_btn);
             LoginP.Location = new Point(3, 3);
@@ -412,17 +595,17 @@
             LoginP.TabIndex = 24;
             LoginP.Visible = false;
             // 
-            // button1
+            // accountmangement_btn
             // 
-            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
-            button1.BackgroundImageLayout = ImageLayout.Zoom;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.FromArgb(36, 36, 45);
-            button1.Location = new Point(20, 173);
-            button1.Name = "button1";
-            button1.Size = new Size(162, 40);
-            button1.TabIndex = 23;
-            button1.UseVisualStyleBackColor = true;
+            accountmangement_btn.BackgroundImage = (Image)resources.GetObject("accountmangement_btn.BackgroundImage");
+            accountmangement_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            accountmangement_btn.FlatStyle = FlatStyle.Flat;
+            accountmangement_btn.ForeColor = Color.FromArgb(36, 36, 45);
+            accountmangement_btn.Location = new Point(20, 173);
+            accountmangement_btn.Name = "accountmangement_btn";
+            accountmangement_btn.Size = new Size(162, 40);
+            accountmangement_btn.TabIndex = 23;
+            accountmangement_btn.UseVisualStyleBackColor = true;
             // 
             // user_btn
             // 
@@ -461,28 +644,18 @@
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
-            // TEST_spawnGobj
-            // 
-            TEST_spawnGobj.Location = new Point(512, 1);
-            TEST_spawnGobj.Name = "TEST_spawnGobj";
-            TEST_spawnGobj.Size = new Size(109, 23);
-            TEST_spawnGobj.TabIndex = 12;
-            TEST_spawnGobj.Text = "生成FK遊戲";
-            TEST_spawnGobj.UseVisualStyleBackColor = true;
-            TEST_spawnGobj.Click += TEST_spawnGobj_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(800, 431);
-            Controls.Add(TEST_spawnGobj);
             Controls.Add(optionspanel);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "MainForm";
-            Text = "兵推系統訓練軟體";
+            Text = "Launcher";
             tabControl1.ResumeLayout(false);
             Loginsystem.ResumeLayout(false);
             User_panel.ResumeLayout(false);
@@ -494,10 +667,15 @@
             Login_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox_background).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            SystemInformation.ResumeLayout(false);
+            INFO_PN.ResumeLayout(false);
+            INFO_PN.PerformLayout();
             optionspanel.ResumeLayout(false);
             optionspanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            verify_pn.ResumeLayout(false);
+            verify_pn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             LoginP.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -519,7 +697,7 @@
         private Label label5;
         private Label label8;
         private Label label7;
-        private Button button1;
+        private Button accountmangement_btn;
         private Button software_btn;
         private Panel panel2;
         private Panel panel1;
@@ -534,9 +712,23 @@
         public Panel User_panel;
         public Button Logout;
         public Panel optionspanel;
-        public PictureBox pictureBox3;
         public Label LVersionlabel;
         public Label Title_LB;
         public Panel LoginP;
+        private Panel GameImageBig;
+        public TabPage SystemInformation;
+        public Label labellauncherv;
+        public Label GameName_Lb;
+        public Label Detail_Lb;
+        public Button LoadGame_Btn;
+        public FlowLayoutPanel flowLayoutPanel1;
+        public Panel INFO_PN;
+        private PictureBox pictureBox3;
+        public Panel verify_pn;
+        private Label login_lb;
+        private Button mypath_btn;
+        public TextBox mypath_tb;
+        public Label uuidverify_lb;
+        public Label loginstate_lb;
     }
 }

@@ -30,19 +30,6 @@ namespace Launcher.NewFolder
             }
         }
 
-        /// <summary>
-        /// 自動安裝 Launcher
-        /// </summary>
-        private static void InstallLauncher()
-        {
-            string directory = @"C:\VAR";
-            ProcessStartInfo Info2 = new ProcessStartInfo();
-            Info2.FileName = "update.bat";
-            Info2.WorkingDirectory = directory;
-            Info2.Verb = "runas";
-            Process.Start(Info2);
-            Updating = false;
-        }
 
         #region 登入與驗證(判斷)
         /// <summary>

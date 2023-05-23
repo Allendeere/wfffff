@@ -23,9 +23,7 @@ namespace Launcher
         //Server方面
         public readonly IServerSerice _serverSerice;
         //功能集
-        public TIF _tiF;
-
-        //當登入成功時存入生成遊戲物件的方法
+        public UIControl uictrl;
 
         public MainForm()
         {
@@ -34,7 +32,7 @@ namespace Launcher
 
         private void Forgotpassword_Click(object sender, EventArgs e)
         {
-            _tiF.ForgetPW();
+            uictrl.ForgetPW();
         }
 
         private void Login_Click(object sender, EventArgs e)
@@ -42,10 +40,10 @@ namespace Launcher
             switch (Login.Text)
             {
                 case "登入":
-                    _tiF.Login();
+                    uictrl.Login();
                     break;
                 case "驗證":
-                    _tiF.Verify();
+                    uictrl.Verify();
                     break;
                 case "執行訓練":
                     break;
@@ -70,7 +68,7 @@ namespace Launcher
 
         private void Logout_Click(object sender, EventArgs e)
         {
-            _tiF.Logout();
+            uictrl.Logout();
         }
         #endregion
 
@@ -81,19 +79,50 @@ namespace Launcher
         //測試用 : 生成遊戲物件
         private void TEST_spawnGobj_Click(object sender, EventArgs e) //TODO : 移至功能集
         {
-            _tiF.SpawnSoftware();
+            Random random = new Random();
+            uictrl.SpawnSoftware("Test" + random.Next(1, 1000));
         }
         #endregion
 
         private void user_btn_Click(object sender, EventArgs e)
         {
-            _tiF.PageSwitch(0); //換頁
+            uictrl.PageSwitch(0); //換頁
         }
 
         private void software_btn_Click(object sender, EventArgs e)
         {
-            _tiF.PageSwitch(1); //換頁
+            uictrl.PageSwitch(1); //換頁
         }
 
+        private void mypath_btn_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.ValidateNames = false;
+                openFileDialog.CheckFileExists = false;
+                openFileDialog.CheckPathExists = true;
+                openFileDialog.FileName = "選擇資料夾";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    mypath_tb.Text = Path.GetDirectoryName(openFileDialog.FileName);
+                }
+            }
+        }
+
+        private void mypath_tb_TextChanged(object sender, EventArgs e)
+        {
+            if (Directory.Exists(mypath_tb.Text))
+            {
+                Console.WriteLine("路徑有效");
+                mypath_tb.ForeColor = Color.BurlyWood;
+            }
+            else
+            {
+                Console.WriteLine("路徑無效");
+                mypath_tb.ForeColor = Color.IndianRed;
+
+            }
+        }
     }
 }

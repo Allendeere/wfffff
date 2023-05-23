@@ -1,5 +1,4 @@
-﻿using Launcher.NewFolder2;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +36,7 @@ namespace Launcher.NewFolder
         public Version localVersion;
         //TODO:Fix later
 
+        TIFFFF tIFFFF;
 
         MainForm mainForm;
 
@@ -66,6 +66,9 @@ namespace Launcher.NewFolder
         public TIFFF(MainForm mainForm)
         {
             this.mainForm = mainForm;
+
+            //tIFFFF = new TIFFFF(mainForm); //測試
+
             Init();
         }
         /// <summary>
@@ -92,7 +95,7 @@ namespace Launcher.NewFolder
             {
                 localVersion = new Version(File.ReadAllText(versionFile));
 
-                mainForm.Text = "v " + localVersion.ToString();
+                mainForm.Text = "Launcher   "+"v " + localVersion.ToString();
                 mainForm.LVersionlabel.Text = "v " + localVersion.ToString();
 
                 try
@@ -164,7 +167,7 @@ namespace Launcher.NewFolder
 
                 File.WriteAllText(versionFile, onlineVersion);
 
-                mainForm.Text = "v " + onlineVersion;
+                mainForm.Text = "Launcher   " + "v " + onlineVersion;
                 mainForm.LVersionlabel.Text = "v " + onlineVersion;
 
                 Status = LauncherStatus.ready;
@@ -200,59 +203,7 @@ namespace Launcher.NewFolder
 
 
 
-
-        string VerifyIdentitytest()//TODO:驗證測試 4335
-        {
-            string[] executables = Directory.GetFiles(FilePath, "*.exe", SearchOption.TopDirectoryOnly);
-
-            for (int i = 0; i < executables.Length; i++)
-            {
-                string sub_dir = Path.GetFileNameWithoutExtension(executables[i]) + "_Data";
-                if (Directory.Exists(Path.Combine(FilePath, sub_dir)))
-                    break;
-
-                if (i >= executables.Length)
-                {
-                    string error = "Game Path NOT Found.";
-                    return error;
-                }
-
-                GameStartInstance instance;
-
-                try
-                {
-                    instance = new GameStartInstance();
-                    instance.game = "";
-                    instance.process = new Process();
-                    instance.process.StartInfo.FileName = Path.Combine(FilePath, executables[i]);
-
-
-                    #region 驗證時間
-                    //驗證時間無限
-                    instance.expired = DateTime.MaxValue;
-
-                    //360秒內未有認證UDID 停止遊戲
-                    //instance.expired = DateTime.Now.AddSeconds(360.0); 
-                    #endregion
-
-                    if (instance.process.Start())
-                    {
-                        //. . .
-                    }
-                }
-                catch (Exception e)
-                {
-                    string error = e.Message;
-                    return error;
-                }
-
-
-            }
-            return "";
-
-        }
     }
-
 
     struct Version
     {
@@ -312,29 +263,5 @@ namespace Launcher.NewFolder
             return $"{major}.{minor}.{subMinor}";
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    class GameStartInstance
-    {
-        public string game;
-        public Process process;
-        public DateTime expired;
-        public int conn = -1;
-    }
-
 
 }

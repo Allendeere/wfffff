@@ -17,7 +17,7 @@ namespace Launcher
             serviceProvider.GetRequiredService<MainForm>();
 
             var mainForm = serviceProvider.GetRequiredService<MainForm>();
-            TIF tIF = new TIF(mainForm);
+            UIControl uictrl = new UIControl(mainForm);
 
             Application.Run(mainForm);
             //TODO:Add NLog
