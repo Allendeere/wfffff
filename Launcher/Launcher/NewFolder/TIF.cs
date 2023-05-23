@@ -15,7 +15,7 @@ namespace Launcher.NewFolder//TODO:待改介面
     public class TIF
     {
         //Launcher當前版本
-        string LauncherVersion = "0.0.0";
+        //string LauncherVersion = "0.0.0";
 
         public MainForm mainForm;
 
@@ -42,7 +42,6 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// </summary>
         void UI_Initialization()
         {
-            //mainForm.Text += $"   v {LauncherVersion}";
             mainForm.Login_panel.Parent = mainForm.pictureBox_background;
             mainForm.SeriaPanel.Parent = mainForm.pictureBox_background;
             mainForm.Login.FlatAppearance.BorderSize = 0;
@@ -196,7 +195,7 @@ namespace Launcher.NewFolder//TODO:待改介面
             systemInformationpg.labellauncherv.Name = "labellauncherv";
             systemInformationpg.labellauncherv.Size = new Size(42, 15);
             systemInformationpg.labellauncherv.TabIndex = 10;
-            systemInformationpg.labellauncherv.Text = "啟動器版本 : " + LauncherVersion;
+            systemInformationpg.labellauncherv.Text = "啟動器版本 : " + tIFFF.localVersion.ToString();
             // 
             // Detail_Lb
             // 

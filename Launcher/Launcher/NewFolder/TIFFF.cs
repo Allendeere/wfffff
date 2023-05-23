@@ -33,6 +33,7 @@ namespace Launcher.NewFolder
         private string gameZip;
         private string launcherExe;
 
+        public Version localVersion;
         //TODO:Fix later
 
 
@@ -71,16 +72,10 @@ namespace Launcher.NewFolder
         /// </summary>
         public void Init()
         {
-            //TODO:Fix later
-            FilePath = "C:\\LauncherTest";
+            FilePath = "C:\\Users\\Administrator\\Desktop\\我的資料";
             versionFile = FilePath + "\\Version.txt";
-            gameZip = Path.Combine(FilePath, "Build.zip");
-            launcherExe = Path.Combine(FilePath, "Build", "Cookie.exe");
-            //launcherExe = Path.Combine("C:\\Users\\Administrator\\Documents\\GitHub\\wfffff\\Launcher\\Launcher\\bin\\Debug\\net6.0-windows\\Launcher.exe");
-
-            //string exe = "\"C:\\Program Files\\VAR Box Launcher\\VAR Box Launcher.exe\"";
-
-            //savepath = Path.Combine("C:\\VAR", "LauncherInstaller.msi");
+            gameZip = Path.Combine(FilePath, "TestLauncher.zip");
+            launcherExe = Path.Combine(FilePath, "TestLauncher", "Launcher.exe");
 
             CheckForUpdates();
 
@@ -94,7 +89,8 @@ namespace Launcher.NewFolder
         {
             if (File.Exists(versionFile))
             {
-                Version localVersion = new Version(File.ReadAllText(versionFile));
+                localVersion = new Version(File.ReadAllText(versionFile));
+
                 mainForm.Text = "v " + localVersion.ToString();
                 mainForm.LVersionlabel.Text = "v " + localVersion.ToString();
 
@@ -148,7 +144,7 @@ namespace Launcher.NewFolder
 
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
                 //webClient.DownloadFileAsync(new Uri("File"), savepath);
-                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1ZelkvL0uObNdndCJW7XVuhVmrVD0Jhgz"), gameZip, _onlineVersion);
+                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1ZaXE_Be6XE8iuHHnycER_jTwu8iVs7Fi&confirm=t&uuid=31f3e2e6-dfb7-48da-97a8-4d8eee56a20e&at=AKKF8vwxf9-8Vuw31mAtUxx2q9rQ:1684805718970"), gameZip, _onlineVersion);
 
             }
             catch (Exception ex)
@@ -162,12 +158,14 @@ namespace Launcher.NewFolder
             try
             {
                 string onlineVersion = ((Version)e.UserState).ToString();
-                ZipFile.ExtractToDirectory(gameZip, FilePath, true);
+                ZipFile.ExtractToDirectory(gameZip, FilePath+ "\\TestLauncher", true); //解壓
                 File.Delete(gameZip);
 
                 File.WriteAllText(versionFile, onlineVersion);
 
-                mainForm.Text = onlineVersion;
+                mainForm.Text = "v " + onlineVersion;
+                mainForm.LVersionlabel.Text = "v " + onlineVersion;
+
                 Status = LauncherStatus.ready;
             }
             catch (Exception ex)
@@ -183,8 +181,8 @@ namespace Launcher.NewFolder
             {
                 //執行遊戲
                 ProcessStartInfo startInfo = new ProcessStartInfo(launcherExe);
-                //startInfo.WorkingDirectory = Path.Combine("C:\\Users\\Administrator\\Documents\\GitHub\\wfffff\\Launcher\\Launcher\\bin\\Debug", "net6.0-windows");
-                startInfo.WorkingDirectory = Path.Combine(FilePath, "Build");
+
+                startInfo.WorkingDirectory = Path.Combine(FilePath, "TestLauncher");
 
                 startInfo.UseShellExecute = true;
 
