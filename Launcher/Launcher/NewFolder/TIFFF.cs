@@ -1,4 +1,5 @@
 ﻿using Launcher.NewFolder2;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -97,7 +98,7 @@ namespace Launcher.NewFolder
                 try
                 {
                     WebClient webClient = new WebClient();
-                    
+
                     Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1H0xULRZoEHp3ZwgLp_wj3lgp5TV48LIk"));
                     // Version onlineVersion = new Version(webClient.DownloadString("Version.txt"));
 
@@ -144,7 +145,7 @@ namespace Launcher.NewFolder
 
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
                 //webClient.DownloadFileAsync(new Uri("File"), savepath);
-                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1ZaXE_Be6XE8iuHHnycER_jTwu8iVs7Fi&confirm=t&uuid=31f3e2e6-dfb7-48da-97a8-4d8eee56a20e&at=AKKF8vwxf9-8Vuw31mAtUxx2q9rQ:1684805718970"), gameZip, _onlineVersion);
+                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1EYDo2mBAVZ3rb-D5Zlo2GQEU-GcHFv5a&confirm=t&uuid=3b7a9917-3de9-4eb3-8619-7284fc226449&at=AKKF8vzjp7NC8bA6L8QMTsaLBcSc:1684811181278"), gameZip, _onlineVersion);
 
             }
             catch (Exception ex)
@@ -158,7 +159,7 @@ namespace Launcher.NewFolder
             try
             {
                 string onlineVersion = ((Version)e.UserState).ToString();
-                ZipFile.ExtractToDirectory(gameZip, FilePath+ "\\TestLauncher", true); //解壓
+                ZipFile.ExtractToDirectory(gameZip, FilePath + "\\TestLauncher", true); //解壓
                 File.Delete(gameZip);
 
                 File.WriteAllText(versionFile, onlineVersion);
@@ -188,12 +189,67 @@ namespace Launcher.NewFolder
 
                 Process.Start(startInfo); //TODO: 目前是測試檔案，要替還成Launcher Path !!
 
-                mainForm.Close();
+                //mainForm.Close();
             }
             else if (Status == LauncherStatus.failed)
             {
                 CheckForUpdates();
             }
+        }
+
+
+
+
+
+        string VerifyIdentitytest()//TODO:驗證測試 4335
+        {
+            string[] executables = Directory.GetFiles(FilePath, "*.exe", SearchOption.TopDirectoryOnly);
+
+            for (int i = 0; i < executables.Length; i++)
+            {
+                string sub_dir = Path.GetFileNameWithoutExtension(executables[i]) + "_Data";
+                if (Directory.Exists(Path.Combine(FilePath, sub_dir)))
+                    break;
+
+                if (i >= executables.Length)
+                {
+                    string error = "Game Path NOT Found.";
+                    return error;
+                }
+
+                GameStartInstance instance;
+
+                try
+                {
+                    instance = new GameStartInstance();
+                    instance.game = "";
+                    instance.process = new Process();
+                    instance.process.StartInfo.FileName = Path.Combine(FilePath, executables[i]);
+
+
+                    #region 驗證時間
+                    //驗證時間無限
+                    instance.expired = DateTime.MaxValue;
+
+                    //360秒內未有認證UDID 停止遊戲
+                    //instance.expired = DateTime.Now.AddSeconds(360.0); 
+                    #endregion
+
+                    if (instance.process.Start())
+                    {
+                        //. . .
+                    }
+                }
+                catch (Exception e)
+                {
+                    string error = e.Message;
+                    return error;
+                }
+
+
+            }
+            return "";
+
         }
     }
 
@@ -256,4 +312,29 @@ namespace Launcher.NewFolder
             return $"{major}.{minor}.{subMinor}";
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    class GameStartInstance
+    {
+        public string game;
+        public Process process;
+        public DateTime expired;
+        public int conn = -1;
+    }
+
+
 }

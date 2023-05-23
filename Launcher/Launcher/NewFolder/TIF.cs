@@ -240,11 +240,6 @@ namespace Launcher.NewFolder//TODO:待改介面
                 GameData gameData = new GameData("v1.0.0", "GameName_Test", "-----\n\r- -- -- \n\r--\n\r-- - ---- -- -\n\r----- 。"); //登入成功後拉本機DT (假設本機有DT)
                 gameDT.Add(gameData.getName, gameData);
 
-                //檢查是否需要更新(測試)
-                UpdateCheck(gameData, true);
-                //檢查是否需要更新(正式)
-                //UpdateCheck(gameData);
-
                 #region UI: 創建按鈕
                 Panel pln = new Panel();
                 Label labelgamev = new Label();
@@ -320,7 +315,7 @@ namespace Launcher.NewFolder//TODO:待改介面
             mainForm.LVersionlabel.Location = new Point(223, 403);
             mainForm.pictureBox3.Location = new Point(27, 370);
             mainForm.LoginP.Visible = false;
-            mainForm.Title_LB.Text = "兵推系統訓練軟體";
+            mainForm.Title_LB.Text = "Launcher";
 
             mainForm.tabControl1.TabPages["Loginsystem"].Text = "登入系統";
             mainForm.SeriaPanel.Enabled = true;
@@ -365,22 +360,6 @@ namespace Launcher.NewFolder//TODO:待改介面
         // --------以下須被分割-------------------------------------------------------------------
 
 
-        public void UpdateCheck(object obj, bool b)//測試專用
-        {
-            if (obj is GameData gt)
-            {
-
-                //如果不需要 ...
-                if (!b) return;
-
-                //如果需要更新 ...
-                gt.NeedUpdates = true;
-
-                MessageBox.Show($"偵測到一筆新的新版本，是否進行更新 \n\r遊戲名稱:{gt.getName} \n\r當前版本:{gt.getVersion} \n\r最新版本:9.9.9 ", "更新提示", MessageBoxButtons.YesNoCancel);
-
-            }
-
-        }
 
 
 

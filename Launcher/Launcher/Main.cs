@@ -77,24 +77,6 @@ namespace Launcher
 
         #region 測試區
 
-        private void TEST_FakeUpdate_Click(object sender, EventArgs e)
-        {
-            foreach (object key in _tiF.gameDT.Values)
-            {
-                try
-                {
-                    if (key is GameData gt) //搜尋遊戲名程
-                    {
-                        if (gt.NeedUpdates)//是否需要更新
-                            MessageBox.Show($"偵測到一筆新的新版本，是否進行更新 \n\r遊戲名稱:{gt.getName} \n\r當前版本:{gt.getVersion} \n\r最新版本:9.9.9 ", "更新提示", MessageBoxButtons.YesNoCancel);
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("目前沒有可更新的遊戲");
-                }
-            }
-        }
 
         //測試用 : 生成遊戲物件
         private void TEST_spawnGobj_Click(object sender, EventArgs e) //TODO : 移至功能集
@@ -112,5 +94,6 @@ namespace Launcher
         {
             _tiF.PageSwitch(1); //換頁
         }
+
     }
 }

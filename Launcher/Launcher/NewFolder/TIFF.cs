@@ -44,28 +44,17 @@ namespace Launcher.NewFolder
             Updating = false;
         }
 
-        /// <summary>
-        /// 更新檢查
-        /// </summary>
-        /// <param name="obj"></param>
-        public void UpdateCheck(object obj)
-        {
-            if (obj is GameData gt)
-            {
-                //如果不需要 ...
-                return;
-
-                //如果需要更新 ...
-                gt.NeedUpdates = true;
-            }
-        }
         #region 登入與驗證(判斷)
         /// <summary>
         /// 驗證 >> 身分認證
         /// </summary>
         /// <param name="verify"></param>
         /// <returns></returns>
-        public bool VerifyIdentity(string verify) => !string.IsNullOrEmpty(verify);
+        public bool VerifyIdentity(string verify)
+        {
+            
+            return !string.IsNullOrEmpty(verify);
+        }
 
         /// <summary>
         /// 登入 >> 帳號認證

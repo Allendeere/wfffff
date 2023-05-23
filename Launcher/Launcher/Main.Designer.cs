@@ -57,15 +57,12 @@
             Title_LB = new Label();
             pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
-            pictureBox1 = new PictureBox();
             LoginP = new Panel();
             button1 = new Button();
             user_btn = new Button();
             software_btn = new Button();
+            pictureBox1 = new PictureBox();
             TEST_spawnGobj = new Button();
-            TEST_FakeUpdate = new Button();
-            Test_NeedUpdate = new CheckBox();
-            Test_Gamename = new TextBox();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             User_panel.SuspendLayout();
@@ -77,8 +74,8 @@
             optionspanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             LoginP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -379,9 +376,9 @@
             Title_LB.ForeColor = SystemColors.ButtonHighlight;
             Title_LB.Location = new Point(48, 19);
             Title_LB.Name = "Title_LB";
-            Title_LB.Size = new Size(180, 26);
+            Title_LB.Size = new Size(104, 26);
             Title_LB.TabIndex = 22;
-            Title_LB.Text = "兵推系統訓練軟體";
+            Title_LB.Text = "Launcher";
             // 
             // pictureBox4
             // 
@@ -403,17 +400,6 @@
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 4;
             pictureBox3.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(146, 23);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(132, 169);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
             // 
             // LoginP
             // 
@@ -464,6 +450,17 @@
             software_btn.UseVisualStyleBackColor = true;
             software_btn.Click += software_btn_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(146, 23);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(132, 169);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
+            // 
             // TEST_spawnGobj
             // 
             TEST_spawnGobj.Location = new Point(512, 1);
@@ -474,43 +471,12 @@
             TEST_spawnGobj.UseVisualStyleBackColor = true;
             TEST_spawnGobj.Click += TEST_spawnGobj_Click;
             // 
-            // TEST_FakeUpdate
-            // 
-            TEST_FakeUpdate.Location = new Point(637, 1);
-            TEST_FakeUpdate.Name = "TEST_FakeUpdate";
-            TEST_FakeUpdate.Size = new Size(109, 23);
-            TEST_FakeUpdate.TabIndex = 13;
-            TEST_FakeUpdate.Text = "假更新警報";
-            TEST_FakeUpdate.UseVisualStyleBackColor = true;
-            TEST_FakeUpdate.Click += TEST_FakeUpdate_Click;
-            // 
-            // Test_NeedUpdate
-            // 
-            Test_NeedUpdate.AutoSize = true;
-            Test_NeedUpdate.Location = new Point(501, 22);
-            Test_NeedUpdate.Name = "Test_NeedUpdate";
-            Test_NeedUpdate.Size = new Size(86, 19);
-            Test_NeedUpdate.TabIndex = 14;
-            Test_NeedUpdate.Text = "預設要更新";
-            Test_NeedUpdate.UseVisualStyleBackColor = true;
-            // 
-            // Test_Gamename
-            // 
-            Test_Gamename.Location = new Point(578, 16);
-            Test_Gamename.Name = "Test_Gamename";
-            Test_Gamename.Size = new Size(59, 23);
-            Test_Gamename.TabIndex = 16;
-            Test_Gamename.Text = "兵推軟體";
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(800, 431);
-            Controls.Add(Test_Gamename);
-            Controls.Add(Test_NeedUpdate);
-            Controls.Add(TEST_FakeUpdate);
             Controls.Add(TEST_spawnGobj);
             Controls.Add(optionspanel);
             Controls.Add(tabControl1);
@@ -532,10 +498,9 @@
             optionspanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             LoginP.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -546,9 +511,6 @@
         private Label label1;
         private Label label6;
         private Button TEST_spawnGobj;
-        private Button TEST_FakeUpdate;
-        private CheckBox Test_NeedUpdate;
-        private TextBox Test_Gamename;
         public Button Login;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
