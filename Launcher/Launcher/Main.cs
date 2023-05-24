@@ -77,7 +77,7 @@ namespace Launcher
 
 
         //測試用 : 生成遊戲物件
-        private void TEST_spawnGobj_Click(object sender, EventArgs e) //TODO : 移至功能集
+        private void TEST_spawnGobj_Click(object sender, EventArgs e)
         {
             Random random = new Random();
             uictrl.SpawnSoftware("Test" + random.Next(1, 1000));

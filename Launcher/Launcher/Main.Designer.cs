@@ -62,11 +62,6 @@
             labellauncherv = new Label();
             GameImageBig = new Panel();
             optionspanel = new Panel();
-            verify_pn = new Panel();
-            loginstate_lb = new Label();
-            uuidverify_lb = new Label();
-            mypath_tb = new TextBox();
-            mypath_btn = new Button();
             Title_LB = new Label();
             pictureBox3 = new PictureBox();
             LVersionlabel = new Label();
@@ -75,6 +70,11 @@
             accountmangement_btn = new Button();
             user_btn = new Button();
             software_btn = new Button();
+            verify_pn = new Panel();
+            loginstate_lb = new Label();
+            uuidverify_lb = new Label();
+            mypath_tb = new TextBox();
+            mypath_btn = new Button();
             pictureBox1 = new PictureBox();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
@@ -87,10 +87,10 @@
             SystemInformation.SuspendLayout();
             INFO_PN.SuspendLayout();
             optionspanel.SuspendLayout();
-            verify_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             LoginP.SuspendLayout();
+            verify_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -201,6 +201,7 @@
             Login.BackgroundImage = (Image)resources.GetObject("Login.BackgroundImage");
             Login.BackgroundImageLayout = ImageLayout.Stretch;
             Login.Enabled = false;
+            Login.FlatAppearance.BorderSize = 0;
             Login.FlatStyle = FlatStyle.Flat;
             Login.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Login.ForeColor = Color.Orange;
@@ -485,63 +486,6 @@
             optionspanel.Size = new Size(276, 452);
             optionspanel.TabIndex = 19;
             // 
-            // verify_pn
-            // 
-            verify_pn.Controls.Add(loginstate_lb);
-            verify_pn.Controls.Add(uuidverify_lb);
-            verify_pn.Controls.Add(mypath_tb);
-            verify_pn.Controls.Add(mypath_btn);
-            verify_pn.Location = new Point(0, 156);
-            verify_pn.Name = "verify_pn";
-            verify_pn.Size = new Size(276, 144);
-            verify_pn.TabIndex = 25;
-            // 
-            // loginstate_lb
-            // 
-            loginstate_lb.AutoSize = true;
-            loginstate_lb.ForeColor = Color.Gray;
-            loginstate_lb.Location = new Point(42, 104);
-            loginstate_lb.Name = "loginstate_lb";
-            loginstate_lb.Size = new Size(175, 15);
-            loginstate_lb.TabIndex = 26;
-            loginstate_lb.Text = "登入 - - - - - - - - - - - - - - - -  ✘";
-            // 
-            // uuidverify_lb
-            // 
-            uuidverify_lb.AutoSize = true;
-            uuidverify_lb.ForeColor = Color.Gray;
-            uuidverify_lb.Location = new Point(42, 66);
-            uuidverify_lb.Name = "uuidverify_lb";
-            uuidverify_lb.Size = new Size(175, 15);
-            uuidverify_lb.TabIndex = 25;
-            uuidverify_lb.Text = "驗證 - - - - - - - - - - - - - - - -  ✘";
-            // 
-            // mypath_tb
-            // 
-            mypath_tb.BackColor = Color.FromArgb(36, 36, 45);
-            mypath_tb.BorderStyle = BorderStyle.None;
-            mypath_tb.ForeColor = Color.BurlyWood;
-            mypath_tb.Location = new Point(53, 26);
-            mypath_tb.Name = "mypath_tb";
-            mypath_tb.Size = new Size(199, 16);
-            mypath_tb.TabIndex = 24;
-            mypath_tb.Text = "C:\\Users\\Administrator\\Desktop\\我的資料\\Launcherbk";
-            mypath_tb.TextChanged += mypath_tb_TextChanged;
-            // 
-            // mypath_btn
-            // 
-            mypath_btn.BackgroundImage = (Image)resources.GetObject("mypath_btn.BackgroundImage");
-            mypath_btn.BackgroundImageLayout = ImageLayout.Zoom;
-            mypath_btn.FlatAppearance.BorderSize = 0;
-            mypath_btn.FlatStyle = FlatStyle.Flat;
-            mypath_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            mypath_btn.Location = new Point(6, 20);
-            mypath_btn.Name = "mypath_btn";
-            mypath_btn.Size = new Size(46, 27);
-            mypath_btn.TabIndex = 19;
-            mypath_btn.UseVisualStyleBackColor = true;
-            mypath_btn.Click += mypath_btn_Click;
-            // 
             // Title_LB
             // 
             Title_LB.AutoSize = true;
@@ -633,6 +577,63 @@
             software_btn.UseVisualStyleBackColor = true;
             software_btn.Click += software_btn_Click;
             // 
+            // verify_pn
+            // 
+            verify_pn.Controls.Add(loginstate_lb);
+            verify_pn.Controls.Add(uuidverify_lb);
+            verify_pn.Controls.Add(mypath_tb);
+            verify_pn.Controls.Add(mypath_btn);
+            verify_pn.Location = new Point(0, 156);
+            verify_pn.Name = "verify_pn";
+            verify_pn.Size = new Size(276, 144);
+            verify_pn.TabIndex = 25;
+            // 
+            // loginstate_lb
+            // 
+            loginstate_lb.AutoSize = true;
+            loginstate_lb.ForeColor = Color.Gray;
+            loginstate_lb.Location = new Point(42, 104);
+            loginstate_lb.Name = "loginstate_lb";
+            loginstate_lb.Size = new Size(175, 15);
+            loginstate_lb.TabIndex = 26;
+            loginstate_lb.Text = "登入 - - - - - - - - - - - - - - - -  ✘";
+            // 
+            // uuidverify_lb
+            // 
+            uuidverify_lb.AutoSize = true;
+            uuidverify_lb.ForeColor = Color.Gray;
+            uuidverify_lb.Location = new Point(42, 66);
+            uuidverify_lb.Name = "uuidverify_lb";
+            uuidverify_lb.Size = new Size(175, 15);
+            uuidverify_lb.TabIndex = 25;
+            uuidverify_lb.Text = "驗證 - - - - - - - - - - - - - - - -  ✘";
+            // 
+            // mypath_tb
+            // 
+            mypath_tb.BackColor = Color.FromArgb(36, 36, 45);
+            mypath_tb.BorderStyle = BorderStyle.None;
+            mypath_tb.ForeColor = Color.BurlyWood;
+            mypath_tb.Location = new Point(53, 26);
+            mypath_tb.Name = "mypath_tb";
+            mypath_tb.Size = new Size(199, 16);
+            mypath_tb.TabIndex = 24;
+            mypath_tb.Text = "C:\\Users\\Administrator\\Desktop\\我的資料\\Launcherbk";
+            mypath_tb.TextChanged += mypath_tb_TextChanged;
+            // 
+            // mypath_btn
+            // 
+            mypath_btn.BackgroundImage = (Image)resources.GetObject("mypath_btn.BackgroundImage");
+            mypath_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            mypath_btn.FlatAppearance.BorderSize = 0;
+            mypath_btn.FlatStyle = FlatStyle.Flat;
+            mypath_btn.ForeColor = Color.FromArgb(36, 36, 45);
+            mypath_btn.Location = new Point(6, 20);
+            mypath_btn.Name = "mypath_btn";
+            mypath_btn.Size = new Size(46, 27);
+            mypath_btn.TabIndex = 19;
+            mypath_btn.UseVisualStyleBackColor = true;
+            mypath_btn.Click += mypath_btn_Click;
+            // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Transparent;
@@ -672,11 +673,11 @@
             INFO_PN.PerformLayout();
             optionspanel.ResumeLayout(false);
             optionspanel.PerformLayout();
-            verify_pn.ResumeLayout(false);
-            verify_pn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             LoginP.ResumeLayout(false);
+            verify_pn.ResumeLayout(false);
+            verify_pn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }

@@ -9,6 +9,10 @@ using Launcher;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Reflection;
 using System.Windows.Forms;
+using static Launcher.NewFolder.UIControl;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Collections.Specialized;
+using System.Reflection.Metadata;
 
 namespace Launcher.NewFolder//TODO:待改介面
 {
@@ -18,9 +22,8 @@ namespace Launcher.NewFolder//TODO:待改介面
         public MainForm mainForm;
 
         TIFF tIFF = new TIFF();
-        TIFFF tIFFF;
+        //TIFFF tIFFF;
 
-        //可執行軟體字典
         public Dictionary<string, object> gameDT = new Dictionary<string, object>();
 
         public enum PanelType
@@ -30,7 +33,38 @@ namespace Launcher.NewFolder//TODO:待改介面
             Main
         }
 
+
+        public enum ObjectTypes
+        {
+            Login_panel,
+            SeriaPanel,
+            verify_pn,
+            Login
+        }
+
+
+        public enum MethodType
+        {
+            CloseAll, //2Bool Enabled、Visible
+            OpenAll, //2Bool Enabled、Visible
+            Enabled_Visible,
+            Text_Enabled
+        }
+
         private Dictionary<PanelType, Panel> panels = new Dictionary<PanelType, Panel>();
+
+
+
+        #region 測試
+        private Dictionary<ObjectTypes, object> objects = new Dictionary<ObjectTypes, object>();
+
+        private Dictionary<MethodType, Action<ObjectTypes, object, object>> UIObjectControl = new Dictionary<MethodType, Action<ObjectTypes, object, object>>();
+        #endregion
+
+        // 定義自定義的委派類型
+        public delegate void ShowPanelAction(string panelType, bool isEnabled, bool isVisible);
+
+        Action a;
 
         public UIControl(MainForm mainForm)
         {
@@ -38,7 +72,6 @@ namespace Launcher.NewFolder//TODO:待改介面
 
             this.mainForm = mainForm;
             mainForm.uictrl = this;
-
             //tIFFF = new TIFFF(mainForm);
 
             UI_Initialization();
@@ -50,8 +83,45 @@ namespace Launcher.NewFolder//TODO:待改介面
         {
             mainForm.Login_panel.Parent = mainForm.pictureBox_background;
             mainForm.SeriaPanel.Parent = mainForm.pictureBox_background;
-            mainForm.Login.FlatAppearance.BorderSize = 0;
+
+
+            //panels.Add(PanelType.Login, mainForm.LoginP);//TODO:X
+
+
+
+            //functions.Add(FunctionType.show, new Action<PanelType, bool, bool>((x,e,v) => {
+            //    if (panels.ContainsKey(x))
+            //    {
+            //        panels[x].Enabled = e;
+            //        panels[x].Visible = v;
+            //    }
+            //}));
+
+            objects.Add(ObjectTypes.verify_pn, mainForm.verify_pn);
+
+            objects.Add(ObjectTypes.Login_panel, mainForm.Login_panel);
+
+            objects.Add(ObjectTypes.SeriaPanel, mainForm.SeriaPanel);
+            //testDictionary.Add(FunctionType.show, new Action<Types, bool, bool>((x, e, v) => {
+            //    if (testTypes.ContainsKey(x))
+            //    {
+            //        testTypes[x].Enabled = e;
+            //        testTypes[x].Visible = v;
+            //    }
+            //}));
+
+            UIObjectControl.Add(MethodType.Enabled_Visible, new Action<ObjectTypes, object, object>((x, e, v) => {
+                if (objects.ContainsKey(x))
+                {
+                    if (objects[x] is Panel boolParameter) {
+                        boolParameter.Enabled = (bool)e;
+                        boolParameter.Visible = (bool)v; 
+                    }
+                }
+            }));
         }
+
+
         /// <summary>
         /// 登入
         /// </summary>
@@ -59,11 +129,10 @@ namespace Launcher.NewFolder//TODO:待改介面
         {
             if (tIFF.LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text).IsVerified)
             {
+
                 mainForm.loginstate_lb.ForeColor = Color.PaleGreen;
                 mainForm.loginstate_lb.Text = "登入 - - - - - - - - - - - - - - - -  ✔";
-
                 DelayLogin();
-
             }
         }
         async void DelayLogin()
@@ -71,15 +140,22 @@ namespace Launcher.NewFolder//TODO:待改介面
             await Task.Delay(1000); // TODO:替代為等待家仔完成
 
             SpawnPage();
-
             mainForm.TrainingAccount_TB.Text = "";
             mainForm.TrainingPW_TB.Text = "";
             mainForm.SerialNumber.Text = "";
             mainForm.Login.Enabled = false;
+
             mainForm.Login_panel.Visible = false;
             mainForm.Login_panel.Enabled = false;
+
             mainForm.verify_pn.Visible = false;
             mainForm.verify_pn.Enabled = false;
+            //testDictionary[FunctionType.show](Types.verify_pn, false, false);
+
+            //UIObjectControl[MethodType.Enabled_Visible](ObjectTypes.Login_panel, false, false);
+
+            //UIObjectControl[MethodType.Enabled_Visible](ObjectTypes.verify_pn, false, false);
+
         }
 
 
@@ -92,24 +168,35 @@ namespace Launcher.NewFolder//TODO:待改介面
             {
                 mainForm.Login.Text = "登入";
                 mainForm.Login.Enabled = false;
+
                 mainForm.SeriaPanel.Enabled = false;
                 mainForm.SeriaPanel.Visible = false;
+
                 mainForm.Login_panel.Visible = true;
                 mainForm.Login_panel.Enabled = true;
+
                 mainForm.uuidverify_lb.ForeColor = Color.PaleGreen;
                 mainForm.uuidverify_lb.Text = "驗證 - - - - - - - - - - - - - - - -  ✔";
 
 
+                //UIObjectControl[MethodType.Enabled_Visible](ObjectTypes.SeriaPanel, false, false);
+
+                //UIObjectControl[MethodType.Enabled_Visible](ObjectTypes.Login_panel, true, true);
+
+
+                SetActivePanel(PanelType.Login, true);//TODO : X
             }
         }
 
-        public void SetActivePanel(PanelType panelType, bool isActive)
+        public void SetActivePanel(PanelType panelType, bool isActive)//TODO : X
         {
             if (panels.ContainsKey(panelType))
             {
                 panels[panelType].Visible = isActive;
             }
         }
+
+
 
         /// <summary>
         /// 登入成功後生成的子頁
@@ -226,8 +313,8 @@ namespace Launcher.NewFolder//TODO:待改介面
             mainForm.User_panel.Visible = false;
             mainForm.SeriaPanel.Visible = true;
 
-            mainForm.verify_pn.Visible = true;
-            mainForm.verify_pn.Enabled = true;
+            //testDictionary[FunctionType.show](Types.verify_pn, true, true);
+
 
             mainForm.uuidverify_lb.ForeColor = Color.Gray;
             mainForm.uuidverify_lb.Text = "驗證 - - - - - - - - - - - - - - - -  ✘";

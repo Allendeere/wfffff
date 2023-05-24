@@ -34,7 +34,6 @@ namespace Launcher.NewFolder
         private string launcherExe;
 
         public Version localVersion;
-        //TODO:Fix later
 
         TIFFFF tIFFFF;
 
