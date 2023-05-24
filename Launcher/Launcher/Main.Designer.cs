@@ -38,6 +38,7 @@
             panel2 = new Panel();
             panel1 = new Panel();
             Login = new Button();
+            authentication_btn = new Button();
             SeriaPanel = new Panel();
             SerialNumber = new TextBox();
             label5 = new Label();
@@ -116,6 +117,7 @@
             Loginsystem.BackgroundImageLayout = ImageLayout.Stretch;
             Loginsystem.Controls.Add(User_panel);
             Loginsystem.Controls.Add(Login);
+            Loginsystem.Controls.Add(authentication_btn);
             Loginsystem.Controls.Add(SeriaPanel);
             Loginsystem.Controls.Add(Login_panel);
             Loginsystem.Controls.Add(pictureBox_background);
@@ -209,9 +211,28 @@
             Login.Name = "Login";
             Login.Size = new Size(125, 50);
             Login.TabIndex = 3;
-            Login.Text = "驗證";
+            Login.Text = "登入";
             Login.UseVisualStyleBackColor = false;
+            Login.Visible = false;
             Login.Click += Login_Click;
+            // 
+            // authentication_btn
+            // 
+            authentication_btn.BackColor = Color.WhiteSmoke;
+            authentication_btn.BackgroundImage = (Image)resources.GetObject("authentication_btn.BackgroundImage");
+            authentication_btn.BackgroundImageLayout = ImageLayout.Stretch;
+            authentication_btn.Enabled = false;
+            authentication_btn.FlatAppearance.BorderSize = 0;
+            authentication_btn.FlatStyle = FlatStyle.Flat;
+            authentication_btn.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            authentication_btn.ForeColor = Color.Orange;
+            authentication_btn.Location = new Point(283, 323);
+            authentication_btn.Name = "authentication_btn";
+            authentication_btn.Size = new Size(125, 50);
+            authentication_btn.TabIndex = 24;
+            authentication_btn.Text = "驗證";
+            authentication_btn.UseVisualStyleBackColor = false;
+            authentication_btn.Click += authentication_btn_Click;
             // 
             // SeriaPanel
             // 
@@ -421,7 +442,7 @@
             LoadGame_Btn.FlatStyle = FlatStyle.Flat;
             LoadGame_Btn.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             LoadGame_Btn.ForeColor = Color.Transparent;
-            LoadGame_Btn.Location = new Point(47, 178);
+            LoadGame_Btn.Location = new Point(47, 172);
             LoadGame_Btn.Name = "LoadGame_Btn";
             LoadGame_Btn.Size = new Size(122, 37);
             LoadGame_Btn.TabIndex = 3;
@@ -657,6 +678,7 @@
             MaximizeBox = false;
             Name = "MainForm";
             Text = "Launcher";
+            Load += MainForm_Load;
             tabControl1.ResumeLayout(false);
             Loginsystem.ResumeLayout(false);
             User_panel.ResumeLayout(false);
@@ -731,5 +753,6 @@
         public TextBox mypath_tb;
         public Label uuidverify_lb;
         public Label loginstate_lb;
+        public Button authentication_btn;
     }
 }

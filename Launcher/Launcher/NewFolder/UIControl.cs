@@ -13,65 +13,36 @@ using static Launcher.NewFolder.UIControl;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Collections.Specialized;
 using System.Reflection.Metadata;
+using Button = System.Windows.Forms.Button;
+using NLog;
 
 namespace Launcher.NewFolder//TODO:待改介面
 {
     public class UIControl
     {
-
         public MainForm mainForm;
 
-        TIFF tIFF = new TIFF();
+        FrontEndJudgment judgment = new FrontEndJudgment();
+
+        public LoggerCrtl LoggerCrtl = new LoggerCrtl();
+
         //TIFFF tIFFF;
-
-        public Dictionary<string, object> gameDT = new Dictionary<string, object>();
-
+        public Dictionary<string, object> GameInfo = new Dictionary<string, object>();
         public enum PanelType
         {
             Login,
             Verfiy,
-            Main
+            Logout
         }
-
-
-        public enum ObjectTypes
-        {
-            Login_panel,
-            SeriaPanel,
-            verify_pn,
-            Login
-        }
-
-
-        public enum MethodType
-        {
-            CloseAll, //2Bool Enabled、Visible
-            OpenAll, //2Bool Enabled、Visible
-            Enabled_Visible,
-            Text_Enabled
-        }
-
-        private Dictionary<PanelType, Panel> panels = new Dictionary<PanelType, Panel>();
-
-
-
-        #region 測試
-        private Dictionary<ObjectTypes, object> objects = new Dictionary<ObjectTypes, object>();
-
-        private Dictionary<MethodType, Action<ObjectTypes, object, object>> UIObjectControl = new Dictionary<MethodType, Action<ObjectTypes, object, object>>();
-        #endregion
-
-        // 定義自定義的委派類型
-        public delegate void ShowPanelAction(string panelType, bool isEnabled, bool isVisible);
-
-        Action a;
+        private Dictionary<PanelType, Action> UImethod = new Dictionary<PanelType, Action>();
 
         public UIControl(MainForm mainForm)
         {
-            tIFF.OnlyOneProcess();
+            judgment.OnlyOneProcess();
 
             this.mainForm = mainForm;
             mainForm.uictrl = this;
+
             //tIFFF = new TIFFF(mainForm);
 
             UI_Initialization();
@@ -84,150 +55,105 @@ namespace Launcher.NewFolder//TODO:待改介面
             mainForm.Login_panel.Parent = mainForm.pictureBox_background;
             mainForm.SeriaPanel.Parent = mainForm.pictureBox_background;
 
+            UImethod.Add(PanelType.Login, new Action(() =>
+            {
+                mainForm.optionspanel.Size = new Size(195, 518);
+                mainForm.LVersionlabel.Location = new Point(130, 403);
+                SetActivePanel(mainForm.Login, false, false);
+                SetText(mainForm.Title_LB, "Welcome !\n\r" + mainForm.TrainingAccount_TB.Text, null, null, null, new Font("Microsoft JhengHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point));
+                SetActivePanel(mainForm.Login_panel, false, false);
+                SetActivePanel(mainForm.LoginP, true, true);
+                SetActivePanel(mainForm.Logout, true, true);
+                SetActivePanel(mainForm.User_panel, true, true);
+                SetText(mainForm.TrainingAccount_TB, "");
+                SetText(mainForm.TrainingPW_TB, "");
+                SetText(mainForm.SerialNumber, "");
+                SetActivePanel(mainForm.Login, false);
+                SetActivePanel(mainForm.Login_panel, false, false);
+                SetActivePanel(mainForm.verify_pn, false, false);
+            }));
+            UImethod.Add(PanelType.Verfiy, new Action(() =>
+            {
+                SetActivePanel(mainForm.authentication_btn, false, false);
+                SetActivePanel(mainForm.Login, false, true);
+                SetText(mainForm.uuidverify_lb, "驗證 - - - - - - - - - - - - - - - -  ✔", Color.PaleGreen);
+                SetActivePanel(mainForm.SeriaPanel);
+                SetActivePanel(mainForm.Login_panel, true, true);
+                SetActivePanel(mainForm.uuidverify_lb);
+            }));
+            UImethod.Add(PanelType.Logout, new Action(() =>
+            {
+                SetActivePanel(mainForm.authentication_btn, false, true);
+                mainForm.optionspanel.Size = new Size(276, 452);
+                mainForm.LVersionlabel.Location = new Point(223, 403);
 
-            //panels.Add(PanelType.Login, mainForm.LoginP);//TODO:X
-
-
-
-            //functions.Add(FunctionType.show, new Action<PanelType, bool, bool>((x,e,v) => {
-            //    if (panels.ContainsKey(x))
-            //    {
-            //        panels[x].Enabled = e;
-            //        panels[x].Visible = v;
-            //    }
-            //}));
-
-            objects.Add(ObjectTypes.verify_pn, mainForm.verify_pn);
-
-            objects.Add(ObjectTypes.Login_panel, mainForm.Login_panel);
-
-            objects.Add(ObjectTypes.SeriaPanel, mainForm.SeriaPanel);
-            //testDictionary.Add(FunctionType.show, new Action<Types, bool, bool>((x, e, v) => {
-            //    if (testTypes.ContainsKey(x))
-            //    {
-            //        testTypes[x].Enabled = e;
-            //        testTypes[x].Visible = v;
-            //    }
-            //}));
-
-            UIObjectControl.Add(MethodType.Enabled_Visible, new Action<ObjectTypes, object, object>((x, e, v) => {
-                if (objects.ContainsKey(x))
-                {
-                    if (objects[x] is Panel boolParameter) {
-                        boolParameter.Enabled = (bool)e;
-                        boolParameter.Visible = (bool)v; 
-                    }
-                }
+                SetText(mainForm.loginstate_lb, "登入 - - - - - - - - - - - - - - - -  ✘", Color.Gray);
+                SetText(mainForm.uuidverify_lb, "驗證 - - - - - - - - - - - - - - - -  ✘", Color.Gray);
+                SetText(mainForm.Title_LB, "Launcher", null, null, null, new Font("Microsoft JhengHei UI", 16F, FontStyle.Bold, GraphicsUnit.Point));
+                SetActivePanel(mainForm.LoginP, false, false);
+                SetActivePanel(mainForm.SeriaPanel, true, true);
+                SetActivePanel(mainForm.User_panel, false, false);
+                SetActivePanel(mainForm.Logout, false, false);
+                SetActivePanel(mainForm.verify_pn, true, true);
             }));
         }
+        public void FindPath()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.ValidateNames = false;
+                openFileDialog.CheckFileExists = false;
+                openFileDialog.CheckPathExists = true;
+                openFileDialog.FileName = "選擇資料夾";
 
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    mainForm.mypath_tb.Text = Path.GetDirectoryName(openFileDialog.FileName);
+                }
+            }
+        }
 
         /// <summary>
         /// 登入
         /// </summary>
         public void Login()
         {
-            if (tIFF.LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text).IsVerified)
+            if (judgment.LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text).IsVerified)
             {
+                SetText(mainForm.loginstate_lb, "登入 - - - - - - - - - - - - - - - -  ✔", Color.PaleGreen);
 
-                mainForm.loginstate_lb.ForeColor = Color.PaleGreen;
-                mainForm.loginstate_lb.Text = "登入 - - - - - - - - - - - - - - - -  ✔";
+                LoggerCrtl.Sand(LoggerCrtl.Levels.info, $"用戶 {mainForm.TrainingAccount_TB.Text} 登入 : {DateTime.Now}");
+
                 DelayLogin();
             }
         }
         async void DelayLogin()
         {
-            await Task.Delay(1000); // TODO:替代為等待家仔完成
+            await Task.Delay(1000); // TODO:替代為等待
 
-            SpawnPage();
-            mainForm.TrainingAccount_TB.Text = "";
-            mainForm.TrainingPW_TB.Text = "";
-            mainForm.SerialNumber.Text = "";
-            mainForm.Login.Enabled = false;
-
-            mainForm.Login_panel.Visible = false;
-            mainForm.Login_panel.Enabled = false;
-
-            mainForm.verify_pn.Visible = false;
-            mainForm.verify_pn.Enabled = false;
-            //testDictionary[FunctionType.show](Types.verify_pn, false, false);
-
-            //UIObjectControl[MethodType.Enabled_Visible](ObjectTypes.Login_panel, false, false);
-
-            //UIObjectControl[MethodType.Enabled_Visible](ObjectTypes.verify_pn, false, false);
-
+            UImethod[PanelType.Login]();
         }
-
-
         /// <summary>
         /// 驗證
         /// </summary>
         public void Verify()
         {
-            if (tIFF.VerifyIdentity(mainForm.SerialNumber.Text))
+            if (judgment.VerifyIdentity(mainForm.SerialNumber.Text))
             {
-                mainForm.Login.Text = "登入";
-                mainForm.Login.Enabled = false;
+                UImethod[PanelType.Verfiy]();
 
-                mainForm.SeriaPanel.Enabled = false;
-                mainForm.SeriaPanel.Visible = false;
-
-                mainForm.Login_panel.Visible = true;
-                mainForm.Login_panel.Enabled = true;
-
-                mainForm.uuidverify_lb.ForeColor = Color.PaleGreen;
-                mainForm.uuidverify_lb.Text = "驗證 - - - - - - - - - - - - - - - -  ✔";
-
-
-                //UIObjectControl[MethodType.Enabled_Visible](ObjectTypes.SeriaPanel, false, false);
-
-                //UIObjectControl[MethodType.Enabled_Visible](ObjectTypes.Login_panel, true, true);
-
-
-                SetActivePanel(PanelType.Login, true);//TODO : X
+                LoggerCrtl.Sand(LoggerCrtl.Levels.info,$"驗證通知 : {DateTime.Now}");
             }
         }
-
-        public void SetActivePanel(PanelType panelType, bool isActive)//TODO : X
-        {
-            if (panels.ContainsKey(panelType))
-            {
-                panels[panelType].Visible = isActive;
-            }
-        }
-
-
-
         /// <summary>
-        /// 登入成功後生成的子頁
-        /// 【啟動器頁面】
+        /// 可執行軟體
         /// </summary>
-        void SpawnPage()
-        {
-            mainForm.optionspanel.Size = new Size(195, 518);
-            mainForm.LVersionlabel.Location = new Point(130, 403);
-            mainForm.LoginP.Visible = true;
-            mainForm.Title_LB.Text = "Welcome !\n\r" + mainForm.TrainingAccount_TB.Text;
-            mainForm.Title_LB.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-
-
-            //mainForm.tabControl1.TabPages["Loginsystem"].Text = "訓練帳號 : " + mainForm.TrainingAccount_TB.Text;
-            mainForm.Login_panel.Visible = false;
-            mainForm.Login.Text = "執行訓練";
-            mainForm.User_panel.Visible = true;
-            mainForm.Logout.Enabled = true;
-
-        }
-        /// <summary>
-        /// 我的可執行軟體
-        /// </summary>
-        public void SpawnSoftware(string GameName_Test)
+        public void SpawnSoftware(string GameVersion, string GameName, string Detail)
         {
             try
             {
-                //遍俐 ----- V
-                GameData gameData = new GameData("v1.0.0", GameName_Test, "-----\n\r- -- -- \n\r--\n\r-- - ---- -- -\n\r----- 。"); //登入成功後拉本機DT (假設本機有DT)
-                gameDT.Add(gameData.getName, gameData);
+                GameData gameData = new GameData(GameVersion, GameName, Detail); //登入成功後拉本機DT (假設本機有DT)
+                GameInfo.Add(gameData.getName, gameData);
 
                 #region UI: 創建按鈕
                 Panel pln = new Panel();
@@ -278,51 +204,39 @@ namespace Launcher.NewFolder//TODO:待改介面
                 pln.Controls.Add(button);
 
                 mainForm.flowLayoutPanel1.Controls.Add(pln);
-
-
                 #endregion
-                button.Click += (sender, e) =>
-                {
-                    mainForm.Detail_Lb.Text = gameData.getDescribe;
-                    mainForm.GameName_Lb.Text = gameData.getName;
-                    mainForm.LoadGame_Btn.Visible = true;
-                };
+
+                ButtonMethod(button, gameData);
             }
             catch (Exception)
             {
                 //資料重複或異常
             }
+        }
 
+        void ButtonMethod(Button button, GameData gameData)
+        {
+            button.Click += (sender, e) =>
+            {
+                SetText(mainForm.Detail_Lb, gameData.getDescribe);
+                SetText(mainForm.GameName_Lb, gameData.getName);
+                SetActivePanel(mainForm.LoadGame_Btn, true, true);
+            };
+        }
+        /// <summary>
+        /// 路徑檢查
+        /// </summary>
+        public void CheckPath()
+        {
+            SetText(mainForm.mypath_tb, null, (Directory.Exists(mainForm.mypath_tb.Text)) ? Color.BurlyWood : Color.IndianRed);
         }
         /// <summary>
         /// 登出
         /// </summary>
         public void Logout()
         {
-            mainForm.optionspanel.Size = new Size(276, 452);
-            mainForm.LVersionlabel.Location = new Point(223, 403);
-            mainForm.LoginP.Visible = false;
-            mainForm.Title_LB.Text = "Launcher";
-            mainForm.Title_LB.Font = new Font("Microsoft JhengHei UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
-
-
-            mainForm.tabControl1.TabPages["Loginsystem"].Text = "登入系統";
-            mainForm.SeriaPanel.Enabled = true;
-            mainForm.Login.Text = "驗證";
-            mainForm.Logout.Enabled = false;
-            mainForm.User_panel.Visible = false;
-            mainForm.SeriaPanel.Visible = true;
-
-            //testDictionary[FunctionType.show](Types.verify_pn, true, true);
-
-
-            mainForm.uuidverify_lb.ForeColor = Color.Gray;
-            mainForm.uuidverify_lb.Text = "驗證 - - - - - - - - - - - - - - - -  ✘";
-            mainForm.loginstate_lb.ForeColor = Color.Gray;
-            mainForm.loginstate_lb.Text = "登入 - - - - - - - - - - - - - - - -  ✘";
-
-            gameDT.Clear();
-
+            GameInfo.Clear();
+            UImethod[PanelType.Logout]();
         }
         /// <summary>
         /// 切換頁面
@@ -348,13 +262,24 @@ namespace Launcher.NewFolder//TODO:待改介面
             ForgetPasswordForm forgetPasswordForm = new ForgetPasswordForm();
             forgetPasswordForm.Show();
         }
-
-
-        // --------以下須被分割-------------------------------------------------------------------
-
-
-
-
-
+        public void SetActivePanel(object objects, bool? isActive = null, bool? isVisible = null)
+        {
+            if (objects is Control obj)
+            {
+                if (isActive != null) obj.Enabled = (bool)isActive;
+                if (isVisible != null) obj.Visible = (bool)isVisible;
+            }
+        }
+        public void SetText(object objects, string? title = null, Color? color = null, bool? isActive = null, bool? isVisible = null, Font? font = null)
+        {
+            if (objects is Control obj)
+            {
+                if (isActive != null) obj.Enabled = (bool)isActive;
+                if (isVisible != null) obj.Visible = (bool)isVisible;
+                if (title != null) obj.Text = title;
+                if (color != null) obj.ForeColor = (Color)color;
+                if (font != null) obj.Font = (Font)font;
+            }
+        }
     }
 }

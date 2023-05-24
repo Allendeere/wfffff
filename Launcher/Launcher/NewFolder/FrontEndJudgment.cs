@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Launcher.NewFolder
 {
-    public class TIFF
+    public class FrontEndJudgment
     {
-        //Launcher 是否正在更新中
-        static bool Updating = false;
-
-
         /// <summary>
         /// Launcher數量檢查
         /// </summary>
@@ -29,8 +28,6 @@ namespace Launcher.NewFolder
                 }
             }
         }
-
-
         #region 登入與驗證(判斷)
         /// <summary>
         /// 驗證 >> 身分認證
@@ -39,10 +36,8 @@ namespace Launcher.NewFolder
         /// <returns></returns>
         public bool VerifyIdentity(string verify)
         {
-            
             return !string.IsNullOrEmpty(verify);
         }
-
         /// <summary>
         /// 登入 >> 帳號認證
         /// </summary>
@@ -52,6 +47,8 @@ namespace Launcher.NewFolder
         public LoginResult LoginVerification(string username, string password)
         {
             LoginResult result = new LoginResult();
+
+            Maffin();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))//空白檢查(暫時)
             {
@@ -65,6 +62,40 @@ namespace Launcher.NewFolder
             }
             return result;
         }
+
+
+
+
+
+        static async Task Maffin()
+        {
+            // 建立 HttpClient 實例
+            HttpClient client = new HttpClient();
+
+            // 發送 HTTP 請求並等待回應
+            HttpResponseMessage response = await client.GetAsync("https://api.example.com/data");
+
+            // 檢查回應狀態碼
+            if (response.IsSuccessStatusCode)
+            {
+                // 讀取回應內容
+                string content = await response.Content.ReadAsStringAsync();
+
+                // 在此處理回應內容或進行其他操作
+                Console.WriteLine("HTTP 請求成功");
+                Console.WriteLine("回應內容: " + content);
+            }
+            else
+            {
+                Console.WriteLine("HTTP 請求失敗");
+            }
+
+            // 繼續執行其他程式碼
+            Console.WriteLine("繼續執行其他操作");
+        }
+
         #endregion
     }
+
+    
 }

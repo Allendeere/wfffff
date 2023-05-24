@@ -70,4 +70,6 @@ C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Debug\net6.
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Debug\net6.0-windows\Launcher.MainForm.resources
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Debug\net6.0-windows\Launcher.ForgetPasswordForm.resources
-C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Debug\net6.0-windows\Launcher.AccountManagementForm.resources
+C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\bin\Debug\net6.0-windows\NLog.dll
+C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Debug\net6.0-windows\Launcher.LoggerCrtl.resources
+C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\bin\Debug\net6.0-windows\Launcher.dll.config
