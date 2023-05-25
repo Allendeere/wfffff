@@ -126,7 +126,7 @@ namespace Launcher
                             }
                             else if (Tests[3] == "set")
                             {
-                                uic.updateRelated.SetVersionurl(Tests[3]);
+                                uic.updateRelated.SetVersionurl(Tests[4]);
                             }
                             Sand(Levels.command, uic.updateRelated.GetVersionurl());
                         }
@@ -138,7 +138,7 @@ namespace Launcher
                             }
                             else if (Tests[3] == "set")
                             {
-                                uic.updateRelated.Setzipurl(Tests[3]);
+                                uic.updateRelated.Setzipurl(Tests[4]);
                             }
                             Sand(Levels.command, uic.updateRelated.Getzipurl());
                         }
