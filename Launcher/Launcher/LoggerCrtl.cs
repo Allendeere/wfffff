@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Launcher
@@ -184,6 +185,22 @@ namespace Launcher
             Console_showbox.Text = null;
 
             Sand(Levels.command, " 🧹 🧹 🧹 ");
+        }
+        public void addfakegame()
+        {
+
+            Random random = new Random();
+
+            var GameName = "GitHubDesktop";
+
+            var GameVersion = $"v {random.Next(0, 9)}.{random.Next(0, 9)}.{random.Next(0, 9)}";
+
+            var Detail = "-----\n\r- -- -- \n\r--\n\r-- - ---- -- -\n\r----- 。";
+
+            uic.GameInfo.Add(GameName, new GameData(GameVersion, GameName, Detail));
+
+            Sand(Levels.command, $" 添加遊戲 {GameName} !");
+
         }
         #endregion
     }

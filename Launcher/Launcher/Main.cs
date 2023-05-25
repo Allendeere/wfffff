@@ -11,10 +11,11 @@ namespace Launcher
         //功能集
         public UIControl uictrl;
 
+        public Action action;
+
         public MainForm()
         {
             InitializeComponent();
-
         }
 
         private void Forgotpassword_Click(object sender, EventArgs e)
@@ -61,7 +62,19 @@ namespace Launcher
         //測試用 : 生成遊戲物件
         private void TEST_spawnGobj_Click(object sender, EventArgs e)
         {
-            uictrl.SpawnSoftware($"v7.7.7", "GameTest", "-----\n\r- -- -- \n\r--\n\r-- - ---- -- -\n\r----- 。");
+
+            Random random = new Random();
+
+            var GameName = "FakeGame - " + random.Next(0, 99999);
+
+            var GameVersion = $"v {random.Next(0, 9)}.{random.Next(0, 9)}.{random.Next(0, 9)}";
+
+            var Detail = "-----\n\r- -- -- \n\r--\n\r-- - ---- -- -\n\r----- 。";
+
+            uictrl.GameInfo.Add(GameName, new GameData(GameVersion, GameName, Detail));
+
+            uictrl.SpawnSoftware(GameName);
+
         }
 
 
@@ -104,6 +117,11 @@ namespace Launcher
         private void Update_btn_Click(object sender, EventArgs e)
         {
             uictrl.Update();
+        }
+
+        private void LoadGame_Btn_Click(object sender, EventArgs e)
+        {
+            action();
         }
     }
 }

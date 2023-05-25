@@ -24,6 +24,22 @@ namespace Launcher.NewFolder
                 }
             }
         }
+
+
+        public void ChecklocalGame(string gamename) //到時候會在遊戲下載時新建一個_gamename的資料夾
+        {
+            var gamepath = @"C:\Users\Administrator\AppData\Local\" + gamename+ @"\GitHubDesktop.exe";
+
+            if (File.Exists(gamepath))
+                Process.Start(gamepath);
+
+            else
+            {
+                MessageBox.Show(gamepath + "路徑或執行檔不存在");
+            }
+        }
+
+
         #region 登入與驗證(判斷)
         /// <summary>
         /// 驗證 >> 身分認證
@@ -94,5 +110,5 @@ namespace Launcher.NewFolder
         #endregion
     }
 
-    
+
 }

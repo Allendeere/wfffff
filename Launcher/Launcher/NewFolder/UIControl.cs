@@ -1,4 +1,5 @@
-﻿using Button = System.Windows.Forms.Button;
+﻿using System.Diagnostics;
+using Button = System.Windows.Forms.Button;
 
 namespace Launcher.NewFolder//TODO:待改介面
 {
@@ -22,6 +23,7 @@ namespace Launcher.NewFolder//TODO:待改介面
             Verfiy,
             Logout
         }
+
         private Dictionary<PanelType, Action> UImethod = new Dictionary<PanelType, Action>();
 
         public UIControl(MainForm mainForm)
@@ -123,9 +125,16 @@ namespace Launcher.NewFolder//TODO:待改介面
         {
             if (PathLock)
             {
-                MessageBox.Show("你所設定的路徑不存在 \n\r"+mainForm.mypath_tb.Text +"\n\r 請重新設定路徑");
+                if (MessageBox.Show("你所設定的路徑不存在 \n\r"+mainForm.mypath_tb.Text +"\n\r 是否還原預設路徑", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    mainForm.mypath_tb.Text = Properties.Settings.Default.localFilePath;
 
-                return;
+                    PathLock = false;
+                }
+                else
+                {
+                    return;
+                }
             }
 
             var loginResult = judgment.LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text);
@@ -145,7 +154,12 @@ namespace Launcher.NewFolder//TODO:待改介面
 
             UImethod[PanelType.Login]();
 
-            if(isAdmin)
+            foreach (var gminfo in GameInfo)
+            {
+                SpawnSoftware(gminfo.Key);
+            }
+
+            if (isAdmin)
             {
                 SetActivePanel(mainForm.accountmangement_btn, true, true);
             }
@@ -167,12 +181,13 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// <summary>
         /// 可執行軟體
         /// </summary>
-        public void SpawnSoftware(string GameVersion, string GameName, string Detail)
+        public void SpawnSoftware( string GameName)
         {
             try
             {
-                GameData gameData = new GameData(GameVersion, GameName, Detail); //登入成功後拉本機DT (假設本機有DT)
-                GameInfo.Add(gameData.getName, gameData);
+                var gamedt = GameInfo[GameName];
+                if(gamedt is GameData gameData)//登入成功後拉本機遊戲資料 (假設本機有遊戲資料)
+                {
 
                 #region UI: 創建按鈕
                 Panel pln = new Panel();
@@ -226,6 +241,7 @@ namespace Launcher.NewFolder//TODO:待改介面
                 #endregion
 
                 ButtonMethod(button, gameData);
+                }
             }
             catch (Exception)
             {
@@ -240,6 +256,10 @@ namespace Launcher.NewFolder//TODO:待改介面
                 SetText(mainForm.Detail_Lb, gameData.getDescribe);
                 SetText(mainForm.GameName_Lb, gameData.getName);
                 SetActivePanel(mainForm.LoadGame_Btn, true, true);
+
+
+                mainForm.action =()=> judgment.ChecklocalGame(gameData.getName);
+
             };
         }
         /// <summary>

@@ -204,8 +204,11 @@
             Login.BackColor = Color.WhiteSmoke;
             Login.BackgroundImage = (Image)resources.GetObject("Login.BackgroundImage");
             Login.BackgroundImageLayout = ImageLayout.Stretch;
+            Login.Cursor = Cursors.Hand;
             Login.Enabled = false;
             Login.FlatAppearance.BorderSize = 0;
+            Login.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            Login.FlatAppearance.MouseOverBackColor = Color.Transparent;
             Login.FlatStyle = FlatStyle.Flat;
             Login.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Login.ForeColor = Color.Orange;
@@ -223,8 +226,11 @@
             authentication_btn.BackColor = Color.WhiteSmoke;
             authentication_btn.BackgroundImage = (Image)resources.GetObject("authentication_btn.BackgroundImage");
             authentication_btn.BackgroundImageLayout = ImageLayout.Stretch;
+            authentication_btn.Cursor = Cursors.Hand;
             authentication_btn.Enabled = false;
             authentication_btn.FlatAppearance.BorderSize = 0;
+            authentication_btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            authentication_btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
             authentication_btn.FlatStyle = FlatStyle.Flat;
             authentication_btn.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             authentication_btn.ForeColor = Color.Orange;
@@ -440,7 +446,7 @@
             LoadGame_Btn.BackColor = Color.Transparent;
             LoadGame_Btn.BackgroundImage = (Image)resources.GetObject("LoadGame_Btn.BackgroundImage");
             LoadGame_Btn.BackgroundImageLayout = ImageLayout.Zoom;
-            LoadGame_Btn.FlatAppearance.BorderColor = Color.Cyan;
+            LoadGame_Btn.Cursor = Cursors.Hand;
             LoadGame_Btn.FlatAppearance.BorderSize = 0;
             LoadGame_Btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
             LoadGame_Btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -454,6 +460,7 @@
             LoadGame_Btn.Text = "啟動遊戲";
             LoadGame_Btn.UseVisualStyleBackColor = false;
             LoadGame_Btn.Visible = false;
+            LoadGame_Btn.Click += LoadGame_Btn_Click;
             // 
             // GameName_Lb
             // 
@@ -636,12 +643,15 @@
             // 
             mypath_btn.BackgroundImage = (Image)resources.GetObject("mypath_btn.BackgroundImage");
             mypath_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            mypath_btn.Cursor = Cursors.Hand;
             mypath_btn.FlatAppearance.BorderSize = 0;
+            mypath_btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            mypath_btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
             mypath_btn.FlatStyle = FlatStyle.Flat;
             mypath_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            mypath_btn.Location = new Point(6, 20);
+            mypath_btn.Location = new Point(14, 20);
             mypath_btn.Name = "mypath_btn";
-            mypath_btn.Size = new Size(46, 27);
+            mypath_btn.Size = new Size(33, 27);
             mypath_btn.TabIndex = 19;
             mypath_btn.UseVisualStyleBackColor = true;
             mypath_btn.Click += mypath_btn_Click;

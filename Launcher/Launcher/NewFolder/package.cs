@@ -61,7 +61,7 @@ namespace Launcher.NewFolder
         bool NeedUpdate = false;
 
 
-        public GameData(string version = "", string name = "", string describe = "")
+        public GameData(string version = "", string name = "", string? describe = " :DD ")
         {
             Version = version;
             Name = name;
