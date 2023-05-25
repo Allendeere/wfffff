@@ -2,6 +2,7 @@ C:\Users\Administrator\Desktop\我的資料\TestLauncher\Launcher.exe
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Launcher.dll
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Launcher.deps.json
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Launcher.runtimeconfig.json
+C:\Users\Administrator\Desktop\我的資料\TestLauncher\Launcher.dll.config
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Launcher.pdb
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Microsoft.Extensions.Configuration.dll
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Microsoft.Extensions.Configuration.Abstractions.dll
@@ -29,6 +30,7 @@ C:\Users\Administrator\Desktop\我的資料\TestLauncher\Microsoft.Extensions.Op
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Microsoft.Extensions.Primitives.dll
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\Newtonsoft.Json.dll
+C:\Users\Administrator\Desktop\我的資料\TestLauncher\NLog.dll
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\System.Diagnostics.EventLog.dll
 C:\Users\Administrator\Desktop\我的資料\TestLauncher\System.Text.Encodings.Web.dll

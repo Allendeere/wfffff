@@ -46,6 +46,7 @@ namespace Launcher.NewFolder
     public class LoginResult//登入
     {
         public bool IsVerified { get; set; }
+        public bool IsAdmin { get; set; }
         public string Message { get; set; }
     }
 

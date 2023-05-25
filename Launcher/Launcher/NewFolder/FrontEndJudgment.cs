@@ -1,17 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+
 
 namespace Launcher.NewFolder
 {
     public class FrontEndJudgment
     {
+
+        public bool isAdmin;//TODO 到時候改成直接接包裡的東西，這個就能刪了
+
         /// <summary>
         /// Launcher數量檢查
         /// </summary>
@@ -48,7 +44,7 @@ namespace Launcher.NewFolder
         {
             LoginResult result = new LoginResult();
 
-            Maffin();
+            //Maffin(); //等
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))//空白檢查(暫時)
             {
@@ -59,13 +55,14 @@ namespace Launcher.NewFolder
             {
                 result.IsVerified = true;
                 result.Message = "Login success!";
+
+                if (isAdmin) //傳回來的東西
+                {
+                    result.IsAdmin = isAdmin;
+                }
             }
             return result;
         }
-
-
-
-
 
         static async Task Maffin()
         {

@@ -7,6 +7,7 @@ namespace Launcher
     {
         //Server方面
         public readonly IServerSerice _serverSerice;
+
         //功能集
         public UIControl uictrl;
 
@@ -32,6 +33,8 @@ namespace Launcher
             base.OnLoad(e);
 
             mypath_tb.Text = Properties.Settings.Default.localFilePath;
+
+            AutoUpdate_btn.Checked = Properties.Settings.Default.AutoUpdate;
         }
 
         private void SerialNumber_TextChanged(object sender, EventArgs e)
@@ -81,9 +84,6 @@ namespace Launcher
         private void mypath_tb_TextChanged(object sender, EventArgs e)
         {
             uictrl.CheckPath();
-
-            Properties.Settings.Default.localFilePath = mypath_tb.Text;
-            Properties.Settings.Default.Save();
         }
 
         private void authentication_btn_Click(object sender, EventArgs e)
@@ -93,9 +93,17 @@ namespace Launcher
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            uictrl.CheckPath();
-
             uictrl.LoggerCrtl.Show();
+        }
+
+        private void AutoUpdate_btn_CheckedChanged(object sender, EventArgs e)
+        {
+            uictrl.AutoUpdateSetting();
+        }
+
+        private void Update_btn_Click(object sender, EventArgs e)
+        {
+            uictrl.Update();
         }
     }
 }

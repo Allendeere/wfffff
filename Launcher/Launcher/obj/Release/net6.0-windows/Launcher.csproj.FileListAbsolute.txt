@@ -37,7 +37,6 @@ C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\bin\Release\net
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\bin\Release\net6.0-windows\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\bin\Release\net6.0-windows\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\Launcher.csproj.AssemblyReference.cache
-C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\Launcher.AccountManagementForm.resources
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\Launcher.ForgetPasswordForm.resources
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\Launcher.Form2.resources
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\Launcher.MainForm.resources
@@ -53,3 +52,6 @@ C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\Launcher.pdb
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\Launcher.genruntimeconfig.cache
 C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\ref\Launcher.dll
+C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\bin\Release\net6.0-windows\Launcher.dll.config
+C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\bin\Release\net6.0-windows\NLog.dll
+C:\Users\Administrator\Documents\GitHub\wfffff\Launcher\Launcher\obj\Release\net6.0-windows\Launcher.LoggerCrtl.resources

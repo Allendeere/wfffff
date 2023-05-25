@@ -67,15 +67,17 @@
             pictureBox3 = new PictureBox();
             LVersionlabel = new Label();
             pictureBox4 = new PictureBox();
-            LoginP = new Panel();
-            accountmangement_btn = new Button();
-            user_btn = new Button();
-            software_btn = new Button();
             verify_pn = new Panel();
+            Update_btn = new Button();
+            AutoUpdate_btn = new CheckBox();
             loginstate_lb = new Label();
             uuidverify_lb = new Label();
             mypath_tb = new TextBox();
             mypath_btn = new Button();
+            LoginP = new Panel();
+            accountmangement_btn = new Button();
+            user_btn = new Button();
+            software_btn = new Button();
             pictureBox1 = new PictureBox();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
@@ -90,8 +92,8 @@
             optionspanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            LoginP.SuspendLayout();
             verify_pn.SuspendLayout();
+            LoginP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -499,8 +501,8 @@
             optionspanel.Controls.Add(pictureBox3);
             optionspanel.Controls.Add(LVersionlabel);
             optionspanel.Controls.Add(pictureBox4);
-            optionspanel.Controls.Add(LoginP);
             optionspanel.Controls.Add(verify_pn);
+            optionspanel.Controls.Add(LoginP);
             optionspanel.Controls.Add(pictureBox1);
             optionspanel.Location = new Point(0, 0);
             optionspanel.Name = "optionspanel";
@@ -549,65 +551,51 @@
             pictureBox4.TabIndex = 21;
             pictureBox4.TabStop = false;
             // 
-            // LoginP
-            // 
-            LoginP.Controls.Add(accountmangement_btn);
-            LoginP.Controls.Add(user_btn);
-            LoginP.Controls.Add(software_btn);
-            LoginP.Location = new Point(3, 3);
-            LoginP.Name = "LoginP";
-            LoginP.Size = new Size(214, 361);
-            LoginP.TabIndex = 24;
-            LoginP.Visible = false;
-            // 
-            // accountmangement_btn
-            // 
-            accountmangement_btn.BackgroundImage = (Image)resources.GetObject("accountmangement_btn.BackgroundImage");
-            accountmangement_btn.BackgroundImageLayout = ImageLayout.Zoom;
-            accountmangement_btn.FlatStyle = FlatStyle.Flat;
-            accountmangement_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            accountmangement_btn.Location = new Point(20, 173);
-            accountmangement_btn.Name = "accountmangement_btn";
-            accountmangement_btn.Size = new Size(162, 40);
-            accountmangement_btn.TabIndex = 23;
-            accountmangement_btn.UseVisualStyleBackColor = true;
-            // 
-            // user_btn
-            // 
-            user_btn.BackgroundImage = (Image)resources.GetObject("user_btn.BackgroundImage");
-            user_btn.BackgroundImageLayout = ImageLayout.Zoom;
-            user_btn.FlatStyle = FlatStyle.Flat;
-            user_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            user_btn.Location = new Point(20, 87);
-            user_btn.Name = "user_btn";
-            user_btn.Size = new Size(162, 40);
-            user_btn.TabIndex = 19;
-            user_btn.UseVisualStyleBackColor = true;
-            user_btn.Click += user_btn_Click;
-            // 
-            // software_btn
-            // 
-            software_btn.BackgroundImage = (Image)resources.GetObject("software_btn.BackgroundImage");
-            software_btn.BackgroundImageLayout = ImageLayout.Zoom;
-            software_btn.FlatStyle = FlatStyle.Flat;
-            software_btn.ForeColor = Color.FromArgb(36, 36, 45);
-            software_btn.Location = new Point(20, 130);
-            software_btn.Name = "software_btn";
-            software_btn.Size = new Size(162, 40);
-            software_btn.TabIndex = 20;
-            software_btn.UseVisualStyleBackColor = true;
-            software_btn.Click += software_btn_Click;
-            // 
             // verify_pn
             // 
+            verify_pn.Controls.Add(Update_btn);
+            verify_pn.Controls.Add(AutoUpdate_btn);
             verify_pn.Controls.Add(loginstate_lb);
             verify_pn.Controls.Add(uuidverify_lb);
             verify_pn.Controls.Add(mypath_tb);
             verify_pn.Controls.Add(mypath_btn);
             verify_pn.Location = new Point(0, 156);
             verify_pn.Name = "verify_pn";
-            verify_pn.Size = new Size(276, 144);
+            verify_pn.Size = new Size(276, 265);
             verify_pn.TabIndex = 25;
+            // 
+            // Update_btn
+            // 
+            Update_btn.Enabled = false;
+            Update_btn.FlatAppearance.BorderColor = Color.FromArgb(128, 255, 255);
+            Update_btn.FlatAppearance.BorderSize = 5;
+            Update_btn.FlatAppearance.MouseDownBackColor = Color.FromArgb(128, 128, 255);
+            Update_btn.FlatAppearance.MouseOverBackColor = Color.Red;
+            Update_btn.FlatStyle = FlatStyle.Flat;
+            Update_btn.ForeColor = SystemColors.ButtonHighlight;
+            Update_btn.Location = new Point(14, 214);
+            Update_btn.Name = "Update_btn";
+            Update_btn.Size = new Size(133, 32);
+            Update_btn.TabIndex = 28;
+            Update_btn.Text = "Update";
+            Update_btn.UseVisualStyleBackColor = true;
+            Update_btn.Visible = false;
+            Update_btn.Click += Update_btn_Click;
+            // 
+            // AutoUpdate_btn
+            // 
+            AutoUpdate_btn.AccessibleDescription = "";
+            AutoUpdate_btn.AutoSize = true;
+            AutoUpdate_btn.FlatAppearance.BorderSize = 0;
+            AutoUpdate_btn.FlatStyle = FlatStyle.Flat;
+            AutoUpdate_btn.ForeColor = SystemColors.ButtonHighlight;
+            AutoUpdate_btn.Location = new Point(14, 193);
+            AutoUpdate_btn.Name = "AutoUpdate_btn";
+            AutoUpdate_btn.Size = new Size(93, 19);
+            AutoUpdate_btn.TabIndex = 27;
+            AutoUpdate_btn.Text = "AutoUpdate";
+            AutoUpdate_btn.UseVisualStyleBackColor = true;
+            AutoUpdate_btn.CheckedChanged += AutoUpdate_btn_CheckedChanged;
             // 
             // loginstate_lb
             // 
@@ -655,6 +643,57 @@
             mypath_btn.UseVisualStyleBackColor = true;
             mypath_btn.Click += mypath_btn_Click;
             // 
+            // LoginP
+            // 
+            LoginP.Controls.Add(accountmangement_btn);
+            LoginP.Controls.Add(user_btn);
+            LoginP.Controls.Add(software_btn);
+            LoginP.Location = new Point(3, 3);
+            LoginP.Name = "LoginP";
+            LoginP.Size = new Size(214, 361);
+            LoginP.TabIndex = 24;
+            LoginP.Visible = false;
+            // 
+            // accountmangement_btn
+            // 
+            accountmangement_btn.BackgroundImage = (Image)resources.GetObject("accountmangement_btn.BackgroundImage");
+            accountmangement_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            accountmangement_btn.Enabled = false;
+            accountmangement_btn.FlatStyle = FlatStyle.Flat;
+            accountmangement_btn.ForeColor = Color.FromArgb(36, 36, 45);
+            accountmangement_btn.Location = new Point(20, 173);
+            accountmangement_btn.Name = "accountmangement_btn";
+            accountmangement_btn.Size = new Size(162, 40);
+            accountmangement_btn.TabIndex = 23;
+            accountmangement_btn.UseVisualStyleBackColor = true;
+            accountmangement_btn.Visible = false;
+            // 
+            // user_btn
+            // 
+            user_btn.BackgroundImage = (Image)resources.GetObject("user_btn.BackgroundImage");
+            user_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            user_btn.FlatStyle = FlatStyle.Flat;
+            user_btn.ForeColor = Color.FromArgb(36, 36, 45);
+            user_btn.Location = new Point(20, 87);
+            user_btn.Name = "user_btn";
+            user_btn.Size = new Size(162, 40);
+            user_btn.TabIndex = 19;
+            user_btn.UseVisualStyleBackColor = true;
+            user_btn.Click += user_btn_Click;
+            // 
+            // software_btn
+            // 
+            software_btn.BackgroundImage = (Image)resources.GetObject("software_btn.BackgroundImage");
+            software_btn.BackgroundImageLayout = ImageLayout.Zoom;
+            software_btn.FlatStyle = FlatStyle.Flat;
+            software_btn.ForeColor = Color.FromArgb(36, 36, 45);
+            software_btn.Location = new Point(20, 130);
+            software_btn.Name = "software_btn";
+            software_btn.Size = new Size(162, 40);
+            software_btn.TabIndex = 20;
+            software_btn.UseVisualStyleBackColor = true;
+            software_btn.Click += software_btn_Click;
+            // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Transparent;
@@ -697,9 +736,9 @@
             optionspanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            LoginP.ResumeLayout(false);
             verify_pn.ResumeLayout(false);
             verify_pn.PerformLayout();
+            LoginP.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -720,7 +759,6 @@
         private Label label5;
         private Label label8;
         private Label label7;
-        private Button accountmangement_btn;
         private Button software_btn;
         private Panel panel2;
         private Panel panel1;
@@ -754,5 +792,8 @@
         public Label uuidverify_lb;
         public Label loginstate_lb;
         public Button authentication_btn;
+        public Button accountmangement_btn;
+        public Button Update_btn;
+        public CheckBox AutoUpdate_btn;
     }
 }

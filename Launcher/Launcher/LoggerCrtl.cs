@@ -1,4 +1,5 @@
-﻿using Microsoft.CSharp;
+﻿using Launcher.NewFolder;
+using Microsoft.CSharp;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -10,15 +11,18 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Launcher
 {
     public partial class LoggerCrtl : Form
     {
 
+        UIControl uic;
 
-        public LoggerCrtl()
+        public LoggerCrtl(UIControl uIControl)
         {
+            uic = uIControl;
             InitializeComponent();
         }
 
@@ -27,7 +31,9 @@ namespace Launcher
             info,
             warning,
             error,
-            command
+            command,
+            user,
+            help
         }
 
 
@@ -48,6 +54,13 @@ namespace Launcher
                 case Levels.command:
                     message = "▶ command ◀" + message;
                     break;
+                case Levels.user:
+                    message = "🐵 : " + message;
+                    break;
+                case Levels.help:
+                    message = " " + message;
+                    break;
+
             }
 
             Console_showbox.Text += $"\n\r{message} \n\r";
@@ -68,8 +81,6 @@ namespace Launcher
                     // 呼叫該方法
                     methodInfo.Invoke(this, null);
 
-                    Sand(Levels.command, "執行：" + methodName);
-
                 }
                 else
                 {
@@ -87,11 +98,55 @@ namespace Launcher
             if (e.KeyChar == (char)Keys.Enter && Console_Inputbox.Text.Length>0)
             {
 
-                if (Console_Inputbox.Text[0] == '\\') //輸入\Test
+                if (Console_Inputbox.Text[0] == '/') //輸入\Test
                     CommandsInput(Console_Inputbox.Text);
+
+                else if (Console_Inputbox.Text[0] == '!') //輸入 !download path!get
+                {
+                    var Tests = Console_Inputbox.Text.Split('!');
+                    if (Tests[1] == "download path")
+                    {
+                        if (Tests[2] == "get") 
+                        {
+
+                        }
+                        else if (Tests[2] == "set") 
+                        {
+                            uic.updateRelated.Setfilepaht(Tests[2]);
+                        }
+                        Sand(Levels.command, uic.updateRelated.Getfilepaht());
+                    }
+                    if (Tests[1] == "download url")
+                    {
+                        if (Tests[2] == "version") 
+                        {
+                            if (Tests[3] == "get")
+                            {
+
+                            }
+                            else if (Tests[3] == "set")
+                            {
+                                uic.updateRelated.SetVersionurl(Tests[3]);
+                            }
+                            Sand(Levels.command, uic.updateRelated.GetVersionurl());
+                        }
+                        else if (Tests[2] == "zip")  //!download url!zip!get
+                        {
+                            if (Tests[3] == "get")
+                            {
+
+                            }
+                            else if (Tests[3] == "set")
+                            {
+                                uic.updateRelated.Setzipurl(Tests[3]);
+                            }
+                            Sand(Levels.command, uic.updateRelated.Getzipurl());
+                        }
+                    }
+                }
                 else
                 {
-                    Sand(Levels.info, Console_Inputbox.Text);
+                    Sand(Levels.user, Console_Inputbox.Text);
                 }
 
                 Console_Inputbox.Text = null;
@@ -102,10 +157,34 @@ namespace Launcher
 
 
 
+        #region Commands
 
-        public void Test()
+        public void help()
         {
-            Sand(Levels.command, " Test !!! ");
+            Sand(Levels.command, "");
+            Sand(Levels.help, "管理身分 :     /admin     /unadmin     /clear");
+            Sand(Levels.help, "TextBox  :     /clear");
+            Sand(Levels.help, "下載相關 :     !download path!     !download url!");
+
         }
+        public void admin()
+        {
+            Sand(Levels.command, " 啟動管理員模式 ! ");
+
+            uic.judgment.isAdmin = true;
+        }
+        public void unadmin()
+        {
+            Sand(Levels.command, " 關閉管理員模式 ! ");
+
+            uic.judgment.isAdmin = false;
+        }
+        public void clear()
+        {
+            Console_showbox.Text = null;
+
+            Sand(Levels.command, " 🧹 🧹 🧹 ");
+        }
+        #endregion
     }
 }

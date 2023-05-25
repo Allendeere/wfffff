@@ -1,16 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Security.Cryptography;
 
 namespace Launcher.NewFolder
 {
@@ -26,16 +18,36 @@ namespace Launcher.NewFolder
     /// <summary>
     /// 測試專用:P
     /// </summary>
-    internal class TIFFF
+    public class UpdateRelated
     {
-        private string FilePath;
+        private static string FilePath;
+
         private string versionFile;
+
         private string gameZip;
+
         private string launcherExe;
+
+        private static string launcherVersionURL;//Version.txt
+
+        private static string launcherZIPURL;
+
 
         public Version localVersion;
 
-        TIFFFF tIFFFF;
+
+        #region Console用
+
+        public Func<string> Getfilepaht = () => FilePath;
+        public void Setfilepaht(string s) => FilePath = s;
+
+        public Func<string> GetVersionurl = () => launcherVersionURL;
+        public void SetVersionurl(string s) => launcherVersionURL = s;
+
+        public Func<string> Getzipurl = () => launcherZIPURL;
+        public void Setzipurl(string s) => launcherZIPURL = s;
+        #endregion
+        //TIFFFF tIFFFF;
 
         MainForm mainForm;
 
@@ -62,51 +74,87 @@ namespace Launcher.NewFolder
             }
         }
 
-        public TIFFF(MainForm mainForm)
+        public UpdateRelated(MainForm mainForm)
         {
             this.mainForm = mainForm;
-
-            //tIFFFF = new TIFFFF(mainForm); //測試
 
             Init();
         }
         /// <summary>
-        /// 初始呼叫
+        /// 初始
         /// </summary>
         public void Init()
         {
-            FilePath = "C:\\Users\\Administrator\\Desktop\\我的資料";
+            FilePath = Properties.Settings.Default.localFilePath;
             versionFile = FilePath + "\\Version.txt";
             gameZip = Path.Combine(FilePath, "TestLauncher.zip");
             launcherExe = Path.Combine(FilePath, "TestLauncher", "Launcher.exe");
 
-            CheckForUpdates();
+            launcherVersionURL = "https://drive.google.com/uc?export=download&id=1H0xULRZoEHp3ZwgLp_wj3lgp5TV48LIk";
+            launcherZIPURL = "https://drive.google.com/uc?export=download&id=1EYDo2mBAVZ3rb-D5Zlo2GQEU-GcHFv5a&confirm=t&uuid=3b7a9917-3de9-4eb3-8619-7284fc226449&at=AKKF8vzjp7NC8bA6L8QMTsaLBcSc:1684811181278";
 
-            StartMain();
+
+            if (Directory.Exists(FilePath))
+            {
+                try
+                {
+                    //檔案檢查
+                    if (!Directory.Exists(FilePath + "\\backup"))
+                    {
+                        Directory.CreateDirectory(FilePath + "\\backup");
+                    }
+                    if (!File.Exists(versionFile))
+                    {
+                        File.WriteAllText(FilePath, "0.0.0");
+                    }
+                    if (!Directory.Exists(FilePath + "\\TestLauncher"))
+                    {
+                        Directory.CreateDirectory(FilePath + "\\TestLauncher");
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            CheckForUpdates(true);
+
+            if (Properties.Settings.Default.AutoUpdate)
+                StartMain();
         }
 
         /// <summary>
-        /// 檢查確認
+        /// 版本檢查
         /// </summary>
-        private void CheckForUpdates()
+        public void CheckForUpdates(bool isAutoTrigger)
         {
             if (File.Exists(versionFile))
             {
                 localVersion = new Version(File.ReadAllText(versionFile));
 
-                mainForm.Text = "Launcher   "+"v " + localVersion.ToString();
+                mainForm.Text = "Launcher   " + "v " + localVersion.ToString();
                 mainForm.LVersionlabel.Text = "v " + localVersion.ToString();
 
                 try
                 {
                     WebClient webClient = new WebClient();
 
-                    Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1H0xULRZoEHp3ZwgLp_wj3lgp5TV48LIk"));
-                    // Version onlineVersion = new Version(webClient.DownloadString("Version.txt"));
 
-                    if (onlineVersion.IsDifferentThan(localVersion)) //版本檢查
+                    Version onlineVersion = new Version(webClient.DownloadString(launcherVersionURL));//Version.txt
+
+                    if (onlineVersion.IsDifferentThan(localVersion)) //版本不同
                     {
-                        InstallGameFiles(true, onlineVersion);
+                        if (isAutoTrigger && !Properties.Settings.Default.AutoUpdate)
+                        {
+                            mainForm.uictrl.SetActivePanel(mainForm.Update_btn, true, true);
+                        }
+                        else
+                        {
+                            InstallGameFiles(true, onlineVersion);
+                        }
+
                     }
                     else
                     {
@@ -119,7 +167,7 @@ namespace Launcher.NewFolder
                     MessageBox.Show($"Error checking for game updates: {ex}");
                 }
             }
-            else
+            else //versionFile不存在
             {
                 InstallGameFiles(false, Version.zero);
             }
@@ -142,12 +190,13 @@ namespace Launcher.NewFolder
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    _onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1H0xULRZoEHp3ZwgLp_wj3lgp5TV48LIk"));
+                    _onlineVersion = new Version(webClient.DownloadString(launcherVersionURL));
                 }
 
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
+
                 //webClient.DownloadFileAsync(new Uri("File"), savepath);
-                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1EYDo2mBAVZ3rb-D5Zlo2GQEU-GcHFv5a&confirm=t&uuid=3b7a9917-3de9-4eb3-8619-7284fc226449&at=AKKF8vzjp7NC8bA6L8QMTsaLBcSc:1684811181278"), gameZip, _onlineVersion);
+                webClient.DownloadFileAsync(new Uri(launcherZIPURL), gameZip, _onlineVersion);
 
             }
             catch (Exception ex)
@@ -160,16 +209,35 @@ namespace Launcher.NewFolder
         {
             try
             {
+                //比對前後版本差異
+
+                if (File.Exists(Path.Combine(FilePath + "\\backup", "TestLauncher.zip")))
+                {
+                    if (CompareZipFiles(Path.Combine(FilePath + "\\backup", "TestLauncher.zip"), gameZip)) //檔案如果一樣
+                    {
+                        if (File.Exists(gameZip)) File.Delete(gameZip);
+
+                        return;
+                    }
+                }
+
+                File.Copy(gameZip, Path.Combine(FilePath + "\\backup", "TestLauncher.zip"), true);//新檔案複寫至backup
+
+                //沒問題則解壓縮取代
                 string onlineVersion = ((Version)e.UserState).ToString();
+
                 ZipFile.ExtractToDirectory(gameZip, FilePath + "\\TestLauncher", true); //解壓
+
                 File.Delete(gameZip);
 
                 File.WriteAllText(versionFile, onlineVersion);
 
                 mainForm.Text = "Launcher   " + "v " + onlineVersion;
+
                 mainForm.LVersionlabel.Text = "v " + onlineVersion;
 
                 Status = LauncherStatus.ready;
+
             }
             catch (Exception ex)
             {
@@ -191,20 +259,94 @@ namespace Launcher.NewFolder
 
                 Process.Start(startInfo); //TODO: 目前是測試檔案，要替還成Launcher Path !!
 
-                //mainForm.Close();
+                mainForm.Close();
             }
             else if (Status == LauncherStatus.failed)
             {
-                CheckForUpdates();
+                CheckForUpdates(false);
             }
         }
 
 
 
+        #region 比對檔案內容
+        public static bool CompareZipFiles(string zipFilePath1, string zipFilePath2)
+        {
+            // 解壓縮第一個壓縮檔案
+            var tempDir1 = ExtractZipFile(zipFilePath1);
+
+            // 解壓縮第二個壓縮檔案
+            var tempDir2 = ExtractZipFile(zipFilePath2);
+
+            // 比對兩個解壓縮後的資料夾結構
+            var areFoldersEqual = CompareFolders(tempDir1, tempDir2);
+
+            // 刪除臨時資料夾
+            Directory.Delete(tempDir1, true);
+            Directory.Delete(tempDir2, true);
+
+            return areFoldersEqual;
+        }
+
+        private static string ExtractZipFile(string zipFilePath)
+        {
+            var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+
+            ZipFile.ExtractToDirectory(zipFilePath, tempDir);
+
+            return tempDir;
+        }
+
+        private static bool CompareFolders(string folderPath1, string folderPath2)
+        {
+            var files1 = Directory.GetFiles(folderPath1);
+            var files2 = Directory.GetFiles(folderPath2);
+
+            if (files1.Length != files2.Length)
+            {
+                return false;
+            }
+
+            // 比對每個檔案的大小和雜湊值
+            for (int i = 0; i < files1.Length; i++)
+            {
+                var file1 = files1[i];
+                var file2 = files2[i];
+
+                var fileSize1 = new FileInfo(file1).Length;
+                var fileSize2 = new FileInfo(file2).Length;
+
+                if (fileSize1 != fileSize2)
+                {
+                    return false;
+                }
+
+                var hash1 = GetFileHash(file1);
+                var hash2 = GetFileHash(file2);
+
+                if (hash1 != hash2)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static string GetFileHash(string filePath)
+        {
+            using (var stream = File.OpenRead(filePath))
+            {
+                var hashAlgorithm = SHA1.Create();
+                var hashBytes = hashAlgorithm.ComputeHash(stream);
+                return Convert.ToBase64String(hashBytes);
+            }
+        }
+        #endregion
 
     }
 
-    struct Version
+    public struct Version
     {
         internal static Version zero = new Version(0, 0, 0);
 

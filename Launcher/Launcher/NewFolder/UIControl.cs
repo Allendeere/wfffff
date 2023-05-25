@@ -1,20 +1,4 @@
-﻿using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Launcher;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.Reflection;
-using System.Windows.Forms;
-using static Launcher.NewFolder.UIControl;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Collections.Specialized;
-using System.Reflection.Metadata;
-using Button = System.Windows.Forms.Button;
-using NLog;
+﻿using Button = System.Windows.Forms.Button;
 
 namespace Launcher.NewFolder//TODO:待改介面
 {
@@ -22,12 +6,16 @@ namespace Launcher.NewFolder//TODO:待改介面
     {
         public MainForm mainForm;
 
-        FrontEndJudgment judgment = new FrontEndJudgment();
+        public FrontEndJudgment judgment = new FrontEndJudgment();
 
-        public LoggerCrtl LoggerCrtl = new LoggerCrtl();
+        public LoggerCrtl LoggerCrtl;
+
+        public UpdateRelated updateRelated;
 
         //TIFFF tIFFF;
         public Dictionary<string, object> GameInfo = new Dictionary<string, object>();
+
+        public bool PathLock;
         public enum PanelType
         {
             Login,
@@ -42,8 +30,10 @@ namespace Launcher.NewFolder//TODO:待改介面
 
             this.mainForm = mainForm;
             mainForm.uictrl = this;
+            LoggerCrtl = new LoggerCrtl(this);
 
-            //tIFFF = new TIFFF(mainForm);
+
+            updateRelated = new UpdateRelated(mainForm);
 
             UI_Initialization();
         }
@@ -95,8 +85,21 @@ namespace Launcher.NewFolder//TODO:待改介面
                 SetActivePanel(mainForm.User_panel, false, false);
                 SetActivePanel(mainForm.Logout, false, false);
                 SetActivePanel(mainForm.verify_pn, true, true);
+                SetActivePanel(mainForm.accountmangement_btn, false, false);
+
             }));
         }
+        /// <summary>
+        /// 更新
+        /// </summary>
+        public void Update()
+        {
+            updateRelated.CheckForUpdates(false);
+        }
+
+        /// <summary>
+        /// 選擇路徑
+        /// </summary>
         public void FindPath()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -118,31 +121,47 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// </summary>
         public void Login()
         {
-            if (judgment.LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text).IsVerified)
+            if (PathLock)
+            {
+                MessageBox.Show("你所設定的路徑不存在 \n\r"+mainForm.mypath_tb.Text +"\n\r 請重新設定路徑");
+
+                return;
+            }
+
+            var loginResult = judgment.LoginVerification(mainForm.TrainingAccount_TB.Text, mainForm.TrainingPW_TB.Text);
+
+            if (loginResult.IsVerified)
             {
                 SetText(mainForm.loginstate_lb, "登入 - - - - - - - - - - - - - - - -  ✔", Color.PaleGreen);
 
-                LoggerCrtl.Sand(LoggerCrtl.Levels.info, $"用戶 {mainForm.TrainingAccount_TB.Text} 登入 : {DateTime.Now}");
-
-                DelayLogin();
+                LoggerCrtl.Sand(LoggerCrtl.Levels.info, $"{((loginResult.IsAdmin) ? "管理員" : "用戶")} {mainForm.TrainingAccount_TB.Text} 登入 : {DateTime.Now}");
+                
+                DelayLogin(loginResult.IsAdmin);// TODO:登入中模擬..
             }
         }
-        async void DelayLogin()
+        async void DelayLogin(bool isAdmin)
         {
-            await Task.Delay(1000); // TODO:替代為等待
+            await Task.Delay(1000); 
 
             UImethod[PanelType.Login]();
+
+            if(isAdmin)
+            {
+                SetActivePanel(mainForm.accountmangement_btn, true, true);
+            }
+
         }
         /// <summary>
         /// 驗證
         /// </summary>
         public void Verify()
         {
+
             if (judgment.VerifyIdentity(mainForm.SerialNumber.Text))
             {
                 UImethod[PanelType.Verfiy]();
 
-                LoggerCrtl.Sand(LoggerCrtl.Levels.info,$"驗證通知 : {DateTime.Now}");
+                LoggerCrtl.Sand(LoggerCrtl.Levels.info, $"驗證通知 : {DateTime.Now}");
             }
         }
         /// <summary>
@@ -224,11 +243,29 @@ namespace Launcher.NewFolder//TODO:待改介面
             };
         }
         /// <summary>
+        /// 設定自動更新
+        /// </summary>
+        public void AutoUpdateSetting()
+        {
+            Properties.Settings.Default.AutoUpdate = mainForm.AutoUpdate_btn.Checked;
+            Properties.Settings.Default.Save();
+        }
+        /// <summary>
         /// 路徑檢查
         /// </summary>
         public void CheckPath()
         {
             SetText(mainForm.mypath_tb, null, (Directory.Exists(mainForm.mypath_tb.Text)) ? Color.BurlyWood : Color.IndianRed);
+
+            var l = Directory.Exists(mainForm.mypath_tb.Text);
+
+            PathLock = !l;
+
+            if (l)
+            {
+                Properties.Settings.Default.localFilePath = mainForm.mypath_tb.Text;
+                Properties.Settings.Default.Save();
+            }
         }
         /// <summary>
         /// 登出
