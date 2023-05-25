@@ -91,7 +91,7 @@ namespace Launcher.NewFolder
             launcherExe = Path.Combine(FilePath, "TestLauncher", "Launcher.exe");
 
             launcherVersionURL = "https://drive.google.com/uc?export=download&id=1H0xULRZoEHp3ZwgLp_wj3lgp5TV48LIk";
-            launcherZIPURL = "https://drive.google.com/uc?export=download&id=1EYDo2mBAVZ3rb-D5Zlo2GQEU-GcHFv5a&confirm=t&uuid=3b7a9917-3de9-4eb3-8619-7284fc226449&at=AKKF8vzjp7NC8bA6L8QMTsaLBcSc:1684811181278";
+            launcherZIPURL = "https://drive.google.com/uc?export=download&id=1yLxCNfGclJ_andbU5Wbbxeqzud3HM6UF";
 
 
             if (Directory.Exists(FilePath))
@@ -172,7 +172,6 @@ namespace Launcher.NewFolder
                 InstallGameFiles(false, Version.zero);
             }
         }
-
         /// <summary>
         /// 下載
         /// </summary>
@@ -217,6 +216,8 @@ namespace Launcher.NewFolder
                     {
                         if (File.Exists(gameZip)) File.Delete(gameZip);
 
+                        MessageBox.Show("更新失敗，新舊檔案並無變化");
+
                         return;
                     }
                 }
@@ -238,10 +239,16 @@ namespace Launcher.NewFolder
 
                 Status = LauncherStatus.ready;
 
+                if (MessageBox.Show("是否自動重新開啟", "更新完成", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    StartMain();
+                }
+
             }
             catch (Exception ex)
             {
                 Status = LauncherStatus.failed;
+
                 MessageBox.Show($"Error finishing download: {ex}");
             }
         }
