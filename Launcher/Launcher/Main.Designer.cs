@@ -440,7 +440,10 @@
             LoadGame_Btn.BackColor = Color.Transparent;
             LoadGame_Btn.BackgroundImage = (Image)resources.GetObject("LoadGame_Btn.BackgroundImage");
             LoadGame_Btn.BackgroundImageLayout = ImageLayout.Zoom;
+            LoadGame_Btn.FlatAppearance.BorderColor = Color.Cyan;
             LoadGame_Btn.FlatAppearance.BorderSize = 0;
+            LoadGame_Btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            LoadGame_Btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
             LoadGame_Btn.FlatStyle = FlatStyle.Flat;
             LoadGame_Btn.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             LoadGame_Btn.ForeColor = Color.Transparent;

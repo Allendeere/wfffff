@@ -105,7 +105,7 @@ namespace Launcher.NewFolder
                     }
                     if (!File.Exists(versionFile))
                     {
-                        File.WriteAllText(FilePath, "0.0.0");
+                        System.IO.File.WriteAllText(versionFile, "1.1.1");
                     }
                     if (!Directory.Exists(FilePath + "\\TestLauncher"))
                     {
@@ -164,7 +164,7 @@ namespace Launcher.NewFolder
                 catch (Exception ex)
                 {
                     Status = LauncherStatus.failed;
-                    MessageBox.Show($"Error checking for game updates: {ex}");
+                    MessageBox.Show($"檢查遊戲更新時出錯: {ex.Message}");
                 }
             }
             else //versionFile不存在
@@ -201,7 +201,7 @@ namespace Launcher.NewFolder
             catch (Exception ex)
             {
                 Status = LauncherStatus.failed;
-                MessageBox.Show($"Error installing game files: {ex}");
+                MessageBox.Show($"安裝遊戲時出錯: {ex.Message}");
             }
         }
         private void DownloadGameCompletedCallback(object sender, AsyncCompletedEventArgs e)
@@ -249,7 +249,7 @@ namespace Launcher.NewFolder
             {
                 Status = LauncherStatus.failed;
 
-                MessageBox.Show($"Error finishing download: {ex}");
+                MessageBox.Show($"下載完成時出錯 : {ex.Message}");
             }
         }
         private void StartMain()
