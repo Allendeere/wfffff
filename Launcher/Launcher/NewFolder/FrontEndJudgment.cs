@@ -24,11 +24,33 @@ namespace Launcher.NewFolder
                 }
             }
         }
+        #region 範本
+
+        public void SetActivePanel(object objects, bool? isActive = null, bool? isVisible = null)
+        {
+            if (objects is Control obj)
+            {
+                if (isActive != null) obj.Enabled = (bool)isActive;
+                if (isVisible != null) obj.Visible = (bool)isVisible;
+            }
+        }
+        public void SetText(object objects, string? title = null, Color? color = null, bool? isActive = null, bool? isVisible = null, Font? font = null)
+        {
+            if (objects is Control obj)
+            {
+                if (isActive != null) obj.Enabled = (bool)isActive;
+                if (isVisible != null) obj.Visible = (bool)isVisible;
+                if (title != null) obj.Text = title;
+                if (color != null) obj.ForeColor = (Color)color;
+                if (font != null) obj.Font = (Font)font;
+            }
+        } 
+        #endregion
 
 
         public void ChecklocalGame(string gamename) //到時候會在遊戲下載時新建一個_gamename的資料夾
         {
-            var gamepath = @"C:\Users\Administrator\AppData\Local\" + gamename+ @"\GitHubDesktop.exe";
+            var gamepath = $"{ UpdateRelated.FilePath}\\{gamename}\\{gamename}.exe  ";
 
             if (File.Exists(gamepath))
                 Process.Start(gamepath);
@@ -38,7 +60,22 @@ namespace Launcher.NewFolder
                 MessageBox.Show(gamepath + "路徑或執行檔不存在");
             }
         }
+        /// <summary>
+        /// 路徑檢查
+        /// </summary>
+        public bool Pathcheck(TextBox path)
+        {
+            if (MessageBox.Show("你所設定的路徑不存在 \n\r" + path.Text + "\n\r 是否還原預設路徑", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            {
+                path.Text = Properties.Settings.Default.localFilePath;
 
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         #region 登入與驗證(判斷)
         /// <summary>

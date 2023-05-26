@@ -54,6 +54,11 @@
             pictureBox_background = new PictureBox();
             pictureBox2 = new PictureBox();
             SystemInformation = new TabPage();
+            pictureBox9 = new PictureBox();
+            pictureBox8 = new PictureBox();
+            pictureBox7 = new PictureBox();
+            pictureBox6 = new PictureBox();
+            pictureBox5 = new PictureBox();
             TEST_spawnGobj = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
             INFO_PN = new Panel();
@@ -62,6 +67,9 @@
             Detail_Lb = new Label();
             labellauncherv = new Label();
             GameImageBig = new Panel();
+            LoggerPage = new TabPage();
+            Console_txtbox_main = new TextBox();
+            Console_showbox_main = new TextBox();
             optionspanel = new Panel();
             Title_LB = new Label();
             pictureBox3 = new PictureBox();
@@ -79,6 +87,7 @@
             user_btn = new Button();
             software_btn = new Button();
             pictureBox1 = new PictureBox();
+            loggerbtn = new Button();
             tabControl1.SuspendLayout();
             Loginsystem.SuspendLayout();
             User_panel.SuspendLayout();
@@ -88,7 +97,13 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox_background).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SystemInformation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             INFO_PN.SuspendLayout();
+            LoggerPage.SuspendLayout();
             optionspanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -102,6 +117,7 @@
             tabControl1.Appearance = TabAppearance.FlatButtons;
             tabControl1.Controls.Add(Loginsystem);
             tabControl1.Controls.Add(SystemInformation);
+            tabControl1.Controls.Add(LoggerPage);
             tabControl1.Font = new Font("Microsoft JhengHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             tabControl1.HotTrack = true;
             tabControl1.ItemSize = new Size(0, 1);
@@ -397,6 +413,11 @@
             // 
             SystemInformation.BackgroundImage = (Image)resources.GetObject("SystemInformation.BackgroundImage");
             SystemInformation.BackgroundImageLayout = ImageLayout.Stretch;
+            SystemInformation.Controls.Add(pictureBox9);
+            SystemInformation.Controls.Add(pictureBox8);
+            SystemInformation.Controls.Add(pictureBox7);
+            SystemInformation.Controls.Add(pictureBox6);
+            SystemInformation.Controls.Add(pictureBox5);
             SystemInformation.Controls.Add(TEST_spawnGobj);
             SystemInformation.Controls.Add(flowLayoutPanel1);
             SystemInformation.Controls.Add(INFO_PN);
@@ -407,6 +428,51 @@
             SystemInformation.TabIndex = 1;
             SystemInformation.Text = "系統資訊";
             SystemInformation.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox9
+            // 
+            pictureBox9.BackColor = Color.Transparent;
+            pictureBox9.Location = new Point(30, 375);
+            pictureBox9.Name = "pictureBox9";
+            pictureBox9.Size = new Size(542, 30);
+            pictureBox9.TabIndex = 17;
+            pictureBox9.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.BackColor = Color.Transparent;
+            pictureBox8.Location = new Point(300, 400);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(38, 23);
+            pictureBox8.TabIndex = 16;
+            pictureBox8.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            pictureBox7.BackColor = Color.Transparent;
+            pictureBox7.Location = new Point(256, 400);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(38, 23);
+            pictureBox7.TabIndex = 15;
+            pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = Color.Transparent;
+            pictureBox6.Location = new Point(344, 400);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(228, 23);
+            pictureBox6.TabIndex = 14;
+            pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor = Color.Transparent;
+            pictureBox5.Location = new Point(30, 400);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(220, 23);
+            pictureBox5.TabIndex = 13;
+            pictureBox5.TabStop = false;
             // 
             // TEST_spawnGobj
             // 
@@ -426,7 +492,7 @@
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(40, 298);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(555, 100);
+            flowLayoutPanel1.Size = new Size(532, 109);
             flowLayoutPanel1.TabIndex = 1;
             // 
             // INFO_PN
@@ -504,6 +570,43 @@
             GameImageBig.Size = new Size(318, 215);
             GameImageBig.TabIndex = 0;
             // 
+            // LoggerPage
+            // 
+            LoggerPage.BackColor = SystemColors.ActiveCaptionText;
+            LoggerPage.Controls.Add(Console_txtbox_main);
+            LoggerPage.Controls.Add(Console_showbox_main);
+            LoggerPage.Location = new Point(4, 5);
+            LoggerPage.Name = "LoggerPage";
+            LoggerPage.Size = new Size(608, 441);
+            LoggerPage.TabIndex = 2;
+            LoggerPage.Text = "tabPage1";
+            // 
+            // Console_txtbox_main
+            // 
+            Console_txtbox_main.BackColor = SystemColors.InactiveCaptionText;
+            Console_txtbox_main.BorderStyle = BorderStyle.FixedSingle;
+            Console_txtbox_main.Cursor = Cursors.IBeam;
+            Console_txtbox_main.ForeColor = SystemColors.Window;
+            Console_txtbox_main.Location = new Point(88, 401);
+            Console_txtbox_main.Name = "Console_txtbox_main";
+            Console_txtbox_main.Size = new Size(516, 28);
+            Console_txtbox_main.TabIndex = 1;
+            Console_txtbox_main.KeyPress += Console_txtbox_main_KeyPress;
+            // 
+            // Console_showbox_main
+            // 
+            Console_showbox_main.BackColor = SystemColors.InactiveCaptionText;
+            Console_showbox_main.BorderStyle = BorderStyle.FixedSingle;
+            Console_showbox_main.Cursor = Cursors.No;
+            Console_showbox_main.ForeColor = Color.PaleGreen;
+            Console_showbox_main.Location = new Point(88, 11);
+            Console_showbox_main.Multiline = true;
+            Console_showbox_main.Name = "Console_showbox_main";
+            Console_showbox_main.ReadOnly = true;
+            Console_showbox_main.ScrollBars = ScrollBars.Vertical;
+            Console_showbox_main.Size = new Size(516, 384);
+            Console_showbox_main.TabIndex = 0;
+            // 
             // optionspanel
             // 
             optionspanel.BackColor = Color.FromArgb(36, 36, 45);
@@ -576,6 +679,7 @@
             // 
             // Update_btn
             // 
+            Update_btn.Cursor = Cursors.Hand;
             Update_btn.Enabled = false;
             Update_btn.FlatAppearance.BorderColor = Color.FromArgb(128, 255, 255);
             Update_btn.FlatAppearance.BorderSize = 5;
@@ -718,12 +822,23 @@
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
+            // loggerbtn
+            // 
+            loggerbtn.Location = new Point(122, 0);
+            loggerbtn.Name = "loggerbtn";
+            loggerbtn.Size = new Size(53, 26);
+            loggerbtn.TabIndex = 26;
+            loggerbtn.Text = "logger";
+            loggerbtn.UseVisualStyleBackColor = true;
+            loggerbtn.Click += loggerbtn_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(800, 431);
+            Controls.Add(loggerbtn);
             Controls.Add(optionspanel);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -743,8 +858,15 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox_background).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             SystemInformation.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             INFO_PN.ResumeLayout(false);
             INFO_PN.PerformLayout();
+            LoggerPage.ResumeLayout(false);
+            LoggerPage.PerformLayout();
             optionspanel.ResumeLayout(false);
             optionspanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -808,5 +930,14 @@
         public Button accountmangement_btn;
         public Button Update_btn;
         public CheckBox AutoUpdate_btn;
+        private PictureBox pictureBox5;
+        private PictureBox pictureBox6;
+        private PictureBox pictureBox7;
+        private PictureBox pictureBox8;
+        private PictureBox pictureBox9;
+        private Button loggerbtn;
+        private TabPage LoggerPage;
+        public TextBox Console_txtbox_main;
+        public TextBox Console_showbox_main;
     }
 }

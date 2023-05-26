@@ -20,7 +20,7 @@ namespace Launcher.NewFolder
     /// </summary>
     public class UpdateRelated
     {
-        private static string FilePath;
+        public static string FilePath;
 
         private string versionFile;
 
@@ -148,7 +148,7 @@ namespace Launcher.NewFolder
                     {
                         if (isAutoTrigger && !Properties.Settings.Default.AutoUpdate)
                         {
-                            mainForm.uictrl.SetActivePanel(mainForm.Update_btn, true, true);
+                            mainForm.uictrl.judgment.SetActivePanel(mainForm.Update_btn, true, true);
                         }
                         else
                         {

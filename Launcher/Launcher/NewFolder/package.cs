@@ -68,9 +68,9 @@ namespace Launcher.NewFolder
             Describe = describe;
         }
 
-        public string getVersion { get { return Version; } }
-        public string getName { get { return Name; } }
-        public string getDescribe { get { return Describe; } }
+        public string GameVersion { get { return Version; } }
+        public string GameName { get { return Name; } }
+        public string GameDescribe { get { return Describe; } }
         public bool NeedUpdates { get { return NeedUpdate; } set { NeedUpdate = value; } }
 
     }

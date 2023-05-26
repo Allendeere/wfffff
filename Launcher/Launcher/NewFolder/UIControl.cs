@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Windows.Forms;
 using Button = System.Windows.Forms.Button;
 
 namespace Launcher.NewFolder//TODO:待改介面
@@ -98,9 +99,8 @@ namespace Launcher.NewFolder//TODO:待改介面
         {
             updateRelated.CheckForUpdates(false);
         }
-
         /// <summary>
-        /// 選擇路徑
+        /// 手動選擇路徑
         /// </summary>
         public void FindPath()
         {
@@ -117,7 +117,6 @@ namespace Launcher.NewFolder//TODO:待改介面
                 }
             }
         }
-
         /// <summary>
         /// 登入
         /// </summary>
@@ -125,13 +124,7 @@ namespace Launcher.NewFolder//TODO:待改介面
         {
             if (PathLock)
             {
-                if (MessageBox.Show("你所設定的路徑不存在 \n\r"+mainForm.mypath_tb.Text +"\n\r 是否還原預設路徑", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                {
-                    mainForm.mypath_tb.Text = Properties.Settings.Default.localFilePath;
-
-                    PathLock = false;
-                }
-                else
+                if (judgment.Pathcheck(mainForm.mypath_tb))
                 {
                     return;
                 }
@@ -144,13 +137,13 @@ namespace Launcher.NewFolder//TODO:待改介面
                 SetText(mainForm.loginstate_lb, "登入 - - - - - - - - - - - - - - - -  ✔", Color.PaleGreen);
 
                 LoggerCrtl.Sand(LoggerCrtl.Levels.info, $"{((loginResult.IsAdmin) ? "管理員" : "用戶")} {mainForm.TrainingAccount_TB.Text} 登入 : {DateTime.Now}");
-                
+
                 DelayLogin(loginResult.IsAdmin);// TODO:登入中模擬..
             }
         }
         async void DelayLogin(bool isAdmin)
         {
-            await Task.Delay(1000); 
+            await Task.Delay(1000);
 
             UImethod[PanelType.Login]();
 
@@ -160,9 +153,8 @@ namespace Launcher.NewFolder//TODO:待改介面
             }
 
             if (isAdmin)
-            {
                 SetActivePanel(mainForm.accountmangement_btn, true, true);
-            }
+            
 
         }
         /// <summary>
@@ -181,66 +173,69 @@ namespace Launcher.NewFolder//TODO:待改介面
         /// <summary>
         /// 可執行軟體
         /// </summary>
-        public void SpawnSoftware( string GameName)
+        public void SpawnSoftware(string GameName)
         {
             try
             {
                 var gamedt = GameInfo[GameName];
-                if(gamedt is GameData gameData)//登入成功後拉本機遊戲資料 (假設本機有遊戲資料)
+                if (gamedt is GameData gameData)//登入成功後拉本機遊戲資料 (假設本機有遊戲資料)
                 {
+                    #region UI: 創建按鈕
+                    Panel pln = new Panel();
+                    Label labelgamev = new Label();
+                    Label labelgamename = new Label();
+                    Panel G2img = new Panel();
+                    System.Windows.Forms.Button button = new System.Windows.Forms.Button();
+                    pln.Size = new Size(185, 76);
+                    //
+                    // labelgamename
+                    //
+                    labelgamename.BackColor = Color.FromArgb(57, 56, 84);
+                    labelgamename.Text = gameData.GameName;
+                    labelgamename.AutoSize = true;
+                    labelgamename.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+                    labelgamename.ForeColor = Color.White;
+                    labelgamename.Location = new Point(83, 11);
+                    labelgamename.Size = new Size(55, 15);
+                    //
+                    // labelgamev
+                    //
+                    labelgamev.Text = gameData.GameVersion;
+                    labelgamev.BackColor = Color.FromArgb(57, 56, 84);
+                    labelgamev.AutoSize = true;
+                    labelgamev.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+                    labelgamev.ForeColor = Color.FromArgb(78, 78, 99);
+                    labelgamev.Location = new Point(88, 28);
+                    labelgamev.Size = new Size(40, 15);
+                    //
+                    // Button
+                    //
+                    button.FlatStyle = FlatStyle.Flat;
+                    button.Cursor = Cursors.Hand;
+                    button.ForeColor = Color.FromArgb(57, 56, 84);
+                    button.BackColor = Color.FromArgb(57, 56, 84);
+                    button.FlatAppearance.BorderColor = Color.FromArgb(57, 56, 84);
+                    button.FlatAppearance.MouseDownBackColor = Color.FromArgb(57, 56, 84);
+                    button.FlatAppearance.MouseOverBackColor = Color.FromArgb(57, 56, 84);
+                    button.Size = new Size(185, 76);
+                    button.FlatAppearance.BorderSize = 0;
+                    // 
+                    // G2img
+                    // 
+                    G2img.BackColor = Color.White;
+                    G2img.Location = new Point(0, 0);
+                    G2img.Size = new Size(77, 76);
+                    G2img.BorderStyle = BorderStyle.None;
 
-                #region UI: 創建按鈕
-                Panel pln = new Panel();
-                Label labelgamev = new Label();
-                Label labelgamename = new Label();
-                Panel G2img = new Panel();
-                System.Windows.Forms.Button button = new System.Windows.Forms.Button();
-                pln.Size = new Size(185, 76);
-                //
-                // labelgamename
-                //
-                labelgamename.BackColor = Color.FromArgb(57, 56, 84);
-                labelgamename.Text = gameData.getName;
-                labelgamename.AutoSize = true;
-                labelgamename.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-                labelgamename.ForeColor = Color.White;
-                labelgamename.Location = new Point(83, 11);
-                labelgamename.Size = new Size(55, 15);
-                //
-                // labelgamev
-                //
-                labelgamev.Text = gameData.getVersion;
-                labelgamev.BackColor = Color.FromArgb(57, 56, 84);
-                labelgamev.AutoSize = true;
-                labelgamev.Font = new Font("Microsoft JhengHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-                labelgamev.ForeColor = Color.FromArgb(78, 78, 99);
-                labelgamev.Location = new Point(88, 28);
-                labelgamev.Size = new Size(40, 15);
-                //
-                // Button
-                //
-                button.FlatStyle = FlatStyle.Flat;
-                button.ForeColor = Color.FromArgb(57, 56, 84);
-                button.BackColor = Color.FromArgb(57, 56, 84);
-                button.Size = new Size(185, 76);
-                button.FlatAppearance.BorderSize = 0;
-                // 
-                // G2img
-                // 
-                G2img.BackColor = Color.White;
-                G2img.Location = new Point(0, 0);
-                G2img.Size = new Size(77, 76);
-                G2img.BorderStyle = BorderStyle.None;
+                    pln.Controls.Add(G2img);
+                    pln.Controls.Add(labelgamev);
+                    pln.Controls.Add(labelgamename);
+                    pln.Controls.Add(button);
 
-                pln.Controls.Add(G2img);
-                pln.Controls.Add(labelgamev);
-                pln.Controls.Add(labelgamename);
-                pln.Controls.Add(button);
+                    mainForm.flowLayoutPanel1.Controls.Add(pln);
+                    #endregion
 
-                mainForm.flowLayoutPanel1.Controls.Add(pln);
-                #endregion
-
-                ButtonMethod(button, gameData);
+                    ButtonMethod(button, gameData);
                 }
             }
             catch (Exception)
@@ -249,19 +244,47 @@ namespace Launcher.NewFolder//TODO:待改介面
             }
         }
 
+
+
+        private Point dragStartPoint;
+        private Point scrollStartOffset;
         void ButtonMethod(Button button, GameData gameData)
         {
+            button.MouseDown += (sender, e) =>
+            {
+                if (e.Button == MouseButtons.Left/* && !isDragging*/)
+                {
+                    dragStartPoint = e.Location;
+                    scrollStartOffset = mainForm.flowLayoutPanel1.AutoScrollPosition;
+                }
+            };
+            button.MouseMove += (sender, e) =>
+            {
+                // 当移动鼠标且按下左键时进行拖曳操作
+                if (e.Button == MouseButtons.Left)
+                {
+                    // 计算拖曳的偏移量
+                    int deltaX = e.X - dragStartPoint.X;
+
+                    var D = scrollStartOffset.X + deltaX;
+
+                    // 更新 FlowLayoutPanel 的位置
+                    mainForm.flowLayoutPanel1.AutoScrollPosition = new Point((D > 0) ? D * -1 : Math.Abs(D), scrollStartOffset.Y);
+
+                    scrollStartOffset = mainForm.flowLayoutPanel1.AutoScrollPosition;
+
+                }
+            };
             button.Click += (sender, e) =>
             {
-                SetText(mainForm.Detail_Lb, gameData.getDescribe);
-                SetText(mainForm.GameName_Lb, gameData.getName);
+                SetText(mainForm.Detail_Lb, gameData.GameDescribe);
+                SetText(mainForm.GameName_Lb, gameData.GameName);
                 SetActivePanel(mainForm.LoadGame_Btn, true, true);
 
-
-                mainForm.action =()=> judgment.ChecklocalGame(gameData.getName);
-
+                mainForm.LoadGame = () => judgment.ChecklocalGame(gameData.GameName);
             };
         }
+
         /// <summary>
         /// 設定自動更新
         /// </summary>

@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
@@ -56,15 +57,17 @@ namespace Launcher
                     message = "▶ command ◀" + message;
                     break;
                 case Levels.user:
-                    message = "🐵 : " + message;
+                    message = " 🐵 : " + message;
                     break;
                 case Levels.help:
                     message = " " + message;
                     break;
-
             }
 
             Console_showbox.Text += $"\n\r{message} \n\r";
+
+            //main
+            uic.mainForm.Console_showbox_main.Text += $"\n\r{message} \n\r";
         }
 
         public void CommandsInput(string methodName)
@@ -91,7 +94,7 @@ namespace Launcher
             }
             catch (Exception ex)
             {
-                Sand(Levels.error, ex.ToString());
+                Sand(Levels.error, ex.Message);
             }
         }
         void Console_Inputbox_KeyPress(object sender, KeyPressEventArgs e)
@@ -163,7 +166,8 @@ namespace Launcher
         public void help()
         {
             Sand(Levels.command, "");
-            Sand(Levels.help, "管理身分 :     /admin     /unadmin     /clear");
+            Sand(Levels.help, "管理身分 :     /admin     /unadmin");
+            Sand(Levels.help, "測試     :         /addgame");
             Sand(Levels.help, "TextBox  :     /clear");
             Sand(Levels.help, "下載相關 :     !download path!     !download url!");
 
@@ -184,14 +188,16 @@ namespace Launcher
         {
             Console_showbox.Text = null;
 
+            uic.mainForm.Console_showbox_main.Text= null;
+
             Sand(Levels.command, " 🧹 🧹 🧹 ");
         }
-        public void addfakegame()
+        public void addgame()
         {
 
             Random random = new Random();
 
-            var GameName = "GitHubDesktop";
+            var GameName = "TestLauncher";
 
             var GameVersion = $"v {random.Next(0, 9)}.{random.Next(0, 9)}.{random.Next(0, 9)}";
 
